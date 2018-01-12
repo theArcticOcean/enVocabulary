@@ -5,6 +5,8 @@
 #include <unistd.h>
 #include <dirent.h>
 #include <sys/stat.h>
+#include <QJsonParseError>
+#include <QJsonArray>
 using namespace std;
 
 pthread_mutex_t enData::instanceMutex = PTHREAD_MUTEX_INITIALIZER;
@@ -24,6 +26,7 @@ enData::enData()
         }
     }
     picsCheck();
+    wordInf.init();
 }
 
 /*
@@ -73,4 +76,91 @@ enData *enData::getInstance()
         pthread_mutex_unlock(&instanceMutex);
     }
     return instance;
+}
+
+void enData::jsonParseForWord(const QJsonObject cjson)
+{
+    QJsonValue value;
+    QJsonParseError error;
+    QJsonObject json = cjson;
+    int varInt;
+
+    if(json.contains("status_code")){
+        varInt = json["status_code"].toInt();
+        if(0 != varInt){
+            LOGDBG("status_code: ", varInt);
+            LOGDBG("msg: %s", json["msg"].toString().toStdString().c_str());
+            return ;
+        }
+    }
+    QJsonObject jsonTmp;
+    if(json.contains("data")){
+        jsonTmp = json["data"].toObject();
+        if(!checkElementInJson(jsonTmp, "audio_addresses")) return;
+        value = jsonTmp["audio_addresses"];
+        jsonTmp = value.toObject();
+        if(!checkElementInJson(jsonTmp, "uk")) return;
+        QJsonArray audioArray = jsonTmp["uk"].toArray();
+        wordInf.uk_audio_addresses = audioArray[0].toString().toStdString();
+        audioArray = jsonTmp["us"].toArray();
+        wordInf.us_audio_addresses = audioArray[0].toString().toStdString();
+
+        jsonTmp = json["data"].toObject();
+        if(!checkElementInJson(jsonTmp, "cn_definition")) return;
+        value = jsonTmp["cn_definition"];
+        jsonTmp = value.toObject();
+        if(!checkElementInJson(jsonTmp, "defn")) return;
+        wordInf.cn_definition = jsonTmp["defn"].toString().toStdString();
+        jsonTmp = json["data"].toObject();
+        if(!checkElementInJson(jsonTmp, "en_definition")) return;
+        value = jsonTmp["en_definition"];
+        jsonTmp = value.toObject();
+        if(!checkElementInJson(jsonTmp, "defn")) return;
+        wordInf.en_definition = jsonTmp["defn"].toString().toStdString();
+
+        jsonTmp = json["data"].toObject();
+        if(!checkElementInJson(jsonTmp, "pronunciations")) return;
+        jsonTmp = jsonTmp["pronunciations"].toObject();
+        if(!checkElementInJson(jsonTmp, "uk")) return;
+        wordInf.uk_pronunciation = jsonTmp["uk"].toString().toStdString();
+        if(!checkElementInJson(jsonTmp, "us")) return;
+        wordInf.us_pronunciation = jsonTmp["us"].toString().toStdString();
+
+        jsonTmp = json["data"].toObject();
+        if(!checkElementInJson(jsonTmp, "uk_audio")) return;
+        wordInf.uk_audio_addresses = jsonTmp["uk_audio"].toString().toStdString();
+        if(!checkElementInJson(jsonTmp, "us_audio")) return;
+        wordInf.us_audio_addresses = jsonTmp["us_audio"].toString().toStdString();
+        wordInfShow();
+    }
+}
+
+bool enData::checkElementInJson(QJsonObject &json, const string key)
+{
+    if(!json.contains(key.c_str())){
+        string str = "there is no ";
+        str = str+key;
+        LOGDBG("%s", str.c_str());
+        return false;
+    }
+    return true;
+}
+
+void enData::wordInfShow()
+{
+    char buff[1024] = {0};
+    int ret = 0;
+    ret += sprintf(buff+ret,"%s","cn_definition: ");
+    ret += sprintf(buff+ret,"%s\n",wordInf.cn_definition.c_str());
+    ret += sprintf(buff+ret,"%s","en_definition: ");
+    ret += sprintf(buff+ret,"%s\n",wordInf.en_definition.c_str());
+    ret += sprintf(buff+ret,"%s","uk_audio_addresses: ");
+    ret += sprintf(buff+ret,"%s\n",wordInf.uk_audio_addresses.c_str());
+    ret += sprintf(buff+ret,"%s","uk_pronunciation: ");
+    ret += sprintf(buff+ret,"%s\n",wordInf.uk_pronunciation.c_str());
+    ret += sprintf(buff+ret,"%s","us_audio_addresses: ");
+    ret += sprintf(buff+ret,"%s\n",wordInf.us_audio_addresses.c_str());
+    ret += sprintf(buff+ret,"%s","us_pronunciation: ");
+    ret += sprintf(buff+ret,"%s\n",wordInf.us_pronunciation.c_str());
+    LOGDBG("\n%s",buff);
 }
