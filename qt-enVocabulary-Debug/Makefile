@@ -54,15 +54,21 @@ SOURCES       = ../main.cpp \
 		../search.cpp \
 		../httpmanager.cpp \
 		../log.cpp \
-		../endata.cpp moc_search.cpp \
-		moc_httpmanager.cpp
+		../endata.cpp \
+		../controller.cpp qrc_image.cpp \
+		moc_search.cpp \
+		moc_httpmanager.cpp \
+		moc_controller.cpp
 OBJECTS       = main.o \
 		search.o \
 		httpmanager.o \
 		log.o \
 		endata.o \
+		controller.o \
+		qrc_image.o \
 		moc_search.o \
-		moc_httpmanager.o
+		moc_httpmanager.o \
+		moc_controller.o
 DIST          = ../../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt5.9.2/5.9.2/clang_64/mkspecs/qdevice.pri \
 		../../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/device_config.prf \
@@ -204,7 +210,7 @@ DIST          = ../../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/spec_pre.prf
 		../../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/qt_config.prf \
 		../../../../Qt5.9.2/5.9.2/clang_64/mkspecs/macx-g++/qmake.conf \
 		../../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/spec_post.prf \
-		../.qmake.stash \
+		../../.qmake.stash \
 		../../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/exclusive_builds.prf \
 		../../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/mac/sdk.prf \
 		../../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/toolchain.prf \
@@ -234,11 +240,13 @@ DIST          = ../../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/spec_pre.prf
 		../../enVocabulary.pro ../search.h \
 		../httpmanager.h \
 		../log.h \
-		../endata.h ../main.cpp \
+		../endata.h \
+		../controller.h ../main.cpp \
 		../search.cpp \
 		../httpmanager.cpp \
 		../log.cpp \
-		../endata.cpp
+		../endata.cpp \
+		../controller.cpp
 QMAKE_TARGET  = enVocabulary
 DESTDIR       = 
 TARGET        = enVocabulary.app/Contents/MacOS/enVocabulary
@@ -397,7 +405,7 @@ Makefile: ../enVocabulary.pro ../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/s
 		../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/qt_config.prf \
 		../../../Qt5.9.2/5.9.2/clang_64/mkspecs/macx-g++/qmake.conf \
 		../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/spec_post.prf \
-		.qmake.stash \
+		../.qmake.stash \
 		../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/exclusive_builds.prf \
 		../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/mac/sdk.prf \
 		../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/toolchain.prf \
@@ -425,6 +433,7 @@ Makefile: ../enVocabulary.pro ../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/s
 		../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/yacc.prf \
 		../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/lex.prf \
 		../enVocabulary.pro \
+		../image.qrc \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/QtQuickWidgets.prl \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/QtQuick.prl \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/QtWidgets.prl \
@@ -574,7 +583,7 @@ Makefile: ../enVocabulary.pro ../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/s
 ../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/qt_config.prf:
 ../../../Qt5.9.2/5.9.2/clang_64/mkspecs/macx-g++/qmake.conf:
 ../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/spec_post.prf:
-.qmake.stash:
+../.qmake.stash:
 ../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/exclusive_builds.prf:
 ../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/mac/sdk.prf:
 ../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/toolchain.prf:
@@ -602,6 +611,7 @@ Makefile: ../enVocabulary.pro ../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/s
 ../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/yacc.prf:
 ../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/lex.prf:
 ../enVocabulary.pro:
+../image.qrc:
 ../../../Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/QtQuickWidgets.prl:
 ../../../Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/QtQuick.prl:
 ../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/QtWidgets.prl:
@@ -638,9 +648,10 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents ../image.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../search.h ../httpmanager.h ../log.h ../endata.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../main.cpp ../search.cpp ../httpmanager.cpp ../log.cpp ../endata.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../search.h ../httpmanager.h ../log.h ../endata.h ../controller.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../main.cpp ../search.cpp ../httpmanager.cpp ../log.cpp ../endata.cpp ../controller.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../search.ui $(DISTDIR)/
 
 
@@ -651,7 +662,6 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r enVocabulary.app
-	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -665,19 +675,36 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_image.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_image.cpp
+qrc_image.cpp: ../image.qrc \
+		../../../Qt5.9.2/5.9.2/clang_64/bin/rcc \
+		../image/play_circle.png \
+		../image/stop_circle.png
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/rcc -name image ../image.qrc -o qrc_image.cpp
+
 compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) moc_predefs.h
 moc_predefs.h: ../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/data/dummy.cpp
 	/Library/Developer/CommandLineTools/usr/bin/g++ -pipe -g -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wall -W -dM -E -o moc_predefs.h ../../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_search.cpp moc_httpmanager.cpp
+compiler_moc_header_make_all: moc_search.cpp moc_httpmanager.cpp moc_controller.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_search.cpp moc_httpmanager.cpp
+	-$(DEL_FILE) moc_search.cpp moc_httpmanager.cpp moc_controller.cpp
 moc_search.cpp: ../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		../httpmanager.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
+		../endata.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
 		../search.h \
 		moc_predefs.h \
 		../../../Qt5.9.2/5.9.2/clang_64/bin/moc
@@ -689,10 +716,31 @@ moc_httpmanager.cpp: ../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Header
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
+		../endata.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
 		../httpmanager.h \
 		moc_predefs.h \
 		../../../Qt5.9.2/5.9.2/clang_64/bin/moc
 	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-g++ -I/Users/weiyang/code/enVocabulary -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib ../httpmanager.h -o moc_httpmanager.cpp
+
+moc_controller.cpp: ../search.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		../httpmanager.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
+		../endata.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
+		../controller.h \
+		moc_predefs.h \
+		../../../Qt5.9.2/5.9.2/clang_64/bin/moc
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-g++ -I/Users/weiyang/code/enVocabulary -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib ../controller.h -o moc_controller.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -711,13 +759,24 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
 main.o: ../main.cpp ../search.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		../httpmanager.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
+		../endata.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
+		../controller.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QApplication \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../main.cpp
@@ -725,6 +784,19 @@ main.o: ../main.cpp ../search.h \
 search.o: ../search.cpp ../search.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		../httpmanager.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
+		../endata.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
+		../log.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
 		ui_search.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o search.o ../search.cpp
 
@@ -735,9 +807,14 @@ httpmanager.o: ../httpmanager.cpp ../httpmanager.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
+		../endata.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
 		../log.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
-		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonDocument \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsondocument.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o httpmanager.o ../httpmanager.cpp
 
 log.o: ../log.cpp ../log.h \
@@ -746,16 +823,58 @@ log.o: ../log.cpp ../log.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o log.o ../log.cpp
 
 endata.o: ../endata.cpp ../endata.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
+		../log.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonParseError \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsondocument.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonArray \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonarray.h \
+		../controller.h \
+		../search.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		../httpmanager.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o endata.o ../endata.cpp
+
+controller.o: ../controller.cpp ../controller.h \
+		../search.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		../httpmanager.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
+		../endata.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
 		../log.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o endata.o ../endata.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o controller.o ../controller.cpp
+
+qrc_image.o: qrc_image.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_image.o qrc_image.cpp
 
 moc_search.o: moc_search.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_search.o moc_search.cpp
 
 moc_httpmanager.o: moc_httpmanager.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_httpmanager.o moc_httpmanager.cpp
+
+moc_controller.o: moc_controller.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_controller.o moc_controller.cpp
 
 ####### Install
 

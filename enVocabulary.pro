@@ -30,13 +30,18 @@ SOURCES += \
         search.cpp \
     httpmanager.cpp \
     log.cpp \
-    endata.cpp
+    endata.cpp \
+    controller.cpp
 
 HEADERS += \
         search.h \
     httpmanager.h \
     log.h \
-    endata.h
+    endata.h \
+    controller.h
 
 FORMS += \
         search.ui
+
+RESOURCES += \
+    image.qrc

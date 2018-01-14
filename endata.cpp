@@ -7,6 +7,8 @@
 #include <sys/stat.h>
 #include <QJsonParseError>
 #include <QJsonArray>
+#include "controller.h"
+
 using namespace std;
 
 pthread_mutex_t enData::instanceMutex = PTHREAD_MUTEX_INITIALIZER;
@@ -132,6 +134,8 @@ void enData::jsonParseForWord(const QJsonObject cjson)
         if(!checkElementInJson(jsonTmp, "us_audio")) return;
         wordInf.us_audio_addresses = jsonTmp["us_audio"].toString().toStdString();
         wordInfShow();
+        Controller *control = Controller::getInstance();
+        control->sendViewMsg(WordEnum);
     }
 }
 

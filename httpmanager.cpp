@@ -85,7 +85,7 @@ void HttpManager::slotEnWordFinished()
     QJsonObject json;
     QJsonParseError error;
 
-    if(strlen(buffer) <= 0){
+    if(strlen(buffer) <= 0) {
         LOGDBG("buffer has no data.");
         return ;
     }
@@ -95,7 +95,7 @@ void HttpManager::slotEnWordFinished()
         LOGDBG("bytes is empty: %s",error.errorString().toStdString().c_str());
         return;
     }
-    LOGDBG("json:\n%s", bytes.toStdString().c_str());
+    //LOGDBG("json:\n%s", bytes.toStdString().c_str());
     json = jsonDoc.object();
     model->jsonParseForWord(json);
     buffer_pos = 0;

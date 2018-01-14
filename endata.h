@@ -34,14 +34,16 @@ class enData
 {    
     static enData *instance;
     static pthread_mutex_t instanceMutex;
-    enWordInfo wordInf;
+
 public:
     enData();
     void picsCheck();
-    static enData* getInstance();
     void jsonParseForWord(const QJsonObject cjson);
     void wordInfShow();
     bool checkElementInJson(QJsonObject &json, const string key);
+
+    enWordInfo wordInf;
+    static enData* getInstance();
 };
 
 #endif // ENDATA_H

@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>image/play_circle.png</file>
+        <file>image/stop_circle.png</file>
+    </qresource>
+</RCC>
