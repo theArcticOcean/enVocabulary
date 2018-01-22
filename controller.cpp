@@ -6,28 +6,38 @@ pthread_mutex_t Controller::mutex = PTHREAD_MUTEX_INITIALIZER;
 
 Controller::Controller()
 {
-    wordSearch = NULL;
+    UIMgr = NULL;
     pthread_mutex_init(&mutex, NULL);
 }
 
-void Controller::attachSearch(Search *wSearch)
+void Controller::attachViewManager(viewManager *UIMgr)
 {
-    wordSearch = wSearch;
+    this->UIMgr = UIMgr;
 }
 
 void Controller::signalAndSlotsConenct()
 {
-    bool ret = connect(this,SIGNAL(getWord()),wordSearch,SLOT(slotGetWord()));
-    LOGDBG("connected: %d, wordSearch is %p", ret, wordSearch);
+    bool ret = connect(this,SIGNAL(getWord()),UIMgr->searchUI,SLOT(slotGetWord()));
+    LOGDBG("connected: %d for getWord(), wordSearch is %p", ret, UIMgr->searchUI);
+    ret = connect(this,SIGNAL(closeAllUI()),UIMgr,SLOT(slotCloseAllUI()));
+    LOGDBG("connected: %d for closeAllUI(), UIMgr is %p", ret, UIMgr);
+    ret = connect(this,SIGNAL(gotoWordSentencesWnd()),UIMgr,SLOT(slotGotoWordSentencesWnd()));
+    LOGDBG("connected: %d for gotoWordSentencesWnd(), UIMgr is %p", ret, UIMgr);
 }
 
 void Controller::sendViewMsg(viewMsgEnum msg)
 {
     LOGDBG("start, msg is %d", msg);
     switch(msg) {
-    case WordEnum:
+    case SearchWordEnum:
         emit getWord();
-        LOGDBG("getword signal sent, wordSearch is %p", wordSearch);
+        break;
+    case CloseAllUI:
+        emit closeAllUI();
+        break;
+    case GotoWordSentences:
+        LOGDBG("UIMgr is %p", UIMgr);
+        emit gotoWordSentencesWnd();
         break;
     default:
         break;

@@ -15,6 +15,9 @@ class HttpManager : public QObject
     const int buffer_len;
     int buffer_pos;
     enData *model;
+    static HttpManager* instance;
+    static pthread_mutex_t mutex;
+
 public:
     explicit HttpManager(QObject *parent = nullptr);
     ~HttpManager();
@@ -23,10 +26,13 @@ public:
     static string getIncomLocalPicPath(string url);
     static string getComLocalPicPath(string url);
     bool sendPicRequest(char *url);
-    bool sendEnWordSearch(char *word);
+    bool sendEnWordSearchRequest(char *word);
+    bool sendEnWordSentenceRequest();
+    static HttpManager* getInstance();
 
     QNetworkReply* netPicReply;
     QNetworkReply* netWordReply;
+    QNetworkReply* netSentenceReply;
     QNetworkAccessManager *manager;
     // store url and pic files fds. if pic downloading is not completed,
     // we delete it in loading time at next time. when download pic finished,
@@ -40,6 +46,8 @@ public slots:
     void slotPicFinished();
     void slotEnWordReadyRead();
     void slotEnWordFinished();
+    void slotSentenceReadyRead();
+    void slotSentenceFinished();
     void slotError(enum QNetworkReply::NetworkError);
     void slotSslErrors(QList<QSslError> list);
 };

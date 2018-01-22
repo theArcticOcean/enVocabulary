@@ -1,30 +1,35 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-#include "search.h"
+#include "viewmanager.h"
 #include <QObject>
 #include <pthread.h>
 
 typedef enum _viewMsgEnum{
-    WordEnum,
+    SearchWordEnum,
+    CloseAllUI,
+    GotoWordSentences,
     EnumMax
 }viewMsgEnum;
 
 class Controller : public QObject
 {
     Q_OBJECT
-    Search *wordSearch;
+    viewManager *UIMgr;
     static Controller* instance;
     static pthread_mutex_t mutex;
 
 public:
     Controller();
-    void attachSearch(Search *wSearch);
+    void attachViewManager(viewManager *UIMgr);
     void signalAndSlotsConenct();
     void sendViewMsg(viewMsgEnum msg);
     static Controller* getInstance();
+
 signals:
     void getWord();
+    void closeAllUI();
+    void gotoWordSentencesWnd();
 };
 
 #endif // CONTROLLER_H

@@ -15,7 +15,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QWidget{
-	background-color: rgb(255, 255, 255)
+	background-color: rgb(230, 255, 230)
 }</string>
   </property>
   <widget class="QLineEdit" name="lineEdit">
@@ -46,8 +46,8 @@
     <rect>
      <x>30</x>
      <y>40</y>
-     <width>151</width>
-     <height>401</height>
+     <width>150</width>
+     <height>400</height>
     </rect>
    </property>
    <property name="resizeMode">
@@ -143,6 +143,11 @@
      <width>321</width>
      <height>271</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QTextBrowser{
+	background-color: rgb(230, 255, 230)
+}</string>
    </property>
   </widget>
  </widget>

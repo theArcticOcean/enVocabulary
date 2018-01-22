@@ -1,10 +1,10 @@
 #include "log.h"
 
-void LOGBASE(const char *file, const int line, const char *funcName, const char * fmt, ...)
+void LOGBASE(const pthread_t tid, const char *file, const int line, const char *funcName, const char * fmt, ...)
 {
     #define BUFFSIZE    1024*10
     char buffer[BUFFSIZE] = {0};
-    int n = sprintf(buffer,"[file: %s, line: %d, funcName: %s ] ",file, line, funcName);
+    int n = sprintf(buffer,"[tid: %u, file: %s, line: %d, funcName: %s ] ",tid, file, line, funcName);
 
     va_list vap;
     va_start(vap, fmt);  //variable arguments list vap init

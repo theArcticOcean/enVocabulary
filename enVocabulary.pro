@@ -7,11 +7,13 @@
 QT       += core gui
 QT       += network
 QT       += quickwidgets
+QT       += multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = enVocabulary
 TEMPLATE = app
+unix: LIBS += -L/usr/lib -lpthread
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -31,17 +33,22 @@ SOURCES += \
     httpmanager.cpp \
     log.cpp \
     endata.cpp \
-    controller.cpp
+    controller.cpp \
+    mysentences.cpp \
+    viewmanager.cpp
 
 HEADERS += \
         search.h \
     httpmanager.h \
     log.h \
     endata.h \
-    controller.h
+    controller.h \
+    mysentences.h \
+    viewmanager.h
 
 FORMS += \
-        search.ui
+        search.ui \
+    mysentences.ui
 
 RESOURCES += \
     image.qrc
