@@ -16,7 +16,7 @@ class Search : public QWidget
 protected:
     virtual void keyReleaseEvent(QKeyEvent *event);
     virtual void mousePressEvent(QMouseEvent *event);
-    virtual void showEvent(QShowEvent *event);
+    virtual void closeEvent(QCloseEvent *event);
 public:
     explicit Search(QWidget *parent = 0);
     ~Search();

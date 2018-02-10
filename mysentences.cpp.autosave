@@ -1,0 +1,38 @@
+#include "mysentences.h"
+#include "ui_mysentences.h"
+#include "log.h"
+#include "controller.h"
+
+mySentences::mySentences(QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::mySentences)
+{
+    ui->setupUi(this);
+    this->setWindowFlags(Qt::WindowTitleHint | Qt::CustomizeWindowHint | \
+                         Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint);
+    hLayout = new QHBoxLayout(this);
+}
+
+mySentences::~mySentences()
+{
+    delete ui;
+}
+
+void mySentences::slotUpdateSentences()
+{
+    enData *model = enData::getInstance();
+    int size = model->getSentenceCount();
+    for(int i=0; i<size; i++){
+        QLabel sentenceLabel;
+        sentenceLabel.setText(model->v_sentences[i].sentence);
+                
+        QLabel translationLabel;
+        translationLabel.setText(model->v_sentences[i].translation);
+    }
+}
+
+void mySentences::on_pushButton_clicked()
+{
+    Controller *control = Controller::getInstance();
+    control->sendViewMsg(SentenceWinToHome);
+}

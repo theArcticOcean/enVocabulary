@@ -7,6 +7,7 @@
 #include <QSslSocket>
 #include <vector>
 #include <map>
+#include <boost/smart_ptr.hpp>
 #include "endata.h"
 using namespace std;
 
@@ -32,8 +33,8 @@ public:
     static HttpManager* getInstance();
 
     QNetworkReply* netPicReply;
-    QNetworkReply* netWordReply;
-    QNetworkReply* netSentenceReply;
+    boost::shared_ptr<QNetworkReply> netWordReply;
+    boost::shared_ptr<QNetworkReply> netSentenceReply;
     QNetworkAccessManager *manager;
     // store url and pic files fds. if pic downloading is not completed,
     // we delete it in loading time at next time. when download pic finished,

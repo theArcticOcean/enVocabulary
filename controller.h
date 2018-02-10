@@ -22,6 +22,7 @@ class Controller : public QObject
 
 public:
     Controller();
+    ~Controller();
     void attachViewManager(viewManager *UIMgr);
     void signalAndSlotsConenct();
     void sendViewMsg(viewMsgEnum msg);

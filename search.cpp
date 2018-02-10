@@ -37,9 +37,9 @@ void Search::mousePressEvent(QMouseEvent *event)
     }
 }
 
-void Search::showEvent(QShowEvent *event)
+void Search::closeEvent(QCloseEvent *event)
 {
-    if(QEvent::Close == event->type()){
+    if (QEvent::Close == event->type()) {
         Controller *control = Controller::getInstance();
         control->sendViewMsg(CloseAllUI);
     }

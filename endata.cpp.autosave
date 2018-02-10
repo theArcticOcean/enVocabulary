@@ -241,5 +241,11 @@ void enData::sentencesShow()
         ret += sprintf(buff+ret,"%s","translation: ");
         ret += sprintf(buff+ret,"%s\n\n",tmp.translation.toStdString().c_str());
     }
+    // to do: emit signal for adding ten sentence in mySentences window.
     LOGDBG("\n%s",buff);
+}
+
+int enData::getSentenceCount() const
+{
+    return v_sentences.size();
 }

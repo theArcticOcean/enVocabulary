@@ -10,6 +10,14 @@ Controller::Controller()
     pthread_mutex_init(&mutex, NULL);
 }
 
+Controller::~Controller()
+{
+    if(NULL != instance){
+        delete instance;
+        instance = NULL;
+    }
+}
+
 void Controller::attachViewManager(viewManager *UIMgr)
 {
     this->UIMgr = UIMgr;
@@ -17,7 +25,7 @@ void Controller::attachViewManager(viewManager *UIMgr)
 
 void Controller::signalAndSlotsConenct()
 {
-    bool ret = connect(this,SIGNAL(getWord()),&UIMgr->searchUI,SLOT(slotGetWord()));
+    bool ret = connect(this,SIGNAL(getWord()),UIMgr->searchUI.get(),SLOT(slotGetWord()));
     ret = connect(this,SIGNAL(closeAllUI()),UIMgr,SLOT(slotCloseAllUI()));
     LOGDBG("connected: %d for closeAllUI(), UIMgr is %p", ret, UIMgr);
     ret = connect(this,SIGNAL(gotoWordSentencesWnd()),UIMgr,SLOT(slotGotoWordSentencesWnd()));

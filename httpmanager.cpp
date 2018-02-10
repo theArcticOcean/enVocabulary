@@ -13,7 +13,7 @@ pthread_mutex_t HttpManager::mutex = PTHREAD_MUTEX_INITIALIZER;
 
 HttpManager::HttpManager(QObject *parent) :
     QObject(parent),
-    buffer_len(1024)
+    buffer_len(BUFFER_LEN)
 {
     netPicReply = NULL;
     netWordReply = NULL;
@@ -30,10 +30,6 @@ HttpManager::~HttpManager()
         delete netPicReply;
         netPicReply = NULL;
     }
-    if(NULL != netWordReply){
-        delete netWordReply;
-        netWordReply = NULL;
-    }
     if(NULL != manager){
         delete manager;
         manager = NULL;
@@ -41,6 +37,10 @@ HttpManager::~HttpManager()
     if(NULL != buffer){
         free(buffer);
         buffer = NULL;
+    }
+    if(NULL != instance){
+        delete instance;
+        instance = NULL;
     }
 }
 
@@ -119,8 +119,8 @@ void HttpManager::slotEnWordFinished()
     //LOGDBG("json:\n%s", bytes.toStdString().c_str());
     json = jsonDoc.object();
     model->jsonParseForWord(json);
+    memset(buffer, 0, buffer_pos);
     buffer_pos = 0;
-    memset(buffer, 0, strlen(buffer));
 }
 
 void HttpManager::slotSentenceReadyRead()
@@ -227,13 +227,13 @@ bool HttpManager::sendPicRequest(char *url)
 bool HttpManager::sendEnWordSearchRequest(char *word)
 {
     if(NULL != netWordReply){
-        disconnect(netWordReply, SIGNAL(readyRead()), this, SLOT(slotEnWordReadyRead()));
-        disconnect(netWordReply, SIGNAL(error(QNetworkReply::NetworkError)),
+        disconnect(netWordReply.get(), SIGNAL(readyRead()), this, SLOT(slotEnWordReadyRead()));
+        disconnect(netWordReply.get(), SIGNAL(error(QNetworkReply::NetworkError)),
               this, SLOT(slotError(QNetworkReply::NetworkError)));
         // SSL(Secure Sockets Layer 安全套接层), it encrypts data.
-        disconnect(netWordReply, SIGNAL(sslErrors(QList<QSslError>)),
+        disconnect(netWordReply.get(), SIGNAL(sslErrors(QList<QSslError>)),
                 this, SLOT(slotSslErrors(QList<QSslError>)));
-        disconnect(netWordReply, SIGNAL(finished()), this, SLOT(slotEnWordFinished()));
+        disconnect(netWordReply.get(), SIGNAL(finished()), this, SLOT(slotEnWordFinished()));
     }
     QNetworkRequest *request = new QNetworkRequest ();
     if(NULL == request){
@@ -247,19 +247,19 @@ bool HttpManager::sendEnWordSearchRequest(char *word)
     url = url+TOKEN_STR;
     request->setUrl(QUrl(url.c_str()));
     LOGDBG("url:  %s", request->url().toString().toStdString().c_str());
-    netWordReply = manager->get(*request);
+    netWordReply.reset(manager->get(*request));
     if(NULL == netWordReply){
         LOGDBG("netWordReply is NULL");
         delete request;
         return false;
     }
-    connect(netWordReply, SIGNAL(readyRead()), this, SLOT(slotEnWordReadyRead()));
-    connect(netWordReply, SIGNAL(error(QNetworkReply::NetworkError)),
+    connect(netWordReply.get(), SIGNAL(readyRead()), this, SLOT(slotEnWordReadyRead()));
+    connect(netWordReply.get(), SIGNAL(error(QNetworkReply::NetworkError)),
           this, SLOT(slotError(QNetworkReply::NetworkError)));
     // SSL(Secure Sockets Layer 安全套接层), it encrypts data.
-    connect(netWordReply, SIGNAL(sslErrors(QList<QSslError>)),
+    connect(netWordReply.get(), SIGNAL(sslErrors(QList<QSslError>)),
             this, SLOT(slotSslErrors(QList<QSslError>)));
-    connect(netWordReply, SIGNAL(finished()), this, SLOT(slotEnWordFinished()));
+    connect(netWordReply.get(), SIGNAL(finished()), this, SLOT(slotEnWordFinished()));
     delete request;
     LOGDBG("end!");
     return true;
@@ -268,25 +268,24 @@ bool HttpManager::sendEnWordSearchRequest(char *word)
 bool HttpManager::sendEnWordSentenceRequest()
 {
     LOGDBG("start");
-    if(NULL != netSentenceReply){
-        disconnect(netSentenceReply, SIGNAL(readyRead()), this, SLOT(slotSentenceReadyRead()));
-        disconnect(netSentenceReply, SIGNAL(error(QNetworkReply::NetworkError)),
+    memset(buffer, 0, buffer_len);
+    buffer_pos = 0;
+    if(NULL != netSentenceReply.get()){
+        disconnect(netSentenceReply.get(), SIGNAL(readyRead()), this, SLOT(slotSentenceReadyRead()));
+        disconnect(netSentenceReply.get(), SIGNAL(error(QNetworkReply::NetworkError)),
               this, SLOT(slotError(QNetworkReply::NetworkError)));
-        disconnect(netSentenceReply, SIGNAL(sslErrors(QList<QSslError>)),
+        disconnect(netSentenceReply.get(), SIGNAL(sslErrors(QList<QSslError>)),
                 this, SLOT(slotSslErrors(QList<QSslError>)));
-        disconnect(netSentenceReply, SIGNAL(finished()), this, SLOT(slotSentenceFinished()));
-        delete netSentenceReply;
-        netSentenceReply = NULL;
+        disconnect(netSentenceReply.get(), SIGNAL(finished()), this, SLOT(slotSentenceFinished()));
     }
 
-    QNetworkRequest *request = new QNetworkRequest ();
-    if(NULL == request){
+    boost::shared_ptr<QNetworkRequest> request(new QNetworkRequest());
+    if(NULL == request) {
         LOGDBG("request is NULL");
         return false;
     }
     if(abs(model->wordInf.vocabulary_id) < NUM_ERROR){
         LOGDBG("the vocabulary_id is less than 1.");
-        delete request;
         return false;
     }
     string url = SENTENCE_SEARCH_ENTRY;
@@ -296,21 +295,20 @@ bool HttpManager::sendEnWordSentenceRequest()
     url = url+id;
     url = url+"&";
     url = url+TOKEN_STR;
-    request->setUrl(QUrl(url.c_str()));
-    LOGDBG("url:  %s", request->url().toString().toStdString().c_str());
-    netSentenceReply = manager->get(*request);
-    if(NULL == netSentenceReply){
+    request.get()->setUrl(QUrl(url.c_str()));
+    LOGDBG("url:  %s", request.get()->url().toString().toStdString().c_str());
+    //netSentenceReply = boost::make_shared(manager->get(*request.get()));
+    netSentenceReply.reset(manager->get(*request.get()));
+    if(NULL == netSentenceReply.get()){
         LOGDBG("netSentenceReply is NULL");
-        delete request;
         return false;
     }
-    connect(netSentenceReply, SIGNAL(readyRead()), this, SLOT(slotSentenceReadyRead()));
-    connect(netSentenceReply, SIGNAL(error(QNetworkReply::NetworkError)),
+    connect(netSentenceReply.get(), SIGNAL(readyRead()), this, SLOT(slotSentenceReadyRead()));
+    connect(netSentenceReply.get(), SIGNAL(error(QNetworkReply::NetworkError)),
           this, SLOT(slotError(QNetworkReply::NetworkError)));
-    connect(netSentenceReply, SIGNAL(sslErrors(QList<QSslError>)),
+    connect(netSentenceReply.get(), SIGNAL(sslErrors(QList<QSslError>)),
             this, SLOT(slotSslErrors(QList<QSslError>)));
-    connect(netSentenceReply, SIGNAL(finished()), this, SLOT(slotSentenceFinished()));
-    delete request;
+    connect(netSentenceReply.get(), SIGNAL(finished()), this, SLOT(slotSentenceFinished()));
     LOGDBG("end!");
     return true;
 }
@@ -332,7 +330,8 @@ void HttpManager::slotError(enum QNetworkReply::NetworkError val)
 
 void HttpManager::slotSslErrors(QList<QSslError> list)
 {
-    LOGDBG("%s","ssl errors:");
+    LOGDBG("%s","ssl errors: ");
+    QNetworkReply *reply = dynamic_cast<QNetworkReply*>(sender());
     foreach (QSslError error, list) {
         qDebug()<<error.errorString();
     }

@@ -5,9 +5,9 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    viewManager *UIMgr = new viewManager();
+    viewManager UIMgr;
     Controller *control = Controller::getInstance();
-    control->attachViewManager(UIMgr);
+    control->attachViewManager(&UIMgr);
     control->signalAndSlotsConenct();
 
     qDebug()<<"SSL version use for build: "<<QSslSocket::sslLibraryBuildVersionString();
