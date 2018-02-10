@@ -3,28 +3,29 @@
 
 viewManager::viewManager(QObject *parent) : QObject(parent)
 {
-    searchUI = new Search();
-    searchUI->setAttribute(Qt::WA_DeleteOnClose, true);
-    mySentencesUI = new mySentences();
-    mySentencesUI->setAttribute(Qt::WA_DeleteOnClose, true);
-
-    searchUI->show();
+    searchUI.setAttribute(Qt::WA_DeleteOnClose, true);
+    mySentencesUI.setAttribute(Qt::WA_DeleteOnClose, true);
+    searchUI.show();
 }
 
 void viewManager::slotCloseAllUI()
 {
-    if(NULL != searchUI){
-        searchUI->close();
-    }
-    if(NULL != mySentencesUI){
-        mySentencesUI->close();
-    }
+    searchUI.close();
+    mySentencesUI.close();
 }
 
 void viewManager::slotGotoWordSentencesWnd()
 {
     LOGDBG("start");
-    //if(NULL != searchUI) searchUI->hide();
-    //if(NULL != mySentencesUI) mySentencesUI->show();
+    searchUI.hide();
+    mySentencesUI.show();
+    LOGDBG("end!");
+}
+
+void viewManager::slotSentenceWinToHomeWnd()
+{
+    LOGDBG("start");
+    mySentencesUI.hide();
+    searchUI.show();
     LOGDBG("end!");
 }

@@ -3,9 +3,9 @@
 
 #define ENWORD_SEARCH_ENTRY     "https://api.shanbay.com/bdc/search/"
 #define SENTENCE_SEARCH_ENTRY   "https://api.shanbay.com/bdc/example/"
-#define ACCESS_TOKEN            "mUIESkRq3QpCXolnS9eOyr5NlGJMul"
 #define DOWNFILES_PATH          "./Down"
 #define DOWNFILES_PICS_PATH     "./Down/Pics"
+#define TOKEN_STR               "access_token=yb7D1mhTLcFsYLI7jfVQUHeTUuoPni"
 
 #define MAX_PICS_NUMBER          200
 #define NUM_ERROR                1e-6

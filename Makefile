@@ -13,7 +13,7 @@ MAKEFILE      = Makefile
 CC            = /Library/Developer/CommandLineTools/usr/bin/clang
 CXX           = /Library/Developer/CommandLineTools/usr/bin/clang++
 DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_GUI_LIB -DQT_QML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
-CFLAGS        = -pipe -O2 $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wall -W -fPIC $(DEFINES)
+CFLAGS        = -gdwarf-2 -pipe -O2 $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wall -W -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -stdlib=libc++ -O2 -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wall -W -fPIC $(DEFINES)
 INCPATH       = -I. -I../../Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I../../Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib
 QMAKE         = /Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/qmake
@@ -715,11 +715,15 @@ moc_search.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWi
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QSslSocket \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qsslsocket.h \
 		endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
 		search.h \
 		moc_predefs.h \
 		../../Qt5.9.2/5.9.2/clang_64/bin/moc
@@ -731,6 +735,8 @@ moc_httpmanager.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/Q
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QSslSocket \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qsslsocket.h \
 		endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
@@ -750,11 +756,15 @@ moc_controller.cpp: viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QSslSocket \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qsslsocket.h \
 		endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
 		mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
@@ -767,6 +777,8 @@ moc_mysentences.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Header
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
 		mysentences.h \
 		moc_predefs.h \
 		../../Qt5.9.2/5.9.2/clang_64/bin/moc
@@ -782,11 +794,15 @@ moc_viewmanager.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/Q
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QSslSocket \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qsslsocket.h \
 		endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
 		mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
@@ -831,11 +847,15 @@ main.o: main.cpp viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QSslSocket \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qsslsocket.h \
 		endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
 		mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
@@ -854,11 +874,15 @@ search.o: search.cpp search.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QSslSocket \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qsslsocket.h \
 		endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
 		log.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
@@ -879,6 +903,8 @@ httpmanager.o: httpmanager.cpp httpmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QSslSocket \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qsslsocket.h \
 		endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
@@ -916,8 +942,12 @@ endata.o: endata.cpp endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QSslSocket \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qsslsocket.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
 		mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h
@@ -935,11 +965,15 @@ controller.o: controller.cpp controller.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QSslSocket \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qsslsocket.h \
 		endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
 		mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
@@ -953,6 +987,8 @@ mysentences.o: mysentences.cpp mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
 		ui_mysentences.h \
 		log.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
@@ -970,11 +1006,15 @@ viewmanager.o: viewmanager.cpp viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QSslSocket \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qsslsocket.h \
 		endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
 		mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \

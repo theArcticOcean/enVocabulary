@@ -9,15 +9,16 @@ typedef enum _viewMsgEnum{
     SearchWordEnum,
     CloseAllUI,
     GotoWordSentences,
+    SentenceWinToHome,
     EnumMax
 }viewMsgEnum;
 
 class Controller : public QObject
 {
     Q_OBJECT
-    viewManager *UIMgr;
     static Controller* instance;
     static pthread_mutex_t mutex;
+    viewManager *UIMgr;
 
 public:
     Controller();
@@ -30,6 +31,7 @@ signals:
     void getWord();
     void closeAllUI();
     void gotoWordSentencesWnd();
+    void SentenceWinToHomeWnd();
 };
 
 #endif // CONTROLLER_H

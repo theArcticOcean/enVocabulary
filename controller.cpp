@@ -17,12 +17,12 @@ void Controller::attachViewManager(viewManager *UIMgr)
 
 void Controller::signalAndSlotsConenct()
 {
-    bool ret = connect(this,SIGNAL(getWord()),UIMgr->searchUI,SLOT(slotGetWord()));
-    LOGDBG("connected: %d for getWord(), wordSearch is %p", ret, UIMgr->searchUI);
+    bool ret = connect(this,SIGNAL(getWord()),&UIMgr->searchUI,SLOT(slotGetWord()));
     ret = connect(this,SIGNAL(closeAllUI()),UIMgr,SLOT(slotCloseAllUI()));
     LOGDBG("connected: %d for closeAllUI(), UIMgr is %p", ret, UIMgr);
     ret = connect(this,SIGNAL(gotoWordSentencesWnd()),UIMgr,SLOT(slotGotoWordSentencesWnd()));
     LOGDBG("connected: %d for gotoWordSentencesWnd(), UIMgr is %p", ret, UIMgr);
+    ret = connect(this,SIGNAL(SentenceWinToHomeWnd()),UIMgr,SLOT(slotSentenceWinToHomeWnd()));
 }
 
 void Controller::sendViewMsg(viewMsgEnum msg)
@@ -38,6 +38,9 @@ void Controller::sendViewMsg(viewMsgEnum msg)
     case GotoWordSentences:
         LOGDBG("UIMgr is %p", UIMgr);
         emit gotoWordSentencesWnd();
+        break;
+    case SentenceWinToHome:
+        emit SentenceWinToHomeWnd();
         break;
     default:
         break;

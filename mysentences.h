@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QShowEvent>
+#include <QThread>
 
 namespace Ui {
 class mySentences;
@@ -17,6 +18,9 @@ public:
     ~mySentences();
 protected:
     virtual void showEvent(QShowEvent *event);
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::mySentences *ui;
 };

@@ -181,9 +181,10 @@ void enData::jsonParseForSentence(const QJsonObject cjson)
             v_sentences.push_back(senUnit);
             if(v_sentences.size() == 10) break;
         }
-        //sentencesShow();
+        sentencesShow();
         Controller *control = Controller::getInstance();
         control->sendViewMsg(GotoWordSentences);
+        //control->UIMgr->slotGotoWordSentencesWnd();
     }
 }
 

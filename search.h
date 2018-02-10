@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "httpmanager.h"
 #include <QMediaPlayer>
+#include <QThread>
 
 namespace Ui {
 class Search;

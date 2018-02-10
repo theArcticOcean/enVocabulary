@@ -25,14 +25,6 @@ void Search::mousePressEvent(QMouseEvent *event)
     int rx = event->x() - ui->quickWidget->x();
     int ry = event->y() - ui->quickWidget->y();
 
-    QQuickItem *item;
-    if(rx >=0 && rx <150 && ry >= 0 && ry < 400){
-        item = ui->quickWidget->rootObject();
-        QList<QQuickItem *> items = item->childItems();
-        QList<QQuickItem *>::iterator it;
-        it = items.begin();
-    }
-
     if(rx >=0 && rx <150 && ry >= 0 && ry < 50){
         http = HttpManager::getInstance();
         http->sendEnWordSentenceRequest();

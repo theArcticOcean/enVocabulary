@@ -1,5 +1,6 @@
 #include "httpmanager.h"
 #include <unistd.h>
+#include <math.h>
 #include "log.h"
 #include "endata.h"
 #include <errno.h>
@@ -25,10 +26,22 @@ HttpManager::HttpManager(QObject *parent) :
 
 HttpManager::~HttpManager()
 {
-    delete netPicReply;
-    delete netWordReply;
-    delete manager;
-    free(buffer);
+    if(NULL != netPicReply){
+        delete netPicReply;
+        netPicReply = NULL;
+    }
+    if(NULL != netWordReply){
+        delete netWordReply;
+        netWordReply = NULL;
+    }
+    if(NULL != manager){
+        delete manager;
+        manager = NULL;
+    }
+    if(NULL != buffer){
+        free(buffer);
+        buffer = NULL;
+    }
 }
 
 void HttpManager::slotPicReadyRead()
@@ -45,7 +58,11 @@ void HttpManager::slotPicReadyRead()
     }
     else { //not exist
         string path = getIncomLocalPicPath(url.toStdString());
+#ifdef  Q_OS_LINUX
+        fd = open(path.c_str(),O_WRONLY | O_CREAT | O_TRUNC, 0755);
+#else
         fd = open(path.c_str(), O_WRONLY | O_CREAT | O_TRUNC);
+#endif
         if(fd == -1){
             LOGDBG("open failed, %s",strerror(  errno));
             return ;
@@ -130,7 +147,7 @@ void HttpManager::slotSentenceFinished()
         LOGDBG("bytes is empty: %s",error.errorString().toStdString().c_str());
         return;
     }
-    //LOGDBG("json:\n%s", bytes.toStdString().c_str());
+    LOGDBG("json:\n%s", bytes.toStdString().c_str());
     json = jsonDoc.object();
     model->jsonParseForSentence(json);
     buffer_pos = 0;
@@ -174,15 +191,23 @@ string HttpManager::getComLocalPicPath(string url)
 
 bool HttpManager::sendPicRequest(char *url)
 {
+    if(NULL != netPicReply){
+        disconnect(netPicReply, SIGNAL(readyRead()), this, SLOT(slotPicReadyRead()));
+        disconnect(netPicReply, SIGNAL(error(QNetworkReply::NetworkError)),
+              this, SLOT(slotError(QNetworkReply::NetworkError)));
+        disconnect(netPicReply, SIGNAL(sslErrors(QList<QSslError>)),
+                this, SLOT(slotSslErrors(QList<QSslError>)));
+        disconnect(netPicReply, SIGNAL(finished()), this, SLOT(slotPicFinished()));
+    }
     QNetworkRequest *request = new QNetworkRequest ();
     if(NULL == request){
         LOGDBG("request is NULL");
         return false;
     }
-    request->setUrl(QUrl(url));
-    string str = "Bearer ";
-    str = str+ACCESS_TOKEN;
-    request->setRawHeader("Authorization",str.c_str());
+    string str = url;
+    str = str+"&";
+    str = str+TOKEN_STR;
+    request->setUrl(QUrl(str.c_str()));
     netPicReply = manager->get(*request);
     if(NULL == netPicReply){
         LOGDBG("netPicReply is NULL");
@@ -201,6 +226,15 @@ bool HttpManager::sendPicRequest(char *url)
 
 bool HttpManager::sendEnWordSearchRequest(char *word)
 {
+    if(NULL != netWordReply){
+        disconnect(netWordReply, SIGNAL(readyRead()), this, SLOT(slotEnWordReadyRead()));
+        disconnect(netWordReply, SIGNAL(error(QNetworkReply::NetworkError)),
+              this, SLOT(slotError(QNetworkReply::NetworkError)));
+        // SSL(Secure Sockets Layer 安全套接层), it encrypts data.
+        disconnect(netWordReply, SIGNAL(sslErrors(QList<QSslError>)),
+                this, SLOT(slotSslErrors(QList<QSslError>)));
+        disconnect(netWordReply, SIGNAL(finished()), this, SLOT(slotEnWordFinished()));
+    }
     QNetworkRequest *request = new QNetworkRequest ();
     if(NULL == request){
         LOGDBG("request is NULL");
@@ -209,11 +243,10 @@ bool HttpManager::sendEnWordSearchRequest(char *word)
     string url = ENWORD_SEARCH_ENTRY;
     url = url+"?word=";
     url = url+word;
+    url = url+"&";
+    url = url+TOKEN_STR;
     request->setUrl(QUrl(url.c_str()));
     LOGDBG("url:  %s", request->url().toString().toStdString().c_str());
-    string str = "Bearer ";
-    str = str+ACCESS_TOKEN;
-    request->setRawHeader("Authorization",str.c_str());
     netWordReply = manager->get(*request);
     if(NULL == netWordReply){
         LOGDBG("netWordReply is NULL");
@@ -234,12 +267,24 @@ bool HttpManager::sendEnWordSearchRequest(char *word)
 
 bool HttpManager::sendEnWordSentenceRequest()
 {
+    LOGDBG("start");
+    if(NULL != netSentenceReply){
+        disconnect(netSentenceReply, SIGNAL(readyRead()), this, SLOT(slotSentenceReadyRead()));
+        disconnect(netSentenceReply, SIGNAL(error(QNetworkReply::NetworkError)),
+              this, SLOT(slotError(QNetworkReply::NetworkError)));
+        disconnect(netSentenceReply, SIGNAL(sslErrors(QList<QSslError>)),
+                this, SLOT(slotSslErrors(QList<QSslError>)));
+        disconnect(netSentenceReply, SIGNAL(finished()), this, SLOT(slotSentenceFinished()));
+        delete netSentenceReply;
+        netSentenceReply = NULL;
+    }
+
     QNetworkRequest *request = new QNetworkRequest ();
     if(NULL == request){
         LOGDBG("request is NULL");
         return false;
     }
-    if(model->wordInf.vocabulary_id - 0 < NUM_ERROR){
+    if(abs(model->wordInf.vocabulary_id) < NUM_ERROR){
         LOGDBG("the vocabulary_id is less than 1.");
         delete request;
         return false;
@@ -249,11 +294,10 @@ bool HttpManager::sendEnWordSentenceRequest()
     char id[32] = {0};
     sprintf(id, "%.0lf", model->wordInf.vocabulary_id);
     url = url+id;
+    url = url+"&";
+    url = url+TOKEN_STR;
     request->setUrl(QUrl(url.c_str()));
     LOGDBG("url:  %s", request->url().toString().toStdString().c_str());
-    string str = "Bearer ";
-    str = str+ACCESS_TOKEN;
-    request->setRawHeader("Authorization",str.c_str());
     netSentenceReply = manager->get(*request);
     if(NULL == netSentenceReply){
         LOGDBG("netSentenceReply is NULL");
