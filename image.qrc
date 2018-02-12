@@ -3,5 +3,8 @@
         <file>image/play_circle.png</file>
         <file>image/stop_circle.png</file>
         <file>rect.qml</file>
+        <file>image/whiteHeart.png</file>
+        <file>image/redHeart.png</file>
+        <file>image/goBack.png</file>
     </qresource>
 </RCC>

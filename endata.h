@@ -10,11 +10,15 @@
 #define MAX_PICS_NUMBER          200
 #define NUM_ERROR                1e-6
 #define BUFFER_LEN               1024*1024*8
+#define SENTENCE_NUM             7
 
 #include <pthread.h>
 #include <string>
 #include <vector>
 #include <QJsonObject>
+#include <QtSql/QSqlDatabase>
+#include <QSqlError>
+#include <QSqlQuery>
 
 using namespace std;
 
@@ -47,7 +51,8 @@ class enData
 {    
     static enData *instance;
     static pthread_mutex_t instanceMutex;
-    vector<sentenceUnit> v_sentences;
+    QSqlDatabase db;
+    QSqlQuery query;
 
 public:
     enData();
@@ -57,10 +62,12 @@ public:
     void jsonParseForSentence(const QJsonObject cjson);
     void wordInfShow();
     void sentencesShow();
+    int getSentenceCount() const;
     bool checkElementInJson(QJsonObject &json, const string key);
+    static enData* getInstance();
 
     enWordInfo wordInf;
-    static enData* getInstance();
+    vector<sentenceUnit> v_sentences;
 };
 
 #endif // ENDATA_H

@@ -8,6 +8,8 @@
 #include <vector>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QPushButton>
+
 using namespace std;
 
 namespace Ui {
@@ -27,15 +29,21 @@ class mySentences : public QWidget
 public:
     explicit mySentences(QWidget *parent = 0);
     ~mySentences();
-
-public slots:
-    void slotUpdateSentences();
+    void builtHButtonSigAndSLot();
+protected:
+    virtual void showEvent(QShowEvent *event);
+    void updateSentences();
 private slots:
-    void on_pushButton_clicked();
-
+    void on_backButton_clicked();
+public slots:
+    void on_collectClick();
 private:
     Ui::mySentences *ui;
-    QHBoxLayout *hLayout;
+    vector<QHBoxLayout*> sentenceHLays;
+    vector<QLabel*> v_sentenceLabel;
+    vector<QPushButton*> heartButtons;
+    QVBoxLayout *vLayout;
+    QLabel *backLabel;
 };
 
 #endif // MYSENTENCES_H

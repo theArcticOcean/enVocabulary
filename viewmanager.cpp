@@ -4,7 +4,6 @@
 viewManager::viewManager(QObject *parent) : QObject(parent)
 {
     searchUI = boost::make_shared<Search>();
-    //searchUI.get()->setAttribute(Qt::WA_DeleteOnClose, true);
     mySentencesUI = boost::make_shared<mySentences>();
     //mySentencesUI.get()->setAttribute(Qt::WA_DeleteOnClose, true);
 

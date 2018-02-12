@@ -8,7 +8,7 @@
 #include <QJsonParseError>
 #include <QJsonArray>
 #include "controller.h"
-
+#include <QCoreApplication>
 #ifdef Q_OS_WIN32
 #include <io.h>
 #endif
@@ -20,6 +20,8 @@ enData* enData::instance = NULL;
 
 enData::enData()
 {
+    db = QSqlDatabase::addDatabase("QMYSQL");;
+    db.setDatabaseName(QCoreApplication::applicationDirPath()+"data/enVocabDataBase");
     pthread_mutex_init(&instanceMutex, NULL);
     v_sentences.clear();
 
@@ -188,7 +190,7 @@ void enData::jsonParseForSentence(const QJsonObject cjson)
             senUnit.translation = jsonTmp["translation"].toString();
             senUnit.sentence = jsonTmp["annotation"].toString();
             v_sentences.push_back(senUnit);
-            if(v_sentences.size() == 10) break;
+            if(v_sentences.size() == SENTENCE_NUM) break;
         }
         sentencesShow();
         Controller *control = Controller::getInstance();
@@ -242,4 +244,9 @@ void enData::sentencesShow()
         ret += sprintf(buff+ret,"%s\n\n",tmp.translation.toStdString().c_str());
     }
     LOGDBG("\n%s",buff);
+}
+
+int enData::getSentenceCount() const
+{
+    return v_sentences.size();
 }

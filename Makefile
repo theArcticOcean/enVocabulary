@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = /Library/Developer/CommandLineTools/usr/bin/clang
 CXX           = /Library/Developer/CommandLineTools/usr/bin/clang++
-DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_GUI_LIB -DQT_QML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_GUI_LIB -DQT_QML_LIB -DQT_NETWORK_LIB -DQT_SQL_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wall -W -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -stdlib=libc++ -O2 -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wall -W -fPIC $(DEFINES)
-INCPATH       = -I. -I/usr/local/include -I../../Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I../../Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib
+INCPATH       = -I. -I/usr/local/include -I../../Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I../../Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib
 QMAKE         = /Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -38,7 +38,7 @@ DISTNAME      = enVocabulary1.0.0
 DISTDIR = /Users/weiyang/code/enVocabulary/.tmp/enVocabulary1.0.0
 LINK          = /Library/Developer/CommandLineTools/usr/bin/clang++
 LFLAGS        = -stdlib=libc++ -headerpad_max_install_names $(EXPORT_ARCH_ARGS) -Wl,-syslibroot,/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wl,-rpath,@executable_path/Frameworks -Wl,-rpath,/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib
-LIBS          = $(SUBLIBS) -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib -L/usr/lib -lpthread -framework QtQuickWidgets -framework QtQuick -framework QtQml -framework QtNetwork -framework QtCore -framework DiskArbitration -framework IOKit -framework QtGui -framework QtWidgets -framework QtMultimedia -framework OpenGL -framework AGL 
+LIBS          = $(SUBLIBS) -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib -L/usr/lib -lpthread -framework QtQuickWidgets -framework QtQuick -framework QtQml -framework QtNetwork -framework QtCore -framework DiskArbitration -framework IOKit -framework QtGui -framework QtWidgets -framework QtMultimedia -framework QtSql -framework OpenGL -framework AGL 
 AR            = /Library/Developer/CommandLineTools/usr/bin/ar cq
 RANLIB        = /Library/Developer/CommandLineTools/usr/bin/ranlib -s
 SED           = sed
@@ -451,6 +451,7 @@ Makefile: enVocabulary.pro ../../Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang/qmake
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/QtGui.prl \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/QtQml.prl \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/QtNetwork.prl \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/QtSql.prl \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/QtCore.prl
 	$(QMAKE) -o Makefile enVocabulary.pro
 ../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/spec_pre.prf:
@@ -629,6 +630,7 @@ image.qrc:
 ../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/QtGui.prl:
 ../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/QtQml.prl:
 ../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/QtNetwork.prl:
+../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/QtSql.prl:
 ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/QtCore.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile enVocabulary.pro
@@ -694,7 +696,10 @@ qrc_image.cpp: image.qrc \
 		../../Qt5.9.2/5.9.2/clang_64/bin/rcc \
 		rect.qml \
 		image/play_circle.png \
-		image/stop_circle.png
+		image/goBack.png \
+		image/stop_circle.png \
+		image/redHeart.png \
+		image/whiteHeart.png
 	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/rcc -name image image.qrc -o qrc_image.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h
@@ -1051,6 +1056,10 @@ moc_search.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWi
 		endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlError \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
@@ -1058,7 +1067,7 @@ moc_search.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWi
 		search.h \
 		moc_predefs.h \
 		../../Qt5.9.2/5.9.2/clang_64/bin/moc
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/code/enVocabulary -I/usr/local/include -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib search.h -o moc_search.cpp
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/code/enVocabulary -I/usr/local/include -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib search.h -o moc_search.cpp
 
 moc_httpmanager.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
@@ -1402,10 +1411,14 @@ moc_httpmanager.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/Q
 		endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlError \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
 		httpmanager.h \
 		moc_predefs.h \
 		../../Qt5.9.2/5.9.2/clang_64/bin/moc
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/code/enVocabulary -I/usr/local/include -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib httpmanager.h -o moc_httpmanager.cpp
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/code/enVocabulary -I/usr/local/include -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib httpmanager.h -o moc_httpmanager.cpp
 
 moc_controller.cpp: viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
@@ -1754,6 +1767,10 @@ moc_controller.cpp: viewmanager.h \
 		endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlError \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
@@ -1766,10 +1783,12 @@ moc_controller.cpp: viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		controller.h \
 		moc_predefs.h \
 		../../Qt5.9.2/5.9.2/clang_64/bin/moc
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/code/enVocabulary -I/usr/local/include -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib controller.h -o moc_controller.cpp
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/code/enVocabulary -I/usr/local/include -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib controller.h -o moc_controller.cpp
 
 moc_mysentences.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
@@ -1782,10 +1801,12 @@ moc_mysentences.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Header
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		mysentences.h \
 		moc_predefs.h \
 		../../Qt5.9.2/5.9.2/clang_64/bin/moc
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/code/enVocabulary -I/usr/local/include -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib mysentences.h -o moc_mysentences.cpp
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/code/enVocabulary -I/usr/local/include -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib mysentences.h -o moc_mysentences.cpp
 
 moc_viewmanager.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
@@ -2133,6 +2154,10 @@ moc_viewmanager.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/Q
 		endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlError \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
@@ -2145,10 +2170,12 @@ moc_viewmanager.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/Q
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		viewmanager.h \
 		moc_predefs.h \
 		../../Qt5.9.2/5.9.2/clang_64/bin/moc
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/code/enVocabulary -I/usr/local/include -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib viewmanager.h -o moc_viewmanager.cpp
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/code/enVocabulary -I/usr/local/include -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib viewmanager.h -o moc_viewmanager.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -2522,6 +2549,10 @@ main.o: main.cpp viewmanager.h \
 		endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlError \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
@@ -2534,6 +2565,8 @@ main.o: main.cpp viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		controller.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QApplication \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
@@ -2885,6 +2918,10 @@ search.o: search.cpp search.h \
 		endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlError \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
@@ -2904,7 +2941,9 @@ search.o: search.cpp search.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o search.o search.cpp
 
 httpmanager.o: httpmanager.cpp httpmanager.h \
@@ -3250,6 +3289,10 @@ httpmanager.o: httpmanager.cpp httpmanager.h \
 		endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlError \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
 		log.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
@@ -3265,6 +3308,10 @@ log.o: log.cpp log.h \
 endata.o: endata.cpp endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlError \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
 		log.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
@@ -3628,7 +3675,11 @@ endata.o: endata.cpp endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QCoreApplication \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qcoreapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o endata.o endata.cpp
 
 controller.o: controller.cpp controller.h \
@@ -3979,6 +4030,10 @@ controller.o: controller.cpp controller.h \
 		endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlError \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
@@ -3991,6 +4046,8 @@ controller.o: controller.cpp controller.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		log.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h
@@ -4008,6 +4065,8 @@ mysentences.o: mysentences.cpp mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		ui_mysentences.h \
 		log.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
@@ -4358,8 +4417,15 @@ mysentences.o: mysentences.cpp mysentences.h \
 		endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlError \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QRegularExpression \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qregularexpression.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QRegularExpressionMatch
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mysentences.o mysentences.cpp
 
 viewmanager.o: viewmanager.cpp viewmanager.h \
@@ -4709,6 +4775,10 @@ viewmanager.o: viewmanager.cpp viewmanager.h \
 		endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlError \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
@@ -4721,6 +4791,8 @@ viewmanager.o: viewmanager.cpp viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		log.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h
