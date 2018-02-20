@@ -125,7 +125,7 @@ void Search::on_uk_button_clicked()
 void Search::on_us_button_clicked()
 {
     QString url = model->wordInf.us_audio_addresses;
-    if(url.isEmpty()){
+    if(url.isEmpty()) {
         LOGDBG("url is empty: %s",url.toStdString().c_str());
         return ;
     }

@@ -74,7 +74,7 @@ void mySentences::updateSentences()
     sentenceHLays.clear();
 
     enData *model = enData::getInstance();
-    int size = model->getSentenceCount();
+    const int size = model->getSentenceCount();
     for (int i=0; i<size; i++) {
         QLabel *sentenceLabel = new QLabel(this);
         v_sentenceLabel.push_back(sentenceLabel);
@@ -98,6 +98,13 @@ void mySentences::updateSentences()
         translationLabel->setText(model->v_sentences[i].translation);
         vLayout->addWidget(translationLabel,1);
     }
+
+    // set red heart.
+    for (int i=0; i<size; i++) {
+        if(model->checkSentenceInDB(i)){
+            heartButtons[i]->setIcon(QIcon(":/image/redHeart.png"));
+        }
+    }
     this->show();
     LOGDBG("end!");
 }
@@ -117,14 +124,26 @@ void mySentences::on_collectClick()
         LOGDBG("dynamic_cast failed.");
         return ;
     }
-    // check it in database.
+    int index;
     bool existed = false;
-    if(existed){
+    enData *model = enData::getInstance();
+    for(index=0; index<heartButtons.size(); index++){
+        if(heartButtons[index] == button){
+            LOGDBG("index is %d",index);
+            if(model->checkSentenceInDB(index)) {
+                existed = true;
+            }
+            break;
+        }
+    }
+
+    // check it in database.
+    if(existed) {
         button->setIcon(QIcon(":/image/whiteHeart.png"));
-        // delete it from SQLite.
+        model->deleteSentenceFromDB(index);
     }
     else {
         button->setIcon(QIcon(":/image/redHeart.png"));
-        // insert it into SQLite.
+        model->addSentenceToDB(index);
     }
 }

@@ -9,6 +9,8 @@
 #include <QJsonArray>
 #include "controller.h"
 #include <QCoreApplication>
+#include <QApplication>
+
 #ifdef Q_OS_WIN32
 #include <io.h>
 #endif
@@ -20,8 +22,31 @@ enData* enData::instance = NULL;
 
 enData::enData()
 {
-    db = QSqlDatabase::addDatabase("QMYSQL");;
-    db.setDatabaseName(QCoreApplication::applicationDirPath()+"data/enVocabDataBase");
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    QString fileName = QCoreApplication::applicationDirPath()+"/.enVocabDataBase";
+    db.setDatabaseName(fileName);
+    query = new QSqlQuery(db);
+    if(-1 == access(fileName.toStdString().c_str(), F_OK)){      //the file doesn't exsit.
+        if(db.open()){
+            if(!query->exec("create table Statement(sentences text primary key, translation text)")) {
+                LOGDBG("create: %s", query->lastError().text().toStdString().c_str());
+            }
+            else {
+                LOGDBG("create table ok!");
+            }
+            db.close();
+        }
+        else {
+            LOGDBG("create table failed: %s\n"
+                   "path is %s",
+                   db.lastError().text().toStdString().c_str(),
+                   db.databaseName().toStdString().c_str());
+        }
+    }
+    else {
+        LOGDBG("%s had exsit",fileName.toStdString().c_str());
+    }
+
     pthread_mutex_init(&instanceMutex, NULL);
     v_sentences.clear();
 
@@ -52,6 +77,10 @@ enData::~enData()
     if(instance){
         delete instance;
         instance = NULL;
+    }
+    if(query){
+        delete query;
+        query = NULL;
     }
 }
 
@@ -244,6 +273,89 @@ void enData::sentencesShow()
         ret += sprintf(buff+ret,"%s\n\n",tmp.translation.toStdString().c_str());
     }
     LOGDBG("\n%s",buff);
+}
+
+void enData::addSentenceToDB(const int index)
+{
+    sentenceUnit tmp = v_sentences[index];
+    if(db.open()){
+        query->prepare("INSERT INTO Statement VALUES (:sentence, :translation)");
+        query->bindValue(":sentence", simpleSentence(tmp.sentence));
+        query->bindValue(":translation",simpleSentence(tmp.translation));
+
+        if(!query->exec()){
+            LOGDBG("query exec failed: %s", query->lastError().text().toStdString().c_str());
+        }
+        else {
+            LOGDBG("insert sentence %d ok!", index);
+        }
+        db.close();
+    }
+    else {
+        LOGDBG("open failed: %s",db.lastError().text().toStdString().c_str());
+    }
+}
+
+void enData::deleteSentenceFromDB(const int index)
+{
+    LOGDBG("start");
+    sentenceUnit tmp = v_sentences[index];
+    if(db.open()){
+        query->prepare("DELETE FROM Statement where sentences = :sentence ");
+        query->bindValue(":sentence", simpleSentence(tmp.sentence));
+        if(!query->exec()) {
+            LOGDBG("query exec failed: %s", query->lastError().text().toStdString().c_str());
+        }
+        else {
+            LOGDBG("delete sentence %d from DB ok!", index);
+        }
+        db.close();
+    }
+    else {
+        LOGDBG("open failed: %s",db.lastError().text().toStdString().c_str());
+    }
+    LOGDBG("end!");
+}
+
+bool enData::checkSentenceInDB(const int index)
+{
+    LOGDBG("start");
+    bool ret = false;
+    if(db.open()){
+        sentenceUnit tmp = v_sentences[index];
+        if(!query->prepare("select count(*) from Statement where sentences = :sentence")){
+            LOGDBG("%s",query->lastError().text().toStdString().c_str());
+            db.close();
+            return ret;
+        }
+        query->bindValue(":sentence", simpleSentence(tmp.sentence));
+        // to do: the sentences inserted into db had not <b> and <voca>
+        if(!query->exec()){
+            LOGDBG("query exec failed: %s", query->lastError().text().toStdString().c_str());
+        }
+        else {
+            if(query->next()) {
+                if(query->value(0).toInt() > 0){
+                    ret = true;
+                }
+            }
+        }
+    }
+    else {
+        LOGDBG("open failed: %s",db.lastError().text().toStdString().c_str());
+    }
+    LOGDBG("end!");
+    return ret;
+}
+
+QString enData::simpleSentence(const QString sentence)
+{
+    QString tmp = sentence;
+    tmp.remove("<b>");
+    tmp.remove("</b>");
+    tmp.remove("<vocab>");
+    tmp.remove("</vocab>");
+    return tmp;
 }
 
 int enData::getSentenceCount() const

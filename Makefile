@@ -3679,7 +3679,9 @@ endata.o: endata.cpp endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QCoreApplication \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qcoreapplication.h
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qcoreapplication.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QApplication \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o endata.o endata.cpp
 
 controller.o: controller.cpp controller.h \

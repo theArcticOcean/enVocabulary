@@ -14,6 +14,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = enVocabulary
 TEMPLATE = app
+
 unix: LIBS += -L/usr/lib -lpthread
 
 INCLUDEPATH += "/usr/local/include/"

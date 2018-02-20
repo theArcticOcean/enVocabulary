@@ -52,7 +52,7 @@ class enData
     static enData *instance;
     static pthread_mutex_t instanceMutex;
     QSqlDatabase db;
-    QSqlQuery query;
+    QSqlQuery *query;
 
 public:
     enData();
@@ -62,6 +62,10 @@ public:
     void jsonParseForSentence(const QJsonObject cjson);
     void wordInfShow();
     void sentencesShow();
+    void addSentenceToDB(const int index);
+    void deleteSentenceFromDB(const int index);
+    bool checkSentenceInDB(const int index);
+    QString simpleSentence(const QString sentence);
     int getSentenceCount() const;
     bool checkElementInJson(QJsonObject &json, const string key);
     static enData* getInstance();
