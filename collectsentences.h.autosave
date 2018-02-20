@@ -1,0 +1,23 @@
+#ifndef COLLECTSENTENCES_H
+#define COLLECTSENTENCES_H
+
+#include <QWidget>
+
+namespace Ui {
+class collectSentences;
+}
+
+class collectSentences : public QWidget
+{
+    Q_OBJECT
+
+public:
+    explicit collectSentences(QWidget *parent = 0);
+    ~collectSentences();
+protected:
+    virtual void showEvent(QShowEvent *event);
+private:
+    Ui::collectSentences *ui;
+};
+
+#endif // COLLECTSENTENCES_H

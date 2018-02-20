@@ -39,7 +39,8 @@ SOURCES += \
     endata.cpp \
     controller.cpp \
     mysentences.cpp \
-    viewmanager.cpp
+    viewmanager.cpp \
+    collectsentences.cpp
 
 HEADERS += \
         search.h \
@@ -48,11 +49,13 @@ HEADERS += \
     endata.h \
     controller.h \
     mysentences.h \
-    viewmanager.h
+    viewmanager.h \
+    collectsentences.h
 
 FORMS += \
         search.ui \
-    mysentences.ui
+    mysentences.ui \
+    collectsentences.ui
 
 RESOURCES += \
     image.qrc

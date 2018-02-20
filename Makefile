@@ -57,12 +57,14 @@ SOURCES       = main.cpp \
 		endata.cpp \
 		controller.cpp \
 		mysentences.cpp \
-		viewmanager.cpp qrc_image.cpp \
+		viewmanager.cpp \
+		collectsentences.cpp qrc_image.cpp \
 		moc_search.cpp \
 		moc_httpmanager.cpp \
 		moc_controller.cpp \
 		moc_mysentences.cpp \
-		moc_viewmanager.cpp
+		moc_viewmanager.cpp \
+		moc_collectsentences.cpp
 OBJECTS       = main.o \
 		search.o \
 		httpmanager.o \
@@ -71,12 +73,14 @@ OBJECTS       = main.o \
 		controller.o \
 		mysentences.o \
 		viewmanager.o \
+		collectsentences.o \
 		qrc_image.o \
 		moc_search.o \
 		moc_httpmanager.o \
 		moc_controller.o \
 		moc_mysentences.o \
-		moc_viewmanager.o
+		moc_viewmanager.o \
+		moc_collectsentences.o
 DIST          = ../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/spec_pre.prf \
 		../../Qt5.9.2/5.9.2/clang_64/mkspecs/qdevice.pri \
 		../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/device_config.prf \
@@ -250,14 +254,16 @@ DIST          = ../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/spec_pre.prf \
 		endata.h \
 		controller.h \
 		mysentences.h \
-		viewmanager.h main.cpp \
+		viewmanager.h \
+		collectsentences.h main.cpp \
 		search.cpp \
 		httpmanager.cpp \
 		log.cpp \
 		endata.cpp \
 		controller.cpp \
 		mysentences.cpp \
-		viewmanager.cpp
+		viewmanager.cpp \
+		collectsentences.cpp
 QMAKE_TARGET  = enVocabulary
 DESTDIR       = 
 TARGET        = enVocabulary.app/Contents/MacOS/enVocabulary
@@ -271,7 +277,7 @@ EXPORT_ARCH_ARGS = $(foreach arch, $(if $(EXPORT_ACTIVE_ARCHS), $(EXPORT_ACTIVE_
 first: all
 ####### Build rules
 
-$(TARGET): ui_search.h ui_mysentences.h $(OBJECTS)  
+$(TARGET): ui_search.h ui_mysentences.h ui_collectsentences.h $(OBJECTS)  
 	@test -d enVocabulary.app/Contents/MacOS/ || mkdir -p enVocabulary.app/Contents/MacOS/
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
@@ -663,9 +669,9 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents image.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents search.h httpmanager.h log.h endata.h controller.h mysentences.h viewmanager.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp search.cpp httpmanager.cpp log.cpp endata.cpp controller.cpp mysentences.cpp viewmanager.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents search.ui mysentences.ui $(DISTDIR)/
+	$(COPY_FILE) --parents search.h httpmanager.h log.h endata.h controller.h mysentences.h viewmanager.h collectsentences.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp search.cpp httpmanager.cpp log.cpp endata.cpp controller.cpp mysentences.cpp viewmanager.cpp collectsentences.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents search.ui mysentences.ui collectsentences.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -708,9 +714,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: ../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/data/dummy.cpp
 	/Library/Developer/CommandLineTools/usr/bin/clang++ -pipe -stdlib=libc++ -O2 -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wall -W -dM -E -o moc_predefs.h ../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_search.cpp moc_httpmanager.cpp moc_controller.cpp moc_mysentences.cpp moc_viewmanager.cpp
+compiler_moc_header_make_all: moc_search.cpp moc_httpmanager.cpp moc_controller.cpp moc_mysentences.cpp moc_viewmanager.cpp moc_collectsentences.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_search.cpp moc_httpmanager.cpp moc_controller.cpp moc_mysentences.cpp moc_viewmanager.cpp
+	-$(DEL_FILE) moc_search.cpp moc_httpmanager.cpp moc_controller.cpp moc_mysentences.cpp moc_viewmanager.cpp moc_collectsentences.cpp
 moc_search.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
 		httpmanager.h \
@@ -2177,11 +2183,18 @@ moc_viewmanager.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/Q
 		../../Qt5.9.2/5.9.2/clang_64/bin/moc
 	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/code/enVocabulary -I/usr/local/include -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib viewmanager.h -o moc_viewmanager.cpp
 
+moc_collectsentences.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		collectsentences.h \
+		moc_predefs.h \
+		../../Qt5.9.2/5.9.2/clang_64/bin/moc
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/code/enVocabulary -I/usr/local/include -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib collectsentences.h -o moc_collectsentences.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_search.h ui_mysentences.h
+compiler_uic_make_all: ui_search.h ui_mysentences.h ui_collectsentences.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_search.h ui_mysentences.h
+	-$(DEL_FILE) ui_search.h ui_mysentences.h ui_collectsentences.h
 ui_search.h: search.ui \
 		../../Qt5.9.2/5.9.2/clang_64/bin/uic
 	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/uic search.ui -o ui_search.h
@@ -2189,6 +2202,10 @@ ui_search.h: search.ui \
 ui_mysentences.h: mysentences.ui \
 		../../Qt5.9.2/5.9.2/clang_64/bin/uic
 	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/uic mysentences.ui -o ui_mysentences.h
+
+ui_collectsentences.h: collectsentences.ui \
+		../../Qt5.9.2/5.9.2/clang_64/bin/uic
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/uic collectsentences.ui -o ui_collectsentences.h
 
 compiler_rez_source_make_all:
 compiler_rez_source_clean:
@@ -4800,6 +4817,12 @@ viewmanager.o: viewmanager.cpp viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o viewmanager.o viewmanager.cpp
 
+collectsentences.o: collectsentences.cpp collectsentences.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		ui_collectsentences.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o collectsentences.o collectsentences.cpp
+
 qrc_image.o: qrc_image.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_image.o qrc_image.cpp
 
@@ -4817,6 +4840,9 @@ moc_mysentences.o: moc_mysentences.cpp
 
 moc_viewmanager.o: moc_viewmanager.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_viewmanager.o moc_viewmanager.cpp
+
+moc_collectsentences.o: moc_collectsentences.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_collectsentences.o moc_collectsentences.cpp
 
 ####### Install
 
