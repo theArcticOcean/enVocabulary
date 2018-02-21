@@ -33,7 +33,8 @@ void Search::mousePressEvent(QMouseEvent *event)
         qDebug()<<"单词本";
     }
     else if(rx >= 75 && rx < 150 && ry >= 200 && ry < 400){
-        qDebug()<<"收藏例句";
+        Controller *control = Controller::getInstance();
+        control->sendViewMsg(GotoCollectSen);
     }
 }
 

@@ -8,6 +8,7 @@
 #include <QJsonParseError>
 #include <QJsonArray>
 #include "controller.h"
+#include "endata.h"
 #include <QCoreApplication>
 #include <QApplication>
 
@@ -28,7 +29,8 @@ enData::enData()
     query = new QSqlQuery(db);
     if(-1 == access(fileName.toStdString().c_str(), F_OK)){      //the file doesn't exsit.
         if(db.open()){
-            if(!query->exec("create table Statement(sentences text primary key, translation text)")) {
+            query->prepare("create table Statement (sentences text primary key, translation text)");
+            if(!query->exec()) {
                 LOGDBG("create: %s", query->lastError().text().toStdString().c_str());
             }
             else {
@@ -323,14 +325,9 @@ bool enData::checkSentenceInDB(const int index)
     bool ret = false;
     if(db.open()){
         sentenceUnit tmp = v_sentences[index];
-        if(!query->prepare("select count(*) from Statement where sentences = :sentence")){
-            LOGDBG("%s",query->lastError().text().toStdString().c_str());
-            db.close();
-            return ret;
-        }
+        query->prepare("select count(*) from Statement where sentences = :sentence");
         query->bindValue(":sentence", simpleSentence(tmp.sentence));
-        // to do: the sentences inserted into db had not <b> and <voca>
-        if(!query->exec()){
+        if(!query->exec()) {
             LOGDBG("query exec failed: %s", query->lastError().text().toStdString().c_str());
         }
         else {
@@ -345,6 +342,53 @@ bool enData::checkSentenceInDB(const int index)
         LOGDBG("open failed: %s",db.lastError().text().toStdString().c_str());
     }
     LOGDBG("end!");
+    return ret;
+}
+
+void enData::getCollectSentencePage(const int index)
+{
+    if(db.open()){
+        query->prepare("select * from Statement limit :limit offset :index");
+        query->bindValue(":limit",6);
+        query->bindValue(":index",index);
+        if(!query->exec()) {
+            LOGDBG("exec failed: %s",query->lastError().text().toStdString().c_str());
+        }
+        else {
+            v_collectSentences.clear();
+            while(query->next()){
+                QString sentence = query->value("sentences").toString();
+                QString translation = query->value("translation").toString();
+                v_collectSentences.push_back(sentenceUnit(sentence,translation));
+            }
+        }
+    }
+    else {
+        LOGDBG("open failed: %s", db.lastError().text().toStdString().c_str());
+    }
+}
+
+int enData::getColSentencePageCount()
+{
+    int ret = 0;
+    if(db.open()){
+        query->prepare("select count(*) from Statement");
+        if(!query->exec()) {
+            LOGDBG("exec failed: %s",query->lastError().text().toStdString().c_str());
+        }
+        else {
+            if(query->next()) {
+                // ceiling operaton
+                ret = (query->value(0).toInt()+COLLECT_SENTENCE_PAGESIZE-1)
+                        / COLLECT_SENTENCE_PAGESIZE;
+            } else{
+                LOGDBG("no next");
+            }
+        }
+    }
+    else {
+        LOGDBG("open failed: %s", db.lastError().text().toStdString().c_str());
+    }
     return ret;
 }
 

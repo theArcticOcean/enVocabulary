@@ -6,11 +6,13 @@
 #define DOWNFILES_PATH          "./Down"
 #define DOWNFILES_PICS_PATH     "./Down/Pics"
 #define TOKEN_STR               "access_token=yb7D1mhTLcFsYLI7jfVQUHeTUuoPni"
+#define SENTENCE_TABLE          "Statement"
 
 #define MAX_PICS_NUMBER          200
 #define NUM_ERROR                1e-6
 #define BUFFER_LEN               1024*1024*8
 #define SENTENCE_NUM             7
+#define COLLECT_SENTENCE_PAGESIZE   6
 
 #include <pthread.h>
 #include <string>
@@ -45,6 +47,14 @@ typedef struct _enWordInfo{
 typedef struct  __sentenceUnit{
     QString sentence;
     QString translation;
+    __sentenceUnit() {
+        sentence = "";
+        translation = "";
+    }
+    __sentenceUnit(QString _sentence, QString _translation) {
+        sentence = _sentence;
+        translation = _translation;
+    }
 }sentenceUnit;
 
 class enData
@@ -65,6 +75,8 @@ public:
     void addSentenceToDB(const int index);
     void deleteSentenceFromDB(const int index);
     bool checkSentenceInDB(const int index);
+    void getCollectSentencePage(const int index);
+    int getColSentencePageCount();
     QString simpleSentence(const QString sentence);
     int getSentenceCount() const;
     bool checkElementInJson(QJsonObject &json, const string key);
@@ -72,6 +84,7 @@ public:
 
     enWordInfo wordInf;
     vector<sentenceUnit> v_sentences;
+    vector<sentenceUnit> v_collectSentences;
 };
 
 #endif // ENDATA_H

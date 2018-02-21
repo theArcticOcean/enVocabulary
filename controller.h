@@ -9,7 +9,10 @@ typedef enum _viewMsgEnum{
     SearchWordEnum,
     CloseAllUI,
     GotoWordSentences,
+    GotoCollectSen,
     SentenceWinToHome,
+    CollectSenWndToHome,
+    UpdateCollectSenPage,
     EnumMax
 }viewMsgEnum;
 
@@ -32,7 +35,10 @@ signals:
     void getWord();
     void closeAllUI();
     void gotoWordSentencesWnd();
+    void gotoCollectSenWnd();
     void SentenceWinToHomeWnd();
+    void CollectSenWndToHomeWnd();
+    void updateCollectSentencePage();
 };
 
 #endif // CONTROLLER_H

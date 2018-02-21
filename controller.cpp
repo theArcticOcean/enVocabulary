@@ -26,11 +26,19 @@ void Controller::attachViewManager(viewManager *UIMgr)
 void Controller::signalAndSlotsConenct()
 {
     bool ret = connect(this,SIGNAL(getWord()),UIMgr->searchUI.get(),SLOT(slotGetWord()));
+    LOGDBG("connected: %d for getWord(), UIMgr is %p", ret, UIMgr);
     ret = connect(this,SIGNAL(closeAllUI()),UIMgr,SLOT(slotCloseAllUI()));
     LOGDBG("connected: %d for closeAllUI(), UIMgr is %p", ret, UIMgr);
     ret = connect(this,SIGNAL(gotoWordSentencesWnd()),UIMgr,SLOT(slotGotoWordSentencesWnd()));
     LOGDBG("connected: %d for gotoWordSentencesWnd(), UIMgr is %p", ret, UIMgr);
     ret = connect(this,SIGNAL(SentenceWinToHomeWnd()),UIMgr,SLOT(slotSentenceWinToHomeWnd()));
+    LOGDBG("connected: %d for SentenceWinToHomeWnd(), UIMgr is %p", ret, UIMgr);
+    ret = connect(this,SIGNAL(updateCollectSentencePage()),UIMgr,SLOT(slotUpdateCollectSentencePage()));
+    LOGDBG("connected: %d for updateCollectSentencePage(), UIMgr is %p", ret, UIMgr);
+    ret = connect(this,SIGNAL(gotoCollectSenWnd()), UIMgr, SLOT(slotGotoCollectSenWnd()));
+    LOGDBG("connected: %d for gotoCollectSenWnd(), UIMgr is %p", ret, UIMgr);
+    ret = connect(this,SIGNAL(CollectSenWndToHomeWnd()), UIMgr, SLOT(slotCollectSenWndToHomeWnd()));
+    LOGDBG("connected: %d for CollectSenWndToHomeWnd(), UIMgr is %p", ret, UIMgr);
 }
 
 void Controller::sendViewMsg(viewMsgEnum msg)
@@ -49,6 +57,15 @@ void Controller::sendViewMsg(viewMsgEnum msg)
         break;
     case SentenceWinToHome:
         emit SentenceWinToHomeWnd();
+        break;
+    case UpdateCollectSenPage:
+        emit updateCollectSentencePage();
+        break;
+    case GotoCollectSen:
+        emit gotoCollectSenWnd();
+        break;
+    case CollectSenWndToHome:
+        emit CollectSenWndToHomeWnd();
         break;
     default:
         break;
