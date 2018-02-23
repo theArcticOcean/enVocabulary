@@ -74,6 +74,7 @@ public:
     void sentencesShow();
     void addSentenceToDB(const int index);
     void deleteSentenceFromDB(const int index);
+    void deleteSentenceFromDB(const QString text);
     bool checkSentenceInDB(const int index);
     void getCollectSentencePage(const int index);
     int getColSentencePageCount();

@@ -16,11 +16,14 @@ public:
     explicit collectSentences(QWidget *parent = 0);
     ~collectSentences();
     void fillSentenceInCheckBox(const int index, QString str);
+    void connectCheckBoxClickAndShowDelBtn();
 protected:
     virtual void showEvent(QShowEvent *event);
+public slots:
+    void showDeleteButton();
 private slots:
     void on_backButton_clicked();
-
+    void on_deleteButton_clicked();
 private:
     Ui::collectSentences *ui;
 };

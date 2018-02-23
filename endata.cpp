@@ -319,6 +319,23 @@ void enData::deleteSentenceFromDB(const int index)
     LOGDBG("end!");
 }
 
+void enData::deleteSentenceFromDB(const QString text)
+{
+    QStringList strList = text.split("\n\n");
+    if(strList.length()){
+        if(db.open()){
+            query->prepare("DELETE FROM Statement where sentences = :sentence ");
+            query->bindValue(":sentence", strList[0]);
+            if(!query->exec()){
+                LOGDBG("delete failed: %s",query->lastError().text().toStdString().c_str());
+            }
+        }
+        else {
+            LOGDBG("db open failed: %s",db.lastError().text().toStdString().c_str());
+        }
+    }
+}
+
 bool enData::checkSentenceInDB(const int index)
 {
     LOGDBG("start");

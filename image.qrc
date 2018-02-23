@@ -6,5 +6,7 @@
         <file>image/whiteHeart.png</file>
         <file>image/redHeart.png</file>
         <file>image/goBack.png</file>
+        <file>image/left.png</file>
+        <file>image/right.png</file>
     </qresource>
 </RCC>
