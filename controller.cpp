@@ -33,8 +33,6 @@ void Controller::signalAndSlotsConenct()
     LOGDBG("connected: %d for gotoWordSentencesWnd(), UIMgr is %p", ret, UIMgr);
     ret = connect(this,SIGNAL(SentenceWinToHomeWnd()),UIMgr,SLOT(slotSentenceWinToHomeWnd()));
     LOGDBG("connected: %d for SentenceWinToHomeWnd(), UIMgr is %p", ret, UIMgr);
-    ret = connect(this,SIGNAL(updateCollectSentencePage()),UIMgr,SLOT(slotUpdateCollectSentencePage()));
-    LOGDBG("connected: %d for updateCollectSentencePage(), UIMgr is %p", ret, UIMgr);
     ret = connect(this,SIGNAL(gotoCollectSenWnd()), UIMgr, SLOT(slotGotoCollectSenWnd()));
     LOGDBG("connected: %d for gotoCollectSenWnd(), UIMgr is %p", ret, UIMgr);
     ret = connect(this,SIGNAL(CollectSenWndToHomeWnd()), UIMgr, SLOT(slotCollectSenWndToHomeWnd()));
@@ -57,9 +55,6 @@ void Controller::sendViewMsg(viewMsgEnum msg)
         break;
     case SentenceWinToHome:
         emit SentenceWinToHomeWnd();
-        break;
-    case UpdateCollectSenPage:
-        emit updateCollectSentencePage();
         break;
     case GotoCollectSen:
         emit gotoCollectSenWnd();

@@ -24,7 +24,6 @@ public slots:
     void slotGotoWordSentencesWnd();
     void slotGotoCollectSenWnd();
     void slotSentenceWinToHomeWnd();
-    void slotUpdateCollectSentencePage();
     void slotCollectSenWndToHomeWnd();
 };
 

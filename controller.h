@@ -12,7 +12,6 @@ typedef enum _viewMsgEnum{
     GotoCollectSen,
     SentenceWinToHome,
     CollectSenWndToHome,
-    UpdateCollectSenPage,
     EnumMax
 }viewMsgEnum;
 

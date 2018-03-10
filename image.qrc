@@ -8,5 +8,6 @@
         <file>image/goBack.png</file>
         <file>image/left.png</file>
         <file>image/right.png</file>
+        <file>image/rwhiteHeart.png</file>
     </qresource>
 </RCC>

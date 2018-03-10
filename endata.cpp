@@ -44,6 +44,23 @@ enData::enData()
                    db.lastError().text().toStdString().c_str(),
                    db.databaseName().toStdString().c_str());
         }
+
+        if(db.open()){
+            query->prepare("create table Vocabulary (myWord text primary key, translation text)");
+            if(!query->exec()) {
+                LOGDBG("create: %s", query->lastError().text().toStdString().c_str());
+            }
+            else {
+                LOGDBG("create table ok!");
+            }
+            db.close();
+        }
+        else {
+            LOGDBG("create table failed: %s\n"
+                   "path is %s",
+                   db.lastError().text().toStdString().c_str(),
+                   db.databaseName().toStdString().c_str());
+        }
     }
     else {
         LOGDBG("%s had exsit",fileName.toStdString().c_str());
@@ -298,6 +315,24 @@ void enData::addSentenceToDB(const int index)
     }
 }
 
+void enData::addWordToDB(QString str)
+{
+    if(!str.isEmpty()){
+        if(db.open()){
+            query->prepare("INSERT INTO Vocabulary VALUES (:myWord, :translation);");
+            query->bindValue(":myWord",str);
+            query->bindValue(":translation",wordInf.cn_definition);
+            db.close();
+        }
+        else {
+            LOGDBG("open failed: %s",db.lastError().text().toStdString().c_str());
+        }
+    }
+    else {
+        LOGDBG("the word is empty.");
+    }
+}
+
 void enData::deleteSentenceFromDB(const int index)
 {
     LOGDBG("start");
@@ -359,6 +394,32 @@ bool enData::checkSentenceInDB(const int index)
         LOGDBG("open failed: %s",db.lastError().text().toStdString().c_str());
     }
     LOGDBG("end!");
+    return ret;
+}
+
+bool enData::checkWordInDB(QString str)
+{
+    LOGDBG("start");
+    bool ret = false;
+    if(db.open()) {
+        query->prepare("select count(*) from Vocabulary where myWord = :myWord");
+        query->bindValue(":myWord",str);
+        LOGDBG("myWord: %s", str.toStdString().c_str());
+        if(!query->exec()) {
+            LOGDBG("query exec failed: %s", query->lastError().text().toStdString().c_str());
+        }
+        else {
+            if(query->next()) {
+                if(query->value(0).toInt() > 0){
+                    ret = true;
+                }
+            }
+        }
+    }
+    else {
+        LOGDBG("open failed: %s",db.lastError().text().toStdString().c_str());
+    }
+    LOGDBG("end, and ret is %d", ret);
     return ret;
 }
 

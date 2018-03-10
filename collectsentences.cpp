@@ -118,27 +118,38 @@ void collectSentences::on_deleteButton_clicked()
     if(ui->checkBox->isChecked()){
         text = ui->checkBox->text();
         model->deleteSentenceFromDB(text);
+        ui->checkBox->setText("");
+        ui->checkBox->hide();
     }
     if(ui->checkBox_2->isChecked()){
         text = ui->checkBox_2->text();
         model->deleteSentenceFromDB(text);
+        ui->checkBox_2->setText("");
+        ui->checkBox_2->hide();
     }
     if(ui->checkBox_3->isChecked()){
         text = ui->checkBox_3->text();
         model->deleteSentenceFromDB(text);
+        ui->checkBox_3->setText("");
+        ui->checkBox_3->hide();
     }
     if(ui->checkBox_4->isChecked()){
         text = ui->checkBox_4->text();
         model->deleteSentenceFromDB(text);
+        ui->checkBox_4->setText("");
+        ui->checkBox_4->hide();
     }
     if(ui->checkBox_5->isChecked()){
         text = ui->checkBox_5->text();
         model->deleteSentenceFromDB(text);
+        ui->checkBox_5->setText("");
+        ui->checkBox_5->hide();
     }
     if(ui->checkBox_6->isChecked()){
         text = ui->checkBox_6->text();
         model->deleteSentenceFromDB(text);
+        ui->checkBox_6->setText("");
+        ui->checkBox_6->hide();
     }
-    // update UI after delete data.
     LOGDBG("end!");
 }

@@ -58,6 +58,8 @@ Search::Search(QWidget *parent) :
     ui->us_button->setStyleSheet("QPushButton{ border-image: url(:/image/stop_circle.png); }");
     ui->textBrowser->setReadOnly(true);
     ui->quickWidget->setSource(QUrl("qrc:/rect.qml"));
+    ui->colButton->setText("");
+    ui->colButton->setStyleSheet("QPushButton{ border-image: url(:/image/rwhiteHeart.png); }");
 
     http = NULL;
     model = enData::getInstance();
@@ -134,4 +136,18 @@ void Search::on_us_button_clicked()
     player->play();
     ui->us_button->setStyleSheet("QPushButton{border-image:url(:/image/play_circle.png);}");
     LOGDBG("played. url is %s", url.toStdString().c_str());
+}
+
+void Search::on_colButton_clicked()
+{
+    enData *model = enData::getInstance();
+    QString word = ui->lineEdit->text();
+    bool collected = model->checkWordInDB(word);
+    if(!collected){
+        ui->colButton->setStyleSheet("QPushButton{ border-image: url(:/image/redHeart.png); }");
+        model->addWordToDB(word);
+    }
+    else {
+        ui->colButton->setStyleSheet("QPushButton{ border-image: url(:/image/rwhiteHeart.png); }");
+    }
 }

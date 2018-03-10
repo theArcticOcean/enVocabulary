@@ -43,11 +43,6 @@ void viewManager::slotSentenceWinToHomeWnd()
     LOGDBG("end!");
 }
 
-void viewManager::slotUpdateCollectSentencePage()
-{
-
-}
-
 void viewManager::slotCollectSenWndToHomeWnd()
 {
     LOGDBG("start");

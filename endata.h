@@ -5,7 +5,7 @@
 #define SENTENCE_SEARCH_ENTRY   "https://api.shanbay.com/bdc/example/"
 #define DOWNFILES_PATH          "./Down"
 #define DOWNFILES_PICS_PATH     "./Down/Pics"
-#define TOKEN_STR               "access_token=yb7D1mhTLcFsYLI7jfVQUHeTUuoPni"
+#define TOKEN_STR               "access_token=NC5Bk1jVBoALcVcDuh05hkBVgi0wG5"
 #define SENTENCE_TABLE          "Statement"
 
 #define MAX_PICS_NUMBER          200
@@ -73,9 +73,11 @@ public:
     void wordInfShow();
     void sentencesShow();
     void addSentenceToDB(const int index);
+    void addWordToDB(QString str);
     void deleteSentenceFromDB(const int index);
     void deleteSentenceFromDB(const QString text);
     bool checkSentenceInDB(const int index);
+    bool checkWordInDB(QString str);
     void getCollectSentencePage(const int index);
     int getColSentencePageCount();
     QString simpleSentence(const QString sentence);

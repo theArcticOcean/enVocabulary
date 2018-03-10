@@ -34,6 +34,7 @@ public slots:
 private slots:
     void on_uk_button_clicked();
     void on_us_button_clicked();
+    void on_colButton_clicked();
 };
 
 #endif // SEARCH_H
