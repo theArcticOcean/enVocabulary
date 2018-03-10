@@ -6,6 +6,7 @@ viewManager::viewManager(QObject *parent) : QObject(parent)
     searchUI = boost::make_shared<Search>();
     mySentencesUI = boost::make_shared<mySentences>();
     collectSentencesUI = boost::make_shared<collectSentences>();
+    collectWordsUI = boost::make_shared<collectWords>();
     //mySentencesUI.get()->setAttribute(Qt::WA_DeleteOnClose, true);
     searchUI.get()->show();
 }
@@ -16,6 +17,7 @@ void viewManager::slotCloseAllUI()
     searchUI.get()->close();
     mySentencesUI.get()->close();
     collectSentencesUI.get()->close();
+    collectWordsUI.get()->close();
     LOGDBG("end!");
 }
 
@@ -35,6 +37,14 @@ void viewManager::slotGotoCollectSenWnd()
     LOGDBG("end!");
 }
 
+void viewManager::slotGotoCollectWordWnd()
+{
+    LOGDBG("start");
+    searchUI.get()->hide();
+    collectWordsUI.get()->show();
+    LOGDBG("end!");
+}
+
 void viewManager::slotSentenceWinToHomeWnd()
 {
     LOGDBG("start");
@@ -47,6 +57,14 @@ void viewManager::slotCollectSenWndToHomeWnd()
 {
     LOGDBG("start");
     collectSentencesUI.get()->hide();
+    searchUI.get()->show();
+    LOGDBG("end!");
+}
+
+void viewManager::slotCollectWordWndToHomeWnd()
+{
+    LOGDBG("start");
+    collectWordsUI.get()->hide();
     searchUI.get()->show();
     LOGDBG("end!");
 }

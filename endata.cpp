@@ -257,6 +257,46 @@ bool enData::checkElementInJson(QJsonObject &json, const string key)
     return true;
 }
 
+void enData::showTableVocabulary()
+{
+    if(db.open()) {
+        query->prepare("select * from Vocabulary");
+        if(!query->exec()) {
+            LOGDBG("query exec failed: %s", query->lastError().text().toStdString().c_str());
+        }
+        else {
+            qDebug()<<"start show table:";
+            while(query->next()) {
+                qDebug()<<query->value(0)<<" "<<query->value(1)<<endl;
+            }
+        }
+        db.close();
+    }
+    else {
+        LOGDBG("open failed: %s",db.lastError().text().toStdString().c_str());
+    }
+}
+
+void enData::showTableSentence()
+{
+    if(db.open()) {
+        query->prepare("select * from Statement");
+        if(!query->exec()) {
+            LOGDBG("query exec failed: %s", query->lastError().text().toStdString().c_str());
+        }
+        else {
+            qDebug()<<"start show table:";
+            while(query->next()) {
+                qDebug()<<query->value(0)<<" "<<query->value(1)<<endl;
+            }
+        }
+        db.close();
+    }
+    else {
+        LOGDBG("open failed: %s",db.lastError().text().toStdString().c_str());
+    }
+}
+
 void enData::wordInfShow()
 {
     char buff[1024] = {0};
@@ -317,11 +357,15 @@ void enData::addSentenceToDB(const int index)
 
 void enData::addWordToDB(QString str)
 {
+    LOGDBG("start");
     if(!str.isEmpty()){
         if(db.open()){
             query->prepare("INSERT INTO Vocabulary VALUES (:myWord, :translation);");
             query->bindValue(":myWord",str);
             query->bindValue(":translation",wordInf.cn_definition);
+            if(!query->exec()){
+                LOGDBG("query exec failed: %s", query->lastError().text().toStdString().c_str());
+            }
             db.close();
         }
         else {
@@ -331,6 +375,7 @@ void enData::addWordToDB(QString str)
     else {
         LOGDBG("the word is empty.");
     }
+    LOGDBG("end!");
 }
 
 void enData::deleteSentenceFromDB(const int index)
@@ -364,6 +409,25 @@ void enData::deleteSentenceFromDB(const QString text)
             if(!query->exec()){
                 LOGDBG("delete failed: %s",query->lastError().text().toStdString().c_str());
             }
+            db.close();
+        }
+        else {
+            LOGDBG("db open failed: %s",db.lastError().text().toStdString().c_str());
+        }
+    }
+}
+
+void enData::deleteWordFromDB(const QString text)
+{
+    QStringList strList = text.split("\n\n");
+    if(strList.length()){
+        if(db.open()){
+            query->prepare("DELETE FROM Vocabulary where myWord = :myWord ");
+            query->bindValue(":myWord", strList[0]);
+            if(!query->exec()){
+                LOGDBG("delete failed: %s",query->lastError().text().toStdString().c_str());
+            }
+            db.close();
         }
         else {
             LOGDBG("db open failed: %s",db.lastError().text().toStdString().c_str());
@@ -389,6 +453,7 @@ bool enData::checkSentenceInDB(const int index)
                 }
             }
         }
+        db.close();
     }
     else {
         LOGDBG("open failed: %s",db.lastError().text().toStdString().c_str());
@@ -404,17 +469,18 @@ bool enData::checkWordInDB(QString str)
     if(db.open()) {
         query->prepare("select count(*) from Vocabulary where myWord = :myWord");
         query->bindValue(":myWord",str);
-        LOGDBG("myWord: %s", str.toStdString().c_str());
         if(!query->exec()) {
             LOGDBG("query exec failed: %s", query->lastError().text().toStdString().c_str());
         }
         else {
             if(query->next()) {
+                LOGDBG("count is %d", query->value(0).toInt());
                 if(query->value(0).toInt() > 0){
                     ret = true;
                 }
             }
         }
+        db.close();
     }
     else {
         LOGDBG("open failed: %s",db.lastError().text().toStdString().c_str());
@@ -440,6 +506,31 @@ void enData::getCollectSentencePage(const int index)
                 v_collectSentences.push_back(sentenceUnit(sentence,translation));
             }
         }
+        db.close();
+    }
+    else {
+        LOGDBG("open failed: %s", db.lastError().text().toStdString().c_str());
+    }
+}
+
+void enData::getCollectWordPage(const int index)
+{
+    if(db.open()){
+        query->prepare("select * from Vocabulary limit :limit offset :index");
+        query->bindValue(":limit",6);
+        query->bindValue(":index",index);
+        if(!query->exec()) {
+            LOGDBG("exec failed: %s",query->lastError().text().toStdString().c_str());
+        }
+        else {
+            v_collectWords.clear();
+            while(query->next()){
+                QString word = query->value("myWord").toString();
+                QString translation = query->value("translation").toString();
+                v_collectWords.push_back(wordUnit(word,translation));
+            }
+        }
+        db.close();
     }
     else {
         LOGDBG("open failed: %s", db.lastError().text().toStdString().c_str());
@@ -463,6 +554,32 @@ int enData::getColSentencePageCount()
                 LOGDBG("no next");
             }
         }
+        db.close();
+    }
+    else {
+        LOGDBG("open failed: %s", db.lastError().text().toStdString().c_str());
+    }
+    return ret;
+}
+
+int enData::getColWordPageCount()
+{
+    int ret = 0;
+    if(db.open()){
+        query->prepare("select count(*) from Vocabulary");
+        if(!query->exec()) {
+            LOGDBG("exec failed: %s",query->lastError().text().toStdString().c_str());
+        }
+        else {
+            if(query->next()) {
+                // ceiling operaton
+                ret = (query->value(0).toInt()+COLLECT_WORD_PAGESIZE-1)
+                        / COLLECT_WORD_PAGESIZE;
+            } else{
+                LOGDBG("no next");
+            }
+        }
+        db.close();
     }
     else {
         LOGDBG("open failed: %s", db.lastError().text().toStdString().c_str());

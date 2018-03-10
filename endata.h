@@ -13,6 +13,7 @@
 #define BUFFER_LEN               1024*1024*8
 #define SENTENCE_NUM             7
 #define COLLECT_SENTENCE_PAGESIZE   6
+#define COLLECT_WORD_PAGESIZE   6
 
 #include <pthread.h>
 #include <string>
@@ -57,6 +58,19 @@ typedef struct  __sentenceUnit{
     }
 }sentenceUnit;
 
+typedef struct __wordUnit{
+    QString word;
+    QString translation;
+    __wordUnit(){
+        word = "";
+        translation = "";
+    }
+    __wordUnit(QString _word, QString _translation){
+        word = _word;
+        translation = _translation;
+    }
+}wordUnit;
+
 class enData
 {    
     static enData *instance;
@@ -76,18 +90,25 @@ public:
     void addWordToDB(QString str);
     void deleteSentenceFromDB(const int index);
     void deleteSentenceFromDB(const QString text);
+    void deleteWordFromDB(const QString text);
     bool checkSentenceInDB(const int index);
     bool checkWordInDB(QString str);
     void getCollectSentencePage(const int index);
+    void getCollectWordPage(const int index);
     int getColSentencePageCount();
+    int getColWordPageCount();
     QString simpleSentence(const QString sentence);
     int getSentenceCount() const;
     bool checkElementInJson(QJsonObject &json, const string key);
+    void showTableVocabulary();
+    void showTableSentence();
+
     static enData* getInstance();
 
     enWordInfo wordInf;
     vector<sentenceUnit> v_sentences;
     vector<sentenceUnit> v_collectSentences;
+    vector<wordUnit> v_collectWords;
 };
 
 #endif // ENDATA_H

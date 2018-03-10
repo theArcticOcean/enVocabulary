@@ -40,7 +40,8 @@ SOURCES += \
     controller.cpp \
     mysentences.cpp \
     viewmanager.cpp \
-    collectsentences.cpp
+    collectsentences.cpp \
+    collectwords.cpp
 
 HEADERS += \
         search.h \
@@ -50,12 +51,14 @@ HEADERS += \
     controller.h \
     mysentences.h \
     viewmanager.h \
-    collectsentences.h
+    collectsentences.h \
+    collectwords.h
 
 FORMS += \
         search.ui \
     mysentences.ui \
-    collectsentences.ui
+    collectsentences.ui \
+    collectwords.ui
 
 RESOURCES += \
     image.qrc

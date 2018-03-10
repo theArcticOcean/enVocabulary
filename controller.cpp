@@ -35,8 +35,12 @@ void Controller::signalAndSlotsConenct()
     LOGDBG("connected: %d for SentenceWinToHomeWnd(), UIMgr is %p", ret, UIMgr);
     ret = connect(this,SIGNAL(gotoCollectSenWnd()), UIMgr, SLOT(slotGotoCollectSenWnd()));
     LOGDBG("connected: %d for gotoCollectSenWnd(), UIMgr is %p", ret, UIMgr);
+    ret = connect(this,SIGNAL(gotoCollectWordWnd()), UIMgr, SLOT(slotGotoCollectWordWnd()));
+    LOGDBG("connected: %d for gotoCollectWordWnd(), UIMgr is %p", ret, UIMgr);
     ret = connect(this,SIGNAL(CollectSenWndToHomeWnd()), UIMgr, SLOT(slotCollectSenWndToHomeWnd()));
     LOGDBG("connected: %d for CollectSenWndToHomeWnd(), UIMgr is %p", ret, UIMgr);
+    ret = connect(this,SIGNAL(CollectWordWndToHomeWnd()), UIMgr, SLOT(slotCollectWordWndToHomeWnd()));
+    LOGDBG("connected: %d for CollectWordWndToHomeWnd(), UIMgr is %p", ret, UIMgr);
 }
 
 void Controller::sendViewMsg(viewMsgEnum msg)
@@ -50,7 +54,6 @@ void Controller::sendViewMsg(viewMsgEnum msg)
         emit closeAllUI();
         break;
     case GotoWordSentences:
-        LOGDBG("UIMgr is %p", UIMgr);
         emit gotoWordSentencesWnd();
         break;
     case SentenceWinToHome:
@@ -61,6 +64,12 @@ void Controller::sendViewMsg(viewMsgEnum msg)
         break;
     case CollectSenWndToHome:
         emit CollectSenWndToHomeWnd();
+        break;
+    case GotoCollectWord:
+        emit gotoCollectWordWnd();
+        break;
+    case CollectWordWndToHome:
+        emit CollectWordWndToHomeWnd();
         break;
     default:
         break;

@@ -30,7 +30,8 @@ void Search::mousePressEvent(QMouseEvent *event)
         http->sendEnWordSentenceRequest();
     }
     else if(rx >= 75 && rx < 150 && ry >= 50 && ry < 200){
-        qDebug()<<"单词本";
+        Controller *control = Controller::getInstance();
+        control->sendViewMsg(GotoCollectWord);
     }
     else if(rx >= 75 && rx < 150 && ry >= 200 && ry < 400){
         Controller *control = Controller::getInstance();
@@ -149,5 +150,6 @@ void Search::on_colButton_clicked()
     }
     else {
         ui->colButton->setStyleSheet("QPushButton{ border-image: url(:/image/rwhiteHeart.png); }");
+        model->deleteWordFromDB(word);
     }
 }
