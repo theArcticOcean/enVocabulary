@@ -6,6 +6,7 @@
 #include "mysentences.h"
 #include "collectsentences.h"
 #include "collectwords.h"
+#include "endata.h"
 #include <boost/smart_ptr.hpp>
 
 class viewManager : public QObject
@@ -29,6 +30,7 @@ public slots:
     void slotSentenceWinToHomeWnd();
     void slotCollectSenWndToHomeWnd();
     void slotCollectWordWndToHomeWnd();
+    void slotMoveEventHappened(srcEnum e, QPoint newPoint);
 };
 
 #endif // VIEWMANAGER_H

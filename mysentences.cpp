@@ -54,6 +54,22 @@ void mySentences::showEvent(QShowEvent *event)
     builtHButtonSigAndSLot();
 }
 
+void mySentences::mousePressEvent(QMouseEvent *event)
+{
+    if(event->button() == Qt::LeftButton){
+        lastPos = event->globalPos();
+    }
+}
+
+void mySentences::mouseMoveEvent(QMouseEvent *event)
+{
+    if( event->buttons().testFlag(Qt::LeftButton)) {
+        LOGDBG("mySentences UI moved.");
+        Controller::getInstance()->sendMoveViewSignal(MySentenceUI, this->pos() + (event->globalPos() - lastPos));
+        lastPos =  event->globalPos();
+    }
+}
+
 void mySentences::updateSentences()
 {
     LOGDBG("start");

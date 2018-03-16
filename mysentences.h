@@ -30,8 +30,12 @@ public:
     explicit mySentences(QWidget *parent = 0);
     ~mySentences();
     void builtHButtonSigAndSLot();
+
+    QPoint lastPos;
 protected:
     virtual void showEvent(QShowEvent *event);
+    virtual void mousePressEvent(QMouseEvent *event);
+    virtual void mouseMoveEvent(QMouseEvent *event);
     void updateSentences();
 private slots:
     void on_backButton_clicked();

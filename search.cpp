@@ -22,6 +22,11 @@ void Search::keyReleaseEvent(QKeyEvent *event)
 
 void Search::mousePressEvent(QMouseEvent *event)
 {
+    LOGDBG("start");
+    if(event->button() == Qt::LeftButton){
+        lastPos = event->globalPos();
+    }
+
     int rx = event->x() - ui->quickWidget->x();
     int ry = event->y() - ui->quickWidget->y();
 
@@ -36,6 +41,16 @@ void Search::mousePressEvent(QMouseEvent *event)
     else if(rx >= 75 && rx < 150 && ry >= 200 && ry < 400){
         Controller *control = Controller::getInstance();
         control->sendViewMsg(GotoCollectSen);
+    }
+    LOGDBG("end!");
+}
+
+void Search::mouseMoveEvent(QMouseEvent *event)
+{
+    if( event->buttons().testFlag(Qt::LeftButton)) {
+        LOGDBG("search UI moved.");
+        Controller::getInstance()->sendMoveViewSignal(SearchUI, this->pos() + (event->globalPos() - lastPos));
+        lastPos =  event->globalPos();
     }
 }
 

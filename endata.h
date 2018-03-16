@@ -71,6 +71,14 @@ typedef struct __wordUnit{
     }
 }wordUnit;
 
+typedef enum _srcEnum{
+    SearchUI,
+    MySentenceUI,
+    CollectWordUI,
+    CollectSentenceUI,
+    MaxSrc
+}srcEnum;
+
 class enData
 {    
     static enData *instance;

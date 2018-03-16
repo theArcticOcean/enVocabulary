@@ -68,3 +68,13 @@ void viewManager::slotCollectWordWndToHomeWnd()
     searchUI.get()->show();
     LOGDBG("end!");
 }
+
+void viewManager::slotMoveEventHappened(srcEnum e, QPoint newPoint)
+{
+    LOGDBG("start, srcEnum is %d", e);
+    searchUI.get()->move(newPoint);
+    collectSentencesUI.get()->move(newPoint);
+    collectWordsUI.get()->move(newPoint);
+    mySentencesUI.get()->move(newPoint);
+    LOGDBG("end!");
+}

@@ -4,6 +4,7 @@
 #include "viewmanager.h"
 #include <QObject>
 #include <pthread.h>
+#include "endata.h"
 
 typedef enum _viewMsgEnum{
     SearchWordEnum,
@@ -14,6 +15,7 @@ typedef enum _viewMsgEnum{
     SentenceWinToHome,
     CollectSenWndToHome,
     CollectWordWndToHome,
+    moveEventHappened,
     EnumMax
 }viewMsgEnum;
 
@@ -30,6 +32,7 @@ public:
     void attachViewManager(viewManager *UIMgr);
     void signalAndSlotsConenct();
     void sendViewMsg(viewMsgEnum msg);
+    void sendMoveViewSignal(srcEnum e, QPoint newPoint);
     static Controller* getInstance();
 
 signals:
@@ -41,6 +44,7 @@ signals:
     void SentenceWinToHomeWnd();
     void CollectSenWndToHomeWnd();
     void CollectWordWndToHomeWnd();
+    void moveEventHappenedSig(srcEnum e, QPoint newPoint);
     void updateCollectSentencePage();
 };
 

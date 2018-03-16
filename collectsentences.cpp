@@ -99,6 +99,23 @@ void collectSentences::showEvent(QShowEvent *event)
     ui->label->setText(page);
 }
 
+void collectSentences::mousePressEvent(QMouseEvent *event)
+{
+    if(event->button() == Qt::LeftButton) {
+        lastPos = event->globalPos();
+    }
+}
+
+void collectSentences::mouseMoveEvent(QMouseEvent *event)
+{
+    if(event->buttons().testFlag(Qt::LeftButton)){
+        LOGDBG("collectSentences UI moved.");
+        Controller::getInstance()->sendMoveViewSignal(CollectSentenceUI, \
+                                                      this->pos() + (event->globalPos() - lastPos));
+        lastPos = event->globalPos();
+    }
+}
+
 void collectSentences::showDeleteButton()
 {
     ui->deleteButton->show();

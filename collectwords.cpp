@@ -98,6 +98,23 @@ void collectWords::showEvent(QShowEvent *event)
     ui->label->setText(page);
 }
 
+void collectWords::mousePressEvent(QMouseEvent *event)
+{
+    if(event->button() == Qt::LeftButton){
+        lastPos = event->globalPos();
+    }
+}
+
+void collectWords::mouseMoveEvent(QMouseEvent *event)
+{
+    if(event->buttons().testFlag(Qt::LeftButton)){
+        LOGDBG("collectWords UI moved.");
+        Controller::getInstance()->sendMoveViewSignal(CollectWordUI, \
+                                                      this->pos() + (event->globalPos() - lastPos));
+        lastPos = event->globalPos();
+    }
+}
+
 void collectWords::showDeleteButton()
 {
     ui->deleteButton->show();

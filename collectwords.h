@@ -16,8 +16,12 @@ public:
     ~collectWords();
     void connectCheckBoxClickAndShowDelBtn();
     void fillWordInCheckBox(const int index, QString str);
+
+    QPoint lastPos;
 protected:
     virtual void showEvent(QShowEvent *event);
+    virtual void mousePressEvent(QMouseEvent *event);
+    virtual void mouseMoveEvent(QMouseEvent *event);
 public slots:
     void showDeleteButton();
 private slots:

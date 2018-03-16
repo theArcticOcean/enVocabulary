@@ -41,6 +41,8 @@ void Controller::signalAndSlotsConenct()
     LOGDBG("connected: %d for CollectSenWndToHomeWnd(), UIMgr is %p", ret, UIMgr);
     ret = connect(this,SIGNAL(CollectWordWndToHomeWnd()), UIMgr, SLOT(slotCollectWordWndToHomeWnd()));
     LOGDBG("connected: %d for CollectWordWndToHomeWnd(), UIMgr is %p", ret, UIMgr);
+    ret = connect(this,SIGNAL(moveEventHappenedSig(srcEnum,QPoint)), UIMgr, SLOT(slotMoveEventHappened(srcEnum,QPoint)));
+    LOGDBG("connected: %d for moveEventHappenedSig, UIMgr is %p", ret, UIMgr);
 }
 
 void Controller::sendViewMsg(viewMsgEnum msg)
@@ -75,6 +77,11 @@ void Controller::sendViewMsg(viewMsgEnum msg)
         break;
     }
     LOGDBG("end!");
+}
+
+void Controller::sendMoveViewSignal(srcEnum e, QPoint newPoint)
+{
+    emit moveEventHappenedSig(e, newPoint);
 }
 
 Controller *Controller::getInstance()
