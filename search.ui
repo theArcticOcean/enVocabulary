@@ -23,7 +23,7 @@
     <rect>
      <x>290</x>
      <y>40</y>
-     <width>221</width>
+     <width>261</width>
      <height>21</height>
     </rect>
    </property>
@@ -148,19 +148,6 @@
     <string notr="true">QTextBrowser{
 	background-color: rgb(230, 255, 230)
 }</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="colButton">
-   <property name="geometry">
-    <rect>
-     <x>520</x>
-     <y>40</y>
-     <width>21</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>col</string>
    </property>
   </widget>
  </widget>

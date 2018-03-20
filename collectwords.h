@@ -14,25 +14,23 @@ class collectWords : public QWidget
 public:
     explicit collectWords(QWidget *parent = 0);
     ~collectWords();
-    void connectCheckBoxClickAndShowDelBtn();
-    void fillWordInCheckBox(const int index, QString str);
+    void fillWordInLabels(const int index, QString str);
 
     QPoint lastPos;
 protected:
     virtual void showEvent(QShowEvent *event);
     virtual void mousePressEvent(QMouseEvent *event);
     virtual void mouseMoveEvent(QMouseEvent *event);
-public slots:
-    void showDeleteButton();
 private slots:
-    void on_deleteButton_clicked();
-
     void on_backButton_clicked();
+
+    void on_nextButton_clicked();
+
+    void on_previousButton_clicked();
 
 private:
     Ui::collectWords *ui;
     int pageIndex;
-    int pageCount;
 };
 
 #endif // COLLECTWORDS_H

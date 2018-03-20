@@ -12,10 +12,14 @@ collectWords::collectWords(QWidget *parent) :
     ui->backButton->setStyleSheet("QPushButton{ border-image: url(:image/goBack.png); } ");
     ui->previousButton->setStyleSheet("QPushButton{ border-image: url(:image/left.png); }");
     ui->nextButton->setStyleSheet("QPushButton{ border-image: url(:image/right.png); }");
-    pageIndex = 0;
-    pageCount = 0;
+    pageIndex = 1;
 
-    connectCheckBoxClickAndShowDelBtn();
+    ui->label1->setWordWrap(true);
+    ui->label2->setWordWrap(true);
+    ui->label3->setWordWrap(true);
+    ui->label4->setWordWrap(true);
+    ui->label5->setWordWrap(true);
+    ui->label6->setWordWrap(true);
 }
 
 collectWords::~collectWords()
@@ -23,42 +27,32 @@ collectWords::~collectWords()
     delete ui;
 }
 
-void collectWords::connectCheckBoxClickAndShowDelBtn()
-{
-    connect(ui->checkBox,SIGNAL(clicked(bool)),this,SLOT(showDeleteButton()));
-    connect(ui->checkBox_2,SIGNAL(clicked(bool)),this,SLOT(showDeleteButton()));
-    connect(ui->checkBox_3,SIGNAL(clicked(bool)),this,SLOT(showDeleteButton()));
-    connect(ui->checkBox_4,SIGNAL(clicked(bool)),this,SLOT(showDeleteButton()));
-    connect(ui->checkBox_5,SIGNAL(clicked(bool)),this,SLOT(showDeleteButton()));
-    connect(ui->checkBox_6,SIGNAL(clicked(bool)),this,SLOT(showDeleteButton()));
-}
-
-void collectWords::fillWordInCheckBox(const int index, QString str)
+void collectWords::fillWordInLabels(const int index, QString str)
 {
     switch(index){
     case 0:
-        ui->checkBox->setText(str);
-        ui->checkBox->show();
+        ui->label1->setText(str);
+        ui->label1->show();
         break;
     case 1:
-        ui->checkBox_2->setText(str);
-        ui->checkBox_2->show();
+        ui->label2->setText(str);
+        ui->label2->show();
         break;
     case 2:
-        ui->checkBox_3->setText(str);
-        ui->checkBox_3->show();
+        ui->label3->setText(str);
+        ui->label3->show();
         break;
     case 3:
-        ui->checkBox_4->setText(str);
-        ui->checkBox_4->show();
+        ui->label4->setText(str);
+        ui->label4->show();
         break;
     case 4:
-        ui->checkBox_5->setText(str);
-        ui->checkBox_5->show();
+        ui->label5->setText(str);
+        ui->label5->show();
         break;
     case 5:
-        ui->checkBox_6->setText(str);
-        ui->checkBox_6->show();
+        ui->label6->setText(str);
+        ui->label6->show();
         break;
     defalut:
         break;
@@ -67,32 +61,30 @@ void collectWords::fillWordInCheckBox(const int index, QString str)
 
 void collectWords::showEvent(QShowEvent *event)
 {
-    ui->checkBox->hide();
-    ui->checkBox_2->hide();
-    ui->checkBox_3->hide();
-    ui->checkBox_4->hide();
-    ui->checkBox_5->hide();
-    ui->checkBox_6->hide();
-    ui->deleteButton->hide();
-    ui->checkBox->setChecked(false);
-    ui->checkBox_2->setChecked(false);
-    ui->checkBox_3->setChecked(false);
-    ui->checkBox_4->setChecked(false);
-    ui->checkBox_5->setChecked(false);
-    ui->checkBox_6->setChecked(false);
-    ui->checkBox_7->setChecked(false);
+    ui->label1->hide();
+    ui->label2->hide();
+    ui->label3->hide();
+    ui->label4->hide();
+    ui->label5->hide();
+    ui->label6->hide();
 
     enData *model = enData::getInstance();
-    model->getCollectWordPage(0);
+    model->getCollectWordPage(pageIndex-1);
     int size = model->v_collectWords.size();
-    int i;
+    int i,j;
     for(i=0; i<size; i++){
         wordUnit tmp = model->v_collectWords[i];
-        QString str = tmp.word+"\n\n"+tmp.translation;
-        fillWordInCheckBox(i,str);
+        QString str = tmp.word+"\n\n";
+        QStringList sList = tmp.translation.split("\n");
+        str = str+sList[0];
+        for(j=1;j<sList.size();j++){
+            str = str+"  |  "+sList[j];
+        }
+        fillWordInLabels(i,str);
     }
 
-    QString page = "1 (";
+    QString page = QString::number(pageIndex);
+    page = page+" (";
     page = page+QString::number(model->getColWordPageCount());
     page = page+")";
     ui->label->setText(page);
@@ -115,57 +107,28 @@ void collectWords::mouseMoveEvent(QMouseEvent *event)
     }
 }
 
-void collectWords::showDeleteButton()
-{
-    ui->deleteButton->show();
-}
-
-void collectWords::on_deleteButton_clicked()
-{
-    LOGDBG("start");
-    QString text;
-    enData *model = enData::getInstance();
-    if(ui->checkBox->isChecked()){
-        text = ui->checkBox->text();
-        model->deleteWordFromDB(text);
-        ui->checkBox->setText("");
-        ui->checkBox->hide();
-    }
-    if(ui->checkBox_2->isChecked()){
-        text = ui->checkBox_2->text();
-        model->deleteWordFromDB(text);
-        ui->checkBox_2->setText("");
-        ui->checkBox_2->hide();
-    }
-    if(ui->checkBox_3->isChecked()){
-        text = ui->checkBox_3->text();
-        model->deleteWordFromDB(text);
-        ui->checkBox_3->setText("");
-        ui->checkBox_3->hide();
-    }
-    if(ui->checkBox_4->isChecked()){
-        text = ui->checkBox_4->text();
-        model->deleteWordFromDB(text);
-        ui->checkBox_4->setText("");
-        ui->checkBox_4->hide();
-    }
-    if(ui->checkBox_5->isChecked()){
-        text = ui->checkBox_5->text();
-        model->deleteWordFromDB(text);
-        ui->checkBox_5->setText("");
-        ui->checkBox_5->hide();
-    }
-    if(ui->checkBox_6->isChecked()){
-        text = ui->checkBox_6->text();
-        model->deleteWordFromDB(text);
-        ui->checkBox_6->setText("");
-        ui->checkBox_6->hide();
-    }
-    LOGDBG("end!");
-}
-
 void collectWords::on_backButton_clicked()
 {
     Controller *control = Controller::getInstance();
     control->sendViewMsg(CollectWordWndToHome);
+}
+
+void collectWords::on_nextButton_clicked()
+{
+    pageIndex++;
+    if(pageIndex > enData::getInstance()->getColWordPageCount()){
+        pageIndex --;
+        return;
+    }
+    showEvent(NULL);
+}
+
+void collectWords::on_previousButton_clicked()
+{
+    pageIndex--;
+    if(pageIndex < 1){
+        pageIndex++;
+        return;
+    }
+    showEvent(NULL);
 }

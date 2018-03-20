@@ -10,5 +10,7 @@ void LOGBASE(const char *file, const int line, const char *funcName, const char 
     va_start(vap, fmt);  //variable arguments list vap init
     vsnprintf(buffer+n, BUFFSIZE-n, fmt, vap); // add list vap to buff
     va_end(vap);
+#ifdef DEBUG
     qDebug()<<buffer;
+#endif
 }

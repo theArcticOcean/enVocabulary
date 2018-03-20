@@ -27,44 +27,44 @@ enData::enData()
     QString fileName = QCoreApplication::applicationDirPath()+"/.enVocabDataBase";
     db.setDatabaseName(fileName);
     query = new QSqlQuery(db);
-    if(-1 == access(fileName.toStdString().c_str(), F_OK)){      //the file doesn't exsit.
-        if(db.open()){
-            query->prepare("create table Statement (sentences text primary key, translation text)");
-            if(!query->exec()) {
-                LOGDBG("create: %s", query->lastError().text().toStdString().c_str());
-            }
-            else {
-                LOGDBG("create table ok!");
-            }
-            db.close();
+    if(db.open()){
+        query->prepare("CREATE TABLE IF NOT EXISTS Statement (sentences text PRIMARY KEY, translation text)");
+        if(!query->exec()) {
+            LOGDBG("create: %s", query->lastError().text().toStdString().c_str());
         }
         else {
-            LOGDBG("create table failed: %s\n"
-                   "path is %s",
-                   db.lastError().text().toStdString().c_str(),
-                   db.databaseName().toStdString().c_str());
+            LOGDBG("create table ok!");
         }
-
-        if(db.open()){
-            query->prepare("create table Vocabulary (myWord text primary key, translation text)");
-            if(!query->exec()) {
-                LOGDBG("create: %s", query->lastError().text().toStdString().c_str());
-            }
-            else {
-                LOGDBG("create table ok!");
-            }
-            db.close();
-        }
-        else {
-            LOGDBG("create table failed: %s\n"
-                   "path is %s",
-                   db.lastError().text().toStdString().c_str(),
-                   db.databaseName().toStdString().c_str());
-        }
+        db.close();
     }
     else {
-        LOGDBG("%s had exsit",fileName.toStdString().c_str());
+        LOGDBG("create table failed: %s\n"
+               "path is %s",
+               db.lastError().text().toStdString().c_str(),
+               db.databaseName().toStdString().c_str());
     }
+
+    if(db.open()){
+        query->prepare("CREATE TABLE IF NOT EXISTS Vocabulary (myWord text, translation text, secs INTEGER, PRIMARY KEY(myWord, secs))");
+        if(!query->exec()) {
+            LOGDBG("create: %s", query->lastError().text().toStdString().c_str());
+        }
+        else {
+            LOGDBG("create table ok!");
+        }
+        db.close();
+    }
+    else {
+        LOGDBG("create table failed: %s\n"
+               "path is %s",
+               db.lastError().text().toStdString().c_str(),
+               db.databaseName().toStdString().c_str());
+    }
+
+#ifdef DEBUG
+        showTableSentence();
+        showTableVocabulary();
+#endif
 
     pthread_mutex_init(&instanceMutex, NULL);
     v_sentences.clear();
@@ -360,9 +360,47 @@ void enData::addWordToDB(QString str)
     LOGDBG("start");
     if(!str.isEmpty()){
         if(db.open()){
-            query->prepare("INSERT INTO Vocabulary VALUES (:myWord, :translation);");
+            // make sure the count of words is less than limit.
+            query->prepare("SELECT count(*) from Vocabulary");
+            if(!query->exec()){
+                LOGDBG("query exec failed: %s", query->lastError().text().toStdString().c_str());
+            }
+            if(query->next()){
+                int count = query->value(0).toInt();
+                LOGDBG("the count of record is %d",count);
+                if(count >= MAX_WORD_NUMBER) {
+                    int more = count - MAX_WORD_NUMBER+1;
+                    query->prepare("DELETE FROM Vocabulary ORDER BY secs ASC LIMIT 1");
+                    query->bindValue(":limitNumber", more);
+                    if(!query->exec()){
+                        LOGDBG("query exec failed: %s\nfor: `%s`", query->lastError().text().toStdString().c_str(),
+                               query->lastQuery().toStdString().c_str());
+                    }
+                }
+            }
+
+            // avoid inserting same word into database.
+            query->prepare("SELECT COUNT(*) from Vocabulary where myWord = :myWord");
+            query->bindValue(":myWord",str);
+            if(!query->exec()){
+                LOGDBG("query exec failed: %s", query->lastError().text().toStdString().c_str());
+            }
+            else{
+                if(query->next()){
+                    int tmp = query->value(0).toInt();
+                    LOGDBG("has %d word %s", tmp, str.toStdString().c_str());
+                    if(tmp > 0) {
+                        db.close();
+                        return;
+                    }
+                }
+            }
+            // insert word into database.
+            query->prepare("INSERT INTO Vocabulary VALUES (:myWord, :translation, :secs);");
             query->bindValue(":myWord",str);
             query->bindValue(":translation",wordInf.cn_definition);
+            unsigned int secs = time(NULL);
+            query->bindValue(":secs",QString::number(secs));
             if(!query->exec()){
                 LOGDBG("query exec failed: %s", query->lastError().text().toStdString().c_str());
             }
@@ -517,8 +555,8 @@ void enData::getCollectWordPage(const int index)
 {
     if(db.open()){
         query->prepare("select * from Vocabulary limit :limit offset :index");
-        query->bindValue(":limit",6);
-        query->bindValue(":index",index);
+        query->bindValue(":limit",COLLECT_WORD_PAGESIZE);
+        query->bindValue(":index",index*COLLECT_WORD_PAGESIZE);
         if(!query->exec()) {
             LOGDBG("exec failed: %s",query->lastError().text().toStdString().c_str());
         }

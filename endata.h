@@ -8,12 +8,21 @@
 #define TOKEN_STR               "access_token=NC5Bk1jVBoALcVcDuh05hkBVgi0wG5"
 #define SENTENCE_TABLE          "Statement"
 
-#define MAX_PICS_NUMBER          200
-#define NUM_ERROR                1e-6
-#define BUFFER_LEN               1024*1024*8
-#define SENTENCE_NUM             7
+#define MAX_PICS_NUMBER             200
+#define MAX_WORD_NUMBER             20
+#define NUM_ERROR                   1e-6
+#define BUFFER_LEN                  1024*1024*8
+#define SENTENCE_NUM                7
 #define COLLECT_SENTENCE_PAGESIZE   6
-#define COLLECT_WORD_PAGESIZE   6
+#define COLLECT_WORD_PAGESIZE       6
+
+/*
+CREATE TABLE IF NOT EXISTS Statement
+(sentences text PRIMARY KEY, translation text)
+
+CREATE TABLE IF NOT EXISTS Vocabulary
+(myWord text, translation text, secs INTEGER, PRIMARY KEY(myWord, secs))
+*/
 
 #include <pthread.h>
 #include <string>
@@ -116,7 +125,7 @@ public:
     enWordInfo wordInf;
     vector<sentenceUnit> v_sentences;
     vector<sentenceUnit> v_collectSentences;
-    vector<wordUnit> v_collectWords;
+    vector<wordUnit> v_collectWords;  // to do: change to map
 };
 
 #endif // ENDATA_H

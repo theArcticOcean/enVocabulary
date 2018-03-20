@@ -66,7 +66,10 @@
 background-color: rgb(230, 255, 230)
 }
 QCheckBox:hover{
-background-color: rgb(220, 255, 222)
+background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+stop: 0 #FAFBFE, stop: 1 #DCDEF1);/*这是一个渐变颜色*/
+color: rgb(138,43,226);
+/*background-color: rgb(220, 255, 222) */
 }
 QCheckBox:checked {
 border: none;
@@ -186,7 +189,7 @@ color: rgb(138,43,226);
     <rect>
      <x>200</x>
      <y>520</y>
-     <width>201</width>
+     <width>230</width>
      <height>32</height>
     </rect>
    </property>
