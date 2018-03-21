@@ -1077,6 +1077,8 @@ moc_search.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWi
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
 		search.h \
@@ -1788,11 +1790,12 @@ moc_controller.cpp: viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
 		mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
@@ -2177,11 +2180,12 @@ moc_viewmanager.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/Q
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
 		mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
@@ -2596,11 +2600,12 @@ main.o: main.cpp viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
 		mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
@@ -2967,6 +2972,8 @@ search.o: search.cpp search.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
 		log.h \
@@ -2979,7 +2986,6 @@ search.o: search.cpp search.h \
 		viewmanager.h \
 		mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
@@ -3711,11 +3717,12 @@ endata.o: endata.cpp endata.h \
 		/usr/local/include/boost/type_traits/is_destructible.hpp \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
 		mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
@@ -4085,11 +4092,12 @@ controller.o: controller.cpp controller.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
 		mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
@@ -4474,6 +4482,7 @@ mysentences.o: mysentences.cpp mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
 		collectsentences.h \
 		collectwords.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QRegularExpression \
@@ -4834,11 +4843,12 @@ viewmanager.o: viewmanager.cpp viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
 		mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
@@ -5209,11 +5219,12 @@ collectsentences.o: collectsentences.cpp collectsentences.h \
 		/usr/local/include/boost/type_traits/is_destructible.hpp \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
 		mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
@@ -5586,11 +5597,12 @@ collectwords.o: collectwords.cpp collectwords.h \
 		/usr/local/include/boost/type_traits/is_destructible.hpp \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
 		mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \

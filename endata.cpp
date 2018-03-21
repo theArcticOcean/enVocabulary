@@ -11,6 +11,9 @@
 #include "endata.h"
 #include <QCoreApplication>
 #include <QApplication>
+#include <sstream>
+#include <fstream>
+#include <algorithm>
 
 #ifdef Q_OS_WIN32
 #include <io.h>
@@ -44,6 +47,7 @@ enData::enData()
                db.databaseName().toStdString().c_str());
     }
 
+    /*
     if(db.open()){
         query->prepare("CREATE TABLE IF NOT EXISTS Vocabulary (myWord text, translation text, secs INTEGER, PRIMARY KEY(myWord, secs))");
         if(!query->exec()) {
@@ -60,11 +64,7 @@ enData::enData()
                db.lastError().text().toStdString().c_str(),
                db.databaseName().toStdString().c_str());
     }
-
-#ifdef DEBUG
-        showTableSentence();
-        showTableVocabulary();
-#endif
+    */
 
     pthread_mutex_init(&instanceMutex, NULL);
     v_sentences.clear();
@@ -78,6 +78,7 @@ enData::enData()
 #endif
         }
     }
+/*
     if(0 != access(DOWNFILES_PICS_PATH, F_OK)){
 #ifdef Q_OS_WIN32
         if(0 != mkdir(DOWNFILES_PICS_PATH)){
@@ -87,8 +88,28 @@ enData::enData()
 #endif
         }
     }
-    picsCheck();
+*/
+
+    if(0 != access(DOWNFILES_WORDS_PATH, F_OK)){
+#ifdef Q_OS_WIN32
+        if(0 != mkdir(DOWNFILES_WORDS_PATH)){
+#else
+        if(0 != mkdir(DOWNFILES_WORDS_PATH, 0777)){
+            LOGDBG("mkdir failed: %s", strerror(errno));
+#endif
+        }
+    }
+
+    //picsCheck();
+    getCollectWordFromDisc();
     wordInf.init();
+    memset(number,0,sizeof(number));
+    num_size = 0;
+
+#ifdef DEBUG
+    showTableSentence();
+    showTableVocabulary();
+#endif
 }
 
 enData::~enData()
@@ -105,7 +126,9 @@ enData::~enData()
 
 /*
 * @brief    it works at program start, check the number of pictures, make sure it is less than
-*           equal to MAX_PICS_NUMBER
+*           equal to MAX_PICS_NUMBER.
+*           But I need not pictures in my software in the end for production, so the function is
+*           not necessary.
 * @author   weiyang
 * @date     2017.12.31
 */
@@ -150,6 +173,17 @@ enData *enData::getInstance()
         pthread_mutex_unlock(&instanceMutex);
     }
     return instance;
+}
+
+bool enData::strIsNum(string str)
+{
+    double de;
+    char ch;
+    stringstream in(str);
+    if(!(in>>de) || in>>ch){
+        return false;
+    }
+    return true;
 }
 
 void enData::jsonParseForWord(const QJsonObject cjson)
@@ -256,38 +290,45 @@ bool enData::checkElementInJson(QJsonObject &json, const string key)
     }
     return true;
 }
-
+/*
+* @brief    this function is used to show table Vocabulary's content
+* @author   weiyang
+* @date     2018.03.21
+*/
 void enData::showTableVocabulary()
 {
-    if(db.open()) {
-        query->prepare("select * from Vocabulary");
-        if(!query->exec()) {
-            LOGDBG("query exec failed: %s", query->lastError().text().toStdString().c_str());
-        }
-        else {
-            qDebug()<<"start show table:";
-            while(query->next()) {
-                qDebug()<<query->value(0)<<" "<<query->value(1)<<endl;
-            }
-        }
-        db.close();
+    LOGDBG("start show collect words:");  // to do: why we get wrong xunhuan.
+    DIR *dir = opendir(DOWNFILES_WORDS_PATH);
+    if(NULL == dir){
+        LOGDBG("opendir failed: %s", strerror(errno));
+        return ;
     }
-    else {
-        LOGDBG("open failed: %s",db.lastError().text().toStdString().c_str());
+
+    struct dirent *entry = readdir(dir);
+    while(NULL != entry){
+        if(entry->d_name[0] == '.'){
+            entry = readdir(dir);
+            continue;
+        }
+        ifstream in(entry->d_name);
+        wordUnit myWord;
+        in>>myWord;
+        cout<<myWord<<endl;
+        entry = readdir(dir);
     }
 }
 
 void enData::showTableSentence()
 {
+    LOGDBG("start show table sentence:");
     if(db.open()) {
         query->prepare("select * from Statement");
         if(!query->exec()) {
             LOGDBG("query exec failed: %s", query->lastError().text().toStdString().c_str());
         }
         else {
-            qDebug()<<"start show table:";
             while(query->next()) {
-                qDebug()<<query->value(0)<<" "<<query->value(1)<<endl;
+                qDebug()<<query->value(0)<<" "<<query->value(1);
             }
         }
         db.close();
@@ -355,64 +396,46 @@ void enData::addSentenceToDB(const int index)
     }
 }
 
-void enData::addWordToDB(QString str)
+bool enData::addWordToDB(QString str)
 {
     LOGDBG("start");
-    if(!str.isEmpty()){
-        if(db.open()){
-            // make sure the count of words is less than limit.
-            query->prepare("SELECT count(*) from Vocabulary");
-            if(!query->exec()){
-                LOGDBG("query exec failed: %s", query->lastError().text().toStdString().c_str());
-            }
-            if(query->next()){
-                int count = query->value(0).toInt();
-                LOGDBG("the count of record is %d",count);
-                if(count >= MAX_WORD_NUMBER) {
-                    int more = count - MAX_WORD_NUMBER+1;
-                    query->prepare("DELETE FROM Vocabulary ORDER BY secs ASC LIMIT 1");
-                    query->bindValue(":limitNumber", more);
-                    if(!query->exec()){
-                        LOGDBG("query exec failed: %s\nfor: `%s`", query->lastError().text().toStdString().c_str(),
-                               query->lastQuery().toStdString().c_str());
-                    }
-                }
-            }
+    wordUnit newWord(str.toStdString(), wordInf.cn_definition.toStdString());
+    if(newWord.translation.length() <= 0){
+        LOGDBG("word's translation is empty, so request again");
+        return false;
+    }
 
-            // avoid inserting same word into database.
-            query->prepare("SELECT COUNT(*) from Vocabulary where myWord = :myWord");
-            query->bindValue(":myWord",str);
-            if(!query->exec()){
-                LOGDBG("query exec failed: %s", query->lastError().text().toStdString().c_str());
-            }
-            else{
-                if(query->next()){
-                    int tmp = query->value(0).toInt();
-                    LOGDBG("has %d word %s", tmp, str.toStdString().c_str());
-                    if(tmp > 0) {
-                        db.close();
-                        return;
-                    }
+    // avoid inserting same word into database.
+    if(checkWordInDB(str.toStdString())){
+        map<ulong, wordUnit>::iterator it;
+        for(it = m_collectWords.begin(); it != m_collectWords.end(); it++){
+            if(newWord == it->second){
+                m_collectWords.erase(it);
+                uintegerToStr(it->first);
+                if(0 != unlink(number)){
+                    LOGDBG("unlink failed: %s for %s",strerror(errno),number);
+                    return false;
                 }
+                break;
             }
-            // insert word into database.
-            query->prepare("INSERT INTO Vocabulary VALUES (:myWord, :translation, :secs);");
-            query->bindValue(":myWord",str);
-            query->bindValue(":translation",wordInf.cn_definition);
-            unsigned int secs = time(NULL);
-            query->bindValue(":secs",QString::number(secs));
-            if(!query->exec()){
-                LOGDBG("query exec failed: %s", query->lastError().text().toStdString().c_str());
-            }
-            db.close();
-        }
-        else {
-            LOGDBG("open failed: %s",db.lastError().text().toStdString().c_str());
         }
     }
-    else {
-        LOGDBG("the word is empty.");
+
+    // insert word into database.
+    unsigned long secs = time(NULL);
+    m_collectWords[secs] = newWord;
+    QString path = DOWNFILES_WORDS_PATH;
+    path = path+"/";
+    path = path + QString::number(secs);
+    ofstream out(path.toStdString());
+    out<<newWord;
+    out.close();
+
+    // limit count in disc.
+    if(!wordStoreLimit()){
+        return false;
     }
+    return true;
     LOGDBG("end!");
 }
 
@@ -455,24 +478,6 @@ void enData::deleteSentenceFromDB(const QString text)
     }
 }
 
-void enData::deleteWordFromDB(const QString text)
-{
-    QStringList strList = text.split("\n\n");
-    if(strList.length()){
-        if(db.open()){
-            query->prepare("DELETE FROM Vocabulary where myWord = :myWord ");
-            query->bindValue(":myWord", strList[0]);
-            if(!query->exec()){
-                LOGDBG("delete failed: %s",query->lastError().text().toStdString().c_str());
-            }
-            db.close();
-        }
-        else {
-            LOGDBG("db open failed: %s",db.lastError().text().toStdString().c_str());
-        }
-    }
-}
-
 bool enData::checkSentenceInDB(const int index)
 {
     LOGDBG("start");
@@ -500,28 +505,16 @@ bool enData::checkSentenceInDB(const int index)
     return ret;
 }
 
-bool enData::checkWordInDB(QString str)
+bool enData::checkWordInDB(string str)
 {
     LOGDBG("start");
     bool ret = false;
-    if(db.open()) {
-        query->prepare("select count(*) from Vocabulary where myWord = :myWord");
-        query->bindValue(":myWord",str);
-        if(!query->exec()) {
-            LOGDBG("query exec failed: %s", query->lastError().text().toStdString().c_str());
+    wordUnit tmp(str, wordInf.cn_definition.toStdString());
+    for(auto it: m_collectWords){
+        if(tmp == it.second){
+            ret = true;
+            break;
         }
-        else {
-            if(query->next()) {
-                LOGDBG("count is %d", query->value(0).toInt());
-                if(query->value(0).toInt() > 0){
-                    ret = true;
-                }
-            }
-        }
-        db.close();
-    }
-    else {
-        LOGDBG("open failed: %s",db.lastError().text().toStdString().c_str());
     }
     LOGDBG("end, and ret is %d", ret);
     return ret;
@@ -529,50 +522,97 @@ bool enData::checkWordInDB(QString str)
 
 void enData::getCollectSentencePage(const int index)
 {
+    LOGDBG("start!");
     if(db.open()){
-        query->prepare("select * from Statement limit :limit offset :index");
-        query->bindValue(":limit",6);
-        query->bindValue(":index",index);
+        query->prepare("select * from Statement limit :limit offset :offset");
+        query->bindValue(":limit", COLLECT_SENTENCE_PAGESIZE);
+        query->bindValue(":offset",(index-1)*COLLECT_SENTENCE_PAGESIZE);
         if(!query->exec()) {
-            LOGDBG("exec failed: %s",query->lastError().text().toStdString().c_str());
+            LOGDBG("query exec failed: %s", query->lastError().text().toStdString().c_str());
         }
         else {
-            v_collectSentences.clear();
-            while(query->next()){
-                QString sentence = query->value("sentences").toString();
-                QString translation = query->value("translation").toString();
-                v_collectSentences.push_back(sentenceUnit(sentence,translation));
+            while(query->next()) {
+                sentenceUnit tmp;
+                tmp.sentence = query->value("sentences").toString();
+                tmp.translation = query->value("translation").toString();
+                v_collectSentences.push_back(tmp);
             }
         }
         db.close();
     }
     else {
-        LOGDBG("open failed: %s", db.lastError().text().toStdString().c_str());
+        LOGDBG("open failed: %s",db.lastError().text().toStdString().c_str());
     }
+    LOGDBG("end!");
 }
 
-void enData::getCollectWordPage(const int index)
+wordUnit enData::readWordFile(const char *path)
 {
-    if(db.open()){
-        query->prepare("select * from Vocabulary limit :limit offset :index");
-        query->bindValue(":limit",COLLECT_WORD_PAGESIZE);
-        query->bindValue(":index",index*COLLECT_WORD_PAGESIZE);
-        if(!query->exec()) {
-            LOGDBG("exec failed: %s",query->lastError().text().toStdString().c_str());
+    if(NULL == path){
+        LOGDBG("path is NULL");
+        return wordUnit();
+    }
+    ifstream in(path);
+    wordUnit myWord;
+    in>>myWord.word;
+    in>>myWord.translation;
+    while(!in.eof()){
+        string str;
+        in>>str;
+        myWord.translation += " ";
+        myWord.translation += str;
+    }
+    return myWord;
+}
+/*
+* @brief    make sure the count of words is less than limit.
+* @author   weiyang
+* @date     2018.03.21
+*/
+bool enData::wordStoreLimit()
+{
+    while(m_collectWords.size() > MAX_WORD_NUMBER){
+        map<ulong, wordUnit>::iterator it;
+        it = m_collectWords.begin();
+        uintegerToStr(it->first);
+        if(0 != unlink(number)){
+            LOGDBG("unlink failed: %s for %s",strerror(errno),number);
+            return false;
+        }
+        m_collectWords.erase(it);
+    }
+    return true;
+}
+
+void enData::getCollectWordFromDisc()
+{
+    DIR *dir = opendir(DOWNFILES_WORDS_PATH);
+    if(NULL == dir){
+        LOGDBG("opendir failed: %s", strerror(errno));
+        return ;
+    }
+
+    struct dirent *entry;
+    entry = readdir(dir);
+    m_collectWords.clear();
+
+    while(NULL != entry){
+        if(entry->d_name[0] == '.'){
+            entry = readdir(dir);
+            continue;
+        }
+        // it's decimal number which has 10 digits
+        if(strlen(entry->d_name) <= 9 || !strIsNum(entry->d_name)){
+            unlink(entry->d_name);   //delete incomplete files.
         }
         else {
-            v_collectWords.clear();
-            while(query->next()){
-                QString word = query->value("myWord").toString();
-                QString translation = query->value("translation").toString();
-                v_collectWords.push_back(wordUnit(word,translation));
-            }
+            wordUnit tmp;
+            tmp = readWordFile(entry->d_name);
+            m_collectWords[stoul(entry->d_name)] = tmp;
         }
-        db.close();
+        entry = readdir(dir);
     }
-    else {
-        LOGDBG("open failed: %s", db.lastError().text().toStdString().c_str());
-    }
+    wordStoreLimit();
 }
 
 int enData::getColSentencePageCount()
@@ -603,25 +643,8 @@ int enData::getColSentencePageCount()
 int enData::getColWordPageCount()
 {
     int ret = 0;
-    if(db.open()){
-        query->prepare("select count(*) from Vocabulary");
-        if(!query->exec()) {
-            LOGDBG("exec failed: %s",query->lastError().text().toStdString().c_str());
-        }
-        else {
-            if(query->next()) {
-                // ceiling operaton
-                ret = (query->value(0).toInt()+COLLECT_WORD_PAGESIZE-1)
-                        / COLLECT_WORD_PAGESIZE;
-            } else{
-                LOGDBG("no next");
-            }
-        }
-        db.close();
-    }
-    else {
-        LOGDBG("open failed: %s", db.lastError().text().toStdString().c_str());
-    }
+    ret = (m_collectWords.size()+COLLECT_WORD_PAGESIZE-1)
+            / COLLECT_WORD_PAGESIZE;
     return ret;
 }
 
@@ -638,4 +661,24 @@ QString enData::simpleSentence(const QString sentence)
 int enData::getSentenceCount() const
 {
     return v_sentences.size();
+}
+
+/*
+* @brief    the function is used to convert unsigned integer to string.
+* @author   weiyang
+* @date     2018.03.21
+*/
+template<typename T>
+void enData::uintegerToStr(T value)
+{
+    memset(number,0,sizeof(number));
+    num_size = 0;
+    while(value){
+        short b = value%10;
+        value = value/10;
+        number[num_size++] = b+'0';
+    }
+    for(int i=0; i<num_size/2; i++){
+        std::swap(number[i], number[num_size-1-i]);
+    }
 }

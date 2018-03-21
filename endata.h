@@ -5,6 +5,7 @@
 #define SENTENCE_SEARCH_ENTRY   "https://api.shanbay.com/bdc/example/"
 #define DOWNFILES_PATH          "./Down"
 #define DOWNFILES_PICS_PATH     "./Down/Pics"
+#define DOWNFILES_WORDS_PATH    "./Down/Words"
 #define TOKEN_STR               "access_token=NC5Bk1jVBoALcVcDuh05hkBVgi0wG5"
 #define SENTENCE_TABLE          "Statement"
 
@@ -31,7 +32,10 @@ CREATE TABLE IF NOT EXISTS Vocabulary
 #include <QtSql/QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
-
+#include <map>
+#include <fstream>
+#include <iostream>
+#include <unistd.h>
 using namespace std;
 
 typedef struct _enWordInfo{
@@ -68,15 +72,47 @@ typedef struct  __sentenceUnit{
 }sentenceUnit;
 
 typedef struct __wordUnit{
-    QString word;
-    QString translation;
+    string word;
+    string translation;
     __wordUnit(){
         word = "";
         translation = "";
     }
-    __wordUnit(QString _word, QString _translation){
+    __wordUnit(string _word, string _translation){
         word = _word;
         translation = _translation;
+    }
+    int size(){
+        return word.length()+translation.length();
+    }
+    bool operator ==(const __wordUnit another){
+        return word == another.word && translation == another.translation ;
+    }
+    friend ifstream& operator >>(ifstream &in,__wordUnit &myWord){
+        in>>myWord.word;
+        string str;
+        in>>myWord.translation;
+        while(!in.eof()){
+            in>>str;
+            myWord.translation += " ";
+            myWord.translation += str;
+        }
+        return in;
+    }
+    __wordUnit& operator =(const __wordUnit &myWord){
+        word = myWord.word;
+        translation = myWord.translation;
+        return *this;
+    }
+    friend ofstream& operator <<(ofstream &out,__wordUnit &myWord){
+        out<<myWord.word<<"\n";
+        out<<myWord.translation;
+        return out;
+    }
+    friend ostream& operator <<(ostream &out, __wordUnit &myWord){
+        out<<myWord.word<<"\n";
+        out<<myWord.translation;
+        return out;
     }
 }wordUnit;
 
@@ -94,6 +130,8 @@ class enData
     static pthread_mutex_t instanceMutex;
     QSqlDatabase db;
     QSqlQuery *query;
+    char number[25];
+    int num_size;
 
 public:
     enData();
@@ -104,14 +142,15 @@ public:
     void wordInfShow();
     void sentencesShow();
     void addSentenceToDB(const int index);
-    void addWordToDB(QString str);
+    bool addWordToDB(QString str);
     void deleteSentenceFromDB(const int index);
     void deleteSentenceFromDB(const QString text);
-    void deleteWordFromDB(const QString text);
     bool checkSentenceInDB(const int index);
-    bool checkWordInDB(QString str);
+    bool checkWordInDB(string str);
     void getCollectSentencePage(const int index);
-    void getCollectWordPage(const int index);
+    wordUnit readWordFile(const char *path);
+    bool wordStoreLimit();
+    void getCollectWordFromDisc();
     int getColSentencePageCount();
     int getColWordPageCount();
     QString simpleSentence(const QString sentence);
@@ -121,11 +160,15 @@ public:
     void showTableSentence();
 
     static enData* getInstance();
+    static bool strIsNum(string str);
+
+    template <typename T>
+    void uintegerToStr(T value);
 
     enWordInfo wordInf;
     vector<sentenceUnit> v_sentences;
     vector<sentenceUnit> v_collectSentences;
-    vector<wordUnit> v_collectWords;  // to do: change to map
+    map<ulong, wordUnit> m_collectWords;
 };
 
 #endif // ENDATA_H

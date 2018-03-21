@@ -84,7 +84,7 @@ void collectSentences::showEvent(QShowEvent *event)
     ui->checkBox_7->setChecked(false);
 
     enData *model = enData::getInstance();
-    model->getCollectSentencePage(0);
+    model->getCollectSentencePage(1);
     int size = model->v_collectSentences.size();
     int i;
     for(i=0; i<size; i++){

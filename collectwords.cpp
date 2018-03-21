@@ -69,17 +69,18 @@ void collectWords::showEvent(QShowEvent *event)
     ui->label6->hide();
 
     enData *model = enData::getInstance();
-    model->getCollectWordPage(pageIndex-1);
-    int size = model->v_collectWords.size();
-    int i,j;
-    for(i=0; i<size; i++){
-        wordUnit tmp = model->v_collectWords[i];
-        QString str = tmp.word+"\n\n";
-        QStringList sList = tmp.translation.split("\n");
-        str = str+sList[0];
-        for(j=1;j<sList.size();j++){
-            str = str+"  |  "+sList[j];
-        }
+    int offset = (pageIndex-1)*COLLECT_WORD_PAGESIZE;
+    int size = model->m_collectWords.size();
+    int max = size < (offset+COLLECT_WORD_PAGESIZE) ? size:(offset+COLLECT_WORD_PAGESIZE);
+    int tmp;
+    map<ulong, wordUnit>::iterator it = model->m_collectWords.begin();
+    tmp = offset;
+    while(tmp--) it++;
+    for(int i=offset; i<max; i++){
+        wordUnit tmp = it->second;
+        QString str = QString(tmp.word.c_str());
+        str = str+"\n\n";
+        str = str+tmp.translation.c_str();
         fillWordInLabels(i,str);
     }
 
