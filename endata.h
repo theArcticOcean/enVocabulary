@@ -36,6 +36,8 @@ CREATE TABLE IF NOT EXISTS Vocabulary
 #include <fstream>
 #include <iostream>
 #include <unistd.h>
+#include <QDebug>
+#include <QDebugStateSaver>
 using namespace std;
 
 typedef struct _enWordInfo{
@@ -82,6 +84,13 @@ typedef struct __wordUnit{
         word = _word;
         translation = _translation;
     }
+    const char *c_str(){
+        string str = word;
+        str = str+"\n";
+        str = str+translation;
+        str = str+"\n";
+        return str.c_str();
+    }
     int size(){
         return word.length()+translation.length();
     }
@@ -113,6 +122,11 @@ typedef struct __wordUnit{
         out<<myWord.word<<"\n";
         out<<myWord.translation;
         return out;
+    }
+    friend QDebug& operator <<(QDebug debug,const __wordUnit &myWord){
+        QDebugStateSaver saver(debug);
+        debug.nospace() << myWord.word.c_str() << "\n" << myWord.translation.c_str();
+        return debug;
     }
 }wordUnit;
 

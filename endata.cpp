@@ -106,10 +106,10 @@ enData::enData()
     memset(number,0,sizeof(number));
     num_size = 0;
 
-#ifdef DEBUG
-    showTableSentence();
-    showTableVocabulary();
-#endif
+//#ifdef DEBUG
+//    showTableSentence();
+//    showTableVocabulary();
+//#endif
 }
 
 enData::~enData()
@@ -297,7 +297,7 @@ bool enData::checkElementInJson(QJsonObject &json, const string key)
 */
 void enData::showTableVocabulary()
 {
-    LOGDBG("start show collect words:");  // to do: why we get wrong xunhuan.
+    LOGDBG("start show collect words:");
     DIR *dir = opendir(DOWNFILES_WORDS_PATH);
     if(NULL == dir){
         LOGDBG("opendir failed: %s", strerror(errno));
@@ -305,17 +305,27 @@ void enData::showTableVocabulary()
     }
 
     struct dirent *entry = readdir(dir);
+    char buffer[BUFFER_LEN>>10];  //BUFFER_LEN is too large for array in stack.
+    int ret = 0;
     while(NULL != entry){
         if(entry->d_name[0] == '.'){
             entry = readdir(dir);
             continue;
         }
-        ifstream in(entry->d_name);
-        wordUnit myWord;
-        in>>myWord;
-        cout<<myWord<<endl;
+        if(!strIsNum(entry->d_name)){
+            LOGDBG("this file's name is not a number.");
+            entry = readdir(dir);
+            continue;
+        }
+        QString path = DOWNFILES_WORDS_PATH;
+        path = path+"/";
+        path = path+entry->d_name;
+        wordUnit myWord = readWordFile(path.toStdString().c_str());
+        ret = sprintf(buffer+ret,"%s",myWord.c_str());
         entry = readdir(dir);
     }
+    qDebug("%s",buffer);
+    LOGDBG("end!");
 }
 
 void enData::showTableSentence()
@@ -407,15 +417,20 @@ bool enData::addWordToDB(QString str)
 
     // avoid inserting same word into database.
     if(checkWordInDB(str.toStdString())){
+        LOGDBG("same word in disc.");
         map<ulong, wordUnit>::iterator it;
         for(it = m_collectWords.begin(); it != m_collectWords.end(); it++){
             if(newWord == it->second){
-                m_collectWords.erase(it);
                 uintegerToStr(it->first);
-                if(0 != unlink(number)){
+                m_collectWords.erase(it);
+                string path = DOWNFILES_WORDS_PATH;
+                path = path+"/";
+                path = path+number;
+                if(0 != unlink(path.c_str())){
                     LOGDBG("unlink failed: %s for %s",strerror(errno),number);
                     return false;
                 }
+                LOGDBG("rm same word for %s",path.c_str());
                 break;
             }
         }
@@ -430,13 +445,15 @@ bool enData::addWordToDB(QString str)
     ofstream out(path.toStdString());
     out<<newWord;
     out.close();
+    LOGDBG("add new Word %s in %s", newWord.word.c_str(), path.toStdString().c_str());
 
     // limit count in disc.
     if(!wordStoreLimit()){
+        LOGDBG("wordStoreLimit failed.");
         return false;
     }
-    return true;
     LOGDBG("end!");
+    return true;
 }
 
 void enData::deleteSentenceFromDB(const int index)
@@ -548,11 +565,12 @@ void enData::getCollectSentencePage(const int index)
 
 wordUnit enData::readWordFile(const char *path)
 {
-    if(NULL == path){
-        LOGDBG("path is NULL");
+    LOGDBG("start, path is %s",path);
+    ifstream in(path);
+    if(!in.is_open()){
+        LOGDBG("open failed for %s: %s", path, strerror(errno));
         return wordUnit();
     }
-    ifstream in(path);
     wordUnit myWord;
     in>>myWord.word;
     in>>myWord.translation;
@@ -562,6 +580,8 @@ wordUnit enData::readWordFile(const char *path)
         myWord.translation += " ";
         myWord.translation += str;
     }
+    in.close();
+    LOGDBG("end!");
     return myWord;
 }
 /*
@@ -571,16 +591,21 @@ wordUnit enData::readWordFile(const char *path)
 */
 bool enData::wordStoreLimit()
 {
+    LOGDBG("start");
     while(m_collectWords.size() > MAX_WORD_NUMBER){
         map<ulong, wordUnit>::iterator it;
         it = m_collectWords.begin();
         uintegerToStr(it->first);
-        if(0 != unlink(number)){
+        string path = DOWNFILES_WORDS_PATH;
+        path = path+"/";
+        path = path+number;
+        if(0 != unlink(path.c_str())){
             LOGDBG("unlink failed: %s for %s",strerror(errno),number);
             return false;
         }
         m_collectWords.erase(it);
     }
+    LOGDBG("end!");
     return true;
 }
 
@@ -607,8 +632,14 @@ void enData::getCollectWordFromDisc()
         }
         else {
             wordUnit tmp;
-            tmp = readWordFile(entry->d_name);
-            m_collectWords[stoul(entry->d_name)] = tmp;
+            string path;
+            path = DOWNFILES_WORDS_PATH;
+            path = path+"/";
+            path = path+entry->d_name;
+            tmp = readWordFile(path.c_str());
+            if(tmp.word != ""){
+                m_collectWords[stoul(entry->d_name)] = tmp;
+            }
         }
         entry = readdir(dir);
     }

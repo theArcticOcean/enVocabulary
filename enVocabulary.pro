@@ -14,6 +14,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = enVocabulary
 TEMPLATE = app
+DEFINES += QT_DEBUG
 
 unix: LIBS += -L/usr/lib -lpthread
 

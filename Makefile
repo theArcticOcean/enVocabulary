@@ -12,7 +12,7 @@ MAKEFILE      = Makefile
 
 CC            = /Library/Developer/CommandLineTools/usr/bin/clang
 CXX           = /Library/Developer/CommandLineTools/usr/bin/clang++
-DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_GUI_LIB -DQT_QML_LIB -DQT_NETWORK_LIB -DQT_SQL_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_DEBUG -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_GUI_LIB -DQT_QML_LIB -DQT_NETWORK_LIB -DQT_SQL_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wall -W -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -stdlib=libc++ -O2 -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wall -W -fPIC $(DEFINES)
 INCPATH       = -I. -I/usr/local/include -I../../Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I../../Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib
@@ -1075,6 +1075,9 @@ moc_search.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWi
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebugStateSaver \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
@@ -1432,6 +1435,9 @@ moc_httpmanager.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/Q
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebugStateSaver \
 		httpmanager.h \
 		moc_predefs.h \
 		../../Qt5.9.2/5.9.2/clang_64/bin/moc
@@ -1788,6 +1794,9 @@ moc_controller.cpp: viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebugStateSaver \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
@@ -2178,6 +2187,9 @@ moc_viewmanager.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/Q
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebugStateSaver \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
@@ -2598,6 +2610,9 @@ main.o: main.cpp viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebugStateSaver \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
@@ -2970,6 +2985,9 @@ search.o: search.cpp search.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebugStateSaver \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
@@ -2977,8 +2995,6 @@ search.o: search.cpp search.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
 		log.h \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
 		ui_search.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers/QQuickItem \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers/qquickitem.h \
@@ -3344,9 +3360,10 @@ httpmanager.o: httpmanager.cpp httpmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
-		log.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebugStateSaver \
+		log.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonDocument \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsondocument.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o httpmanager.o httpmanager.cpp
@@ -3363,9 +3380,10 @@ endata.o: endata.cpp endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
-		log.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebugStateSaver \
+		log.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonParseError \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsondocument.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonArray \
@@ -4090,6 +4108,9 @@ controller.o: controller.cpp controller.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebugStateSaver \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
@@ -4107,9 +4128,7 @@ controller.o: controller.cpp controller.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		collectsentences.h \
 		collectwords.h \
-		log.h \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h
+		log.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o controller.o controller.cpp
 
 mysentences.o: mysentences.cpp mysentences.h \
@@ -4480,6 +4499,7 @@ mysentences.o: mysentences.cpp mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebugStateSaver \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
@@ -4841,6 +4861,9 @@ viewmanager.o: viewmanager.cpp viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebugStateSaver \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
@@ -4858,9 +4881,7 @@ viewmanager.o: viewmanager.cpp viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		collectsentences.h \
 		collectwords.h \
-		log.h \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h
+		log.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o viewmanager.o viewmanager.cpp
 
 collectsentences.o: collectsentences.cpp collectsentences.h \
@@ -4874,6 +4895,9 @@ collectsentences.o: collectsentences.cpp collectsentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebugStateSaver \
 		controller.h \
 		viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
@@ -5233,9 +5257,7 @@ collectsentences.o: collectsentences.cpp collectsentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		collectwords.h \
-		log.h \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h
+		log.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o collectsentences.o collectsentences.cpp
 
 collectwords.o: collectwords.cpp collectwords.h \
@@ -5249,9 +5271,10 @@ collectwords.o: collectwords.cpp collectwords.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
-		log.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebugStateSaver \
+		log.h \
 		controller.h \
 		viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
