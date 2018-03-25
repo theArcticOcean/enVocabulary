@@ -12,8 +12,7 @@ collectSentences::collectSentences(QWidget *parent) :
     ui->backButton->setStyleSheet("QPushButton{ border-image: url(:image/goBack.png); } ");
     ui->previousButton->setStyleSheet("QPushButton{ border-image: url(:image/left.png); }");
     ui->nextButton->setStyleSheet("QPushButton{ border-image: url(:image/right.png); }");
-    pageIndex = 0;
-    pageCount = 0;
+    pageIndex = 1;
 
     connectCheckBoxClickAndShowDelBtn();
 }
@@ -84,7 +83,7 @@ void collectSentences::showEvent(QShowEvent *event)
     ui->checkBox_7->setChecked(false);
 
     enData *model = enData::getInstance();
-    model->getCollectSentencePage(1);
+    model->getCollectSentencePage(pageIndex);
     int size = model->v_collectSentences.size();
     int i;
     for(i=0; i<size; i++){
@@ -93,7 +92,8 @@ void collectSentences::showEvent(QShowEvent *event)
         fillSentenceInCheckBox(i,str);
     }
 
-    QString page = "1 (";
+    QString page = QString::number(pageIndex);
+    page = page+" (";
     page = page+QString::number(model->getColSentencePageCount());
     page = page+")";
     ui->label->setText(page);

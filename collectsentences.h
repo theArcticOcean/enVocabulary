@@ -11,7 +11,6 @@ class collectSentences : public QWidget
 {
     Q_OBJECT
     int pageIndex;
-    int pageCount;
 public:
     explicit collectSentences(QWidget *parent = 0);
     ~collectSentences();

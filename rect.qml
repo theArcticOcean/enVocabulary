@@ -52,13 +52,13 @@ Rectangle{
             x:75;
             y:50;
             width:75;
-            height:150;
+            height:175;
             visible:true;
             color:"#AAAAFF";
             clip:true;
             Text{
                 anchors.centerIn: parent;
-                text:"单词本";
+                text:"查词历史";
                 width:35;
                 color:"black";
                 font.pixelSize: 32;
@@ -69,9 +69,9 @@ Rectangle{
 
         Rectangle {
             x:75;
-            y:200;
+            y:225;
             width:75;
-            height:200;
+            height:175;
             visible:true;
             color:"#AAFFFF";
             clip:true;

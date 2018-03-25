@@ -106,10 +106,10 @@ enData::enData()
     memset(number,0,sizeof(number));
     num_size = 0;
 
-//#ifdef DEBUG
-//    showTableSentence();
-//    showTableVocabulary();
-//#endif
+#ifdef DEBUG
+    showTableSentence();
+    showTableVocabulary();
+#endif
 }
 
 enData::~enData()
@@ -305,8 +305,9 @@ void enData::showTableVocabulary()
     }
 
     struct dirent *entry = readdir(dir);
-    char buffer[BUFFER_LEN>>10];  //BUFFER_LEN is too large for array in stack.
-    int ret = 0;
+    string buffer;
+    buffer.reserve(1024);
+    buffer = "";
     while(NULL != entry){
         if(entry->d_name[0] == '.'){
             entry = readdir(dir);
@@ -321,11 +322,12 @@ void enData::showTableVocabulary()
         path = path+"/";
         path = path+entry->d_name;
         wordUnit myWord = readWordFile(path.toStdString().c_str());
-        ret = sprintf(buffer+ret,"%s",myWord.c_str());
+        buffer = buffer + myWord.c_str();
         entry = readdir(dir);
     }
-    qDebug("%s",buffer);
+    write(STDOUT_FILENO, buffer.c_str(),buffer.length());
     LOGDBG("end!");
+    //LOGDBG("bytes: %d\n%send!",buffer.length(),buffer.c_str());
 }
 
 void enData::showTableSentence()
@@ -350,39 +352,41 @@ void enData::showTableSentence()
 
 void enData::wordInfShow()
 {
-    char buff[1024] = {0};
-    int ret = 0;
-    ret += sprintf(buff+ret,"%s","cn_definition: ");
-    ret += sprintf(buff+ret,"%s\n",wordInf.cn_definition.toStdString().c_str());
-    ret += sprintf(buff+ret,"%s","en_definition: ");
-    ret += sprintf(buff+ret,"%s\n",wordInf.en_definition.toStdString().c_str());
-    ret += sprintf(buff+ret,"%s","uk_audio_addresses: ");
-    ret += sprintf(buff+ret,"%s\n",wordInf.uk_audio_addresses.toStdString().c_str());
-    ret += sprintf(buff+ret,"%s","uk_pronunciation: ");
-    ret += sprintf(buff+ret,"%s\n",wordInf.uk_pronunciation.toStdString().c_str());
-    ret += sprintf(buff+ret,"%s","us_audio_addresses: ");
-    ret += sprintf(buff+ret,"%s\n",wordInf.us_audio_addresses.toStdString().c_str());
-    ret += sprintf(buff+ret,"%s","us_pronunciation: ");
-    ret += sprintf(buff+ret,"%s\n",wordInf.us_pronunciation.toStdString().c_str());
-    ret += sprintf(buff+ret,"%s","vocabulary_id: ");
-    ret += sprintf(buff+ret,"%.0lf\n",wordInf.vocabulary_id);
+    string str;
+    char buff[64] = {0};
+    str.reserve(1024);
+    str = "";
+    str += "cn_definition: ";       str += wordInf.cn_definition.toStdString();         str += "\n";
+    str += "en_definition: ";       str += wordInf.en_definition.toStdString();         str += "\n";
+    str += "uk_audio_addresses: ";  str += wordInf.uk_audio_addresses.toStdString();    str += "\n";
+    str += "uk_pronunciation: ";    str += wordInf.uk_pronunciation.toStdString();      str += "\n";
+    str += "us_audio_addresses: ";  str += wordInf.us_audio_addresses.toStdString();    str += "\n";
+    str += "us_pronunciation: ";    str += wordInf.us_pronunciation.toStdString();      str +="\n";
 
-    LOGDBG("\n%s",buff);
+    str += "vocabulary_id: ";
+    sprintf(buff,"%.0lf\n",wordInf.vocabulary_id);
+    str += buff;
+    str += "\n";
+
+    LOGDBG("\n%s",str.c_str());
 }
 
 void enData::sentencesShow()
 {
-    char buff[1024] = {0};
-    int ret = 0;
+    string str;
+    str.reserve(1024);
+    str = "";
     int len = v_sentences.size();
     for(int i=0; i<len; i++){
         sentenceUnit tmp = v_sentences[i];
-        ret += sprintf(buff+ret,"%s","sentence: ");
-        ret += sprintf(buff+ret,"%s\n",tmp.sentence.toStdString().c_str());
-        ret += sprintf(buff+ret,"%s","translation: ");
-        ret += sprintf(buff+ret,"%s\n\n",tmp.translation.toStdString().c_str());
+        str += "sentence: ";
+        str += tmp.sentence.toStdString();
+        str += "\n";
+        str += "translation: ";
+        str += tmp.translation.toStdString();
+        str += "\n\n";
     }
-    LOGDBG("\n%s",buff);
+    LOGDBG("\n%s",str.c_str());
 }
 
 void enData::addSentenceToDB(const int index)
@@ -487,6 +491,10 @@ void enData::deleteSentenceFromDB(const QString text)
             if(!query->exec()){
                 LOGDBG("delete failed: %s",query->lastError().text().toStdString().c_str());
             }
+            else {
+                QString tmp = strList[0];
+                LOGDBG("delete sentence for %s",tmp.toStdString().c_str());
+            }
             db.close();
         }
         else {
@@ -548,6 +556,7 @@ void enData::getCollectSentencePage(const int index)
             LOGDBG("query exec failed: %s", query->lastError().text().toStdString().c_str());
         }
         else {
+            v_collectSentences.clear();
             while(query->next()) {
                 sentenceUnit tmp;
                 tmp.sentence = query->value("sentences").toString();
@@ -594,7 +603,8 @@ bool enData::wordStoreLimit()
     LOGDBG("start");
     while(m_collectWords.size() > MAX_WORD_NUMBER){
         map<ulong, wordUnit>::iterator it;
-        it = m_collectWords.begin();
+        it = m_collectWords.end();
+        it--;   //delete the futherest history record
         uintegerToStr(it->first);
         string path = DOWNFILES_WORDS_PATH;
         path = path+"/";
@@ -603,6 +613,7 @@ bool enData::wordStoreLimit()
             LOGDBG("unlink failed: %s for %s",strerror(errno),number);
             return false;
         }
+        LOGDBG("remove word: %s", path.c_str());
         m_collectWords.erase(it);
     }
     LOGDBG("end!");

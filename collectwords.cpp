@@ -81,7 +81,8 @@ void collectWords::showEvent(QShowEvent *event)
         QString str = QString(tmp.word.c_str());
         str = str+"\n\n";
         str = str+tmp.translation.c_str();
-        fillWordInLabels(i,str);
+        fillWordInLabels(i-offset,str);
+        it++;
     }
 
     QString page = QString::number(pageIndex);

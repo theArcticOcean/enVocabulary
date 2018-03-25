@@ -21,6 +21,7 @@
 CREATE TABLE IF NOT EXISTS Statement
 (sentences text PRIMARY KEY, translation text)
 
+// the table Vocabulary has been deserted.
 CREATE TABLE IF NOT EXISTS Vocabulary
 (myWord text, translation text, secs INTEGER, PRIMARY KEY(myWord, secs))
 */
@@ -138,6 +139,13 @@ typedef enum _srcEnum{
     MaxSrc
 }srcEnum;
 
+template <class _Tp>
+struct more : binary_function<_Tp, _Tp, bool>
+{
+    bool operator()(const _Tp& __x, const _Tp& __y) const
+        {return __x > __y;}
+};
+
 class enData
 {    
     static enData *instance;
@@ -182,7 +190,7 @@ public:
     enWordInfo wordInf;
     vector<sentenceUnit> v_sentences;
     vector<sentenceUnit> v_collectSentences;
-    map<ulong, wordUnit> m_collectWords;
+    map<ulong, wordUnit, more<ulong>> m_collectWords;  //we make sure map orders as desc
 };
 
 #endif // ENDATA_H
