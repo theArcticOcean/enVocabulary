@@ -27,6 +27,10 @@ public slots:
 private slots:
     void on_backButton_clicked();
     void on_deleteButton_clicked();
+    void on_nextButton_clicked();
+
+    void on_previousButton_clicked();
+
 private:
     Ui::collectSentences *ui;
 };

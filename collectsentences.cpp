@@ -170,3 +170,24 @@ void collectSentences::on_deleteButton_clicked()
     }
     LOGDBG("end!");
 }
+
+void collectSentences::on_nextButton_clicked()
+{
+    pageIndex++;
+    int pageCount = enData::getInstance()->getColSentencePageCount();
+    if(pageIndex > pageCount){
+        pageIndex--;
+        return ;
+    }
+    showEvent(NULL);
+}
+
+void collectSentences::on_previousButton_clicked()
+{
+    pageIndex--;
+    if(pageIndex == 0){
+        pageIndex++;
+        return ;
+    }
+    showEvent(NULL);
+}

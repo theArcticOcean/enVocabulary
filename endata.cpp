@@ -413,20 +413,29 @@ void enData::addSentenceToDB(const int index)
 bool enData::addWordToDB(QString str)
 {
     LOGDBG("start");
-    wordUnit newWord(str.toStdString(), wordInf.cn_definition.toStdString());
+    string definition = "";
+    QStringList list = wordInf.cn_definition.split("\n");
+    for(QString it: list){
+        definition = definition + it.toStdString();
+        definition += " ";
+    }
+    definition = definition.substr(0, definition.length()-1);
+    wordUnit newWord(str.toStdString(), definition);
+
     if(newWord.translation.length() <= 0){
         LOGDBG("word's translation is empty, so request again");
         return false;
     }
 
-    // avoid inserting same word into database.
+    //! avoid inserting same word into database.
     if(checkWordInDB(str.toStdString())){
         LOGDBG("same word in disc.");
         map<ulong, wordUnit>::iterator it;
-        for(it = m_collectWords.begin(); it != m_collectWords.end(); it++){
-            if(newWord == it->second){
+        for(it = m_collectWords.begin(); it != m_collectWords.end();){
+            if(newWord.word == it->second.word){
                 uintegerToStr(it->first);
-                m_collectWords.erase(it);
+                //! notice: use it++ can erase it and move iterator to next.
+                m_collectWords.erase(it++);
                 string path = DOWNFILES_WORDS_PATH;
                 path = path+"/";
                 path = path+number;
@@ -435,8 +444,8 @@ bool enData::addWordToDB(QString str)
                     return false;
                 }
                 LOGDBG("rm same word for %s",path.c_str());
-                break;
             }
+            else it++;
         }
     }
 
@@ -536,7 +545,7 @@ bool enData::checkWordInDB(string str)
     bool ret = false;
     wordUnit tmp(str, wordInf.cn_definition.toStdString());
     for(auto it: m_collectWords){
-        if(tmp == it.second){
+        if(tmp.word == it.second.word){
             ret = true;
             break;
         }

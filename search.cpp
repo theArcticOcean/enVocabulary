@@ -104,6 +104,7 @@ void Search::slotGetWord()
     QString tmp = model->wordInf.en_definition;
     QStringList  strArray = tmp.split(";");
     foreach (QString str, strArray) {
+        //! find the definition which has not original word.
         if(!str.contains(word,Qt::CaseInsensitive)){
             definition = definition+str;
             definition = definition+";\n";
