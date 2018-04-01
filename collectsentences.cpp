@@ -101,18 +101,28 @@ void collectSentences::showEvent(QShowEvent *event)
 
 void collectSentences::mousePressEvent(QMouseEvent *event)
 {
-    if(event->button() == Qt::LeftButton) {
+    if(event->button() == Qt::LeftButton)
+    {
         lastPos = event->globalPos();
     }
 }
 
 void collectSentences::mouseMoveEvent(QMouseEvent *event)
 {
-    if(event->buttons().testFlag(Qt::LeftButton)){
+    if(event->buttons().testFlag(Qt::LeftButton))
+    {
         LOGDBG("collectSentences UI moved.");
         Controller::getInstance()->sendMoveViewSignal(CollectSentenceUI, \
                                                       this->pos() + (event->globalPos() - lastPos));
         lastPos = event->globalPos();
+    }
+}
+
+void collectSentences::setCheckBoxChecked(QCheckBox *box, bool checked)
+{
+    if(!box->isHidden())
+    {
+        box->setChecked(checked);
     }
 }
 
@@ -190,4 +200,27 @@ void collectSentences::on_previousButton_clicked()
         return ;
     }
     showEvent(NULL);
+}
+
+void collectSentences::on_checkBox_7_clicked()
+{
+    if(ui->checkBox_7->isChecked())
+    {
+        setCheckBoxChecked(ui->checkBox,true);
+        setCheckBoxChecked(ui->checkBox_2,true);
+        setCheckBoxChecked(ui->checkBox_3,true);
+        setCheckBoxChecked(ui->checkBox_4,true);
+        setCheckBoxChecked(ui->checkBox_5,true);
+        setCheckBoxChecked(ui->checkBox_6,true);
+        setCheckBoxChecked(ui->checkBox_7,true);
+    }
+    else {
+        setCheckBoxChecked(ui->checkBox,false);
+        setCheckBoxChecked(ui->checkBox_2,false);
+        setCheckBoxChecked(ui->checkBox_3,false);
+        setCheckBoxChecked(ui->checkBox_4,false);
+        setCheckBoxChecked(ui->checkBox_5,false);
+        setCheckBoxChecked(ui->checkBox_6,false);
+        setCheckBoxChecked(ui->checkBox_7,false);
+    }
 }

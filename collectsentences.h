@@ -2,6 +2,7 @@
 #define COLLECTSENTENCES_H
 
 #include <QWidget>
+#include <QCheckBox>
 
 namespace Ui {
 class collectSentences;
@@ -22,6 +23,7 @@ protected:
     virtual void showEvent(QShowEvent *event);
     virtual void mousePressEvent(QMouseEvent *event);
     virtual void mouseMoveEvent(QMouseEvent *event);
+    void setCheckBoxChecked(QCheckBox *box, bool checked);
 public slots:
     void showDeleteButton();
 private slots:
@@ -30,6 +32,8 @@ private slots:
     void on_nextButton_clicked();
 
     void on_previousButton_clicked();
+
+    void on_checkBox_7_clicked();
 
 private:
     Ui::collectSentences *ui;
