@@ -1,6 +1,7 @@
 import QtQuick 2.7 
 import QtQuick.Controls 1.4 
 import QtQuick.Window 2.2
+import weiy.QmlFunc 1.0
 
 // if we use window as root element, we need QQmlApplicationEngine.
 Rectangle{
@@ -27,6 +28,18 @@ Rectangle{
 				color: "black";
 				font.pixelSize: 32;
 			}
+            MouseArea{
+                anchors.fill: parent
+                onPressed: {
+                    parent.color = "red"
+                }
+                onReleased: {
+                    parent.color = "#AAFFAA"
+                }
+                onClicked: {
+                    qmlFunc.onClickSentenceArea()
+                }
+            }
 		}
 
 		Rectangle{
@@ -65,6 +78,18 @@ Rectangle{
                 verticalAlignment: Text.AlignTop;
                 wrapMode: Text.WordWrap;
             }
+            MouseArea{
+                anchors.fill: parent
+                onPressed: {
+                    parent.color = "red"
+                }
+                onReleased: {
+                    parent.color = "#AAAAFF"
+                }
+                onClicked: {
+                    qmlFunc.onClickCollectWordArea()
+                }
+            }
         }
 
         Rectangle {
@@ -83,6 +108,18 @@ Rectangle{
                 font.pixelSize: 32;
                 verticalAlignment: Text.AlignTop;
                 wrapMode: Text.WordWrap;
+            }
+            MouseArea{
+                anchors.fill: parent
+                onPressed: {
+                    parent.color = "red"
+                }
+                onReleased: {
+                    parent.color = "#AAFFFF"
+                }
+                onClicked: {
+                    qmlFunc.onClickCollectSentenceArea()
+                }
             }
         }
 	}

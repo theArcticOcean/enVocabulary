@@ -6,6 +6,7 @@
 #include "endata.h"
 #include <QQuickItem>
 #include "controller.h"
+#include <QQmlContext>
 
 void Search::keyReleaseEvent(QKeyEvent *event)
 {
@@ -20,6 +21,8 @@ void Search::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
+/* mousePressEvent's function is achived in QML file.
+ *
 void Search::mousePressEvent(QMouseEvent *event)
 {
     LOGDBG("start");
@@ -44,6 +47,7 @@ void Search::mousePressEvent(QMouseEvent *event)
     }
     LOGDBG("end!");
 }
+*/
 
 void Search::mouseMoveEvent(QMouseEvent *event)
 {
@@ -73,6 +77,7 @@ Search::Search(QWidget *parent) :
     ui->us_button->setText("");
     ui->us_button->setStyleSheet("QPushButton{ border-image: url(:/image/stop_circle.png); }");
     ui->textBrowser->setReadOnly(true);
+    ui->quickWidget->rootContext()->setContextProperty("qmlFunc",new QmlFunc());
     ui->quickWidget->setSource(QUrl("qrc:/rect.qml"));
 
     http = NULL;

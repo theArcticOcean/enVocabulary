@@ -42,7 +42,8 @@ SOURCES += \
     mysentences.cpp \
     viewmanager.cpp \
     collectsentences.cpp \
-    collectwords.cpp
+    collectwords.cpp \
+    qmlfunc.cpp
 
 HEADERS += \
         search.h \
@@ -53,7 +54,8 @@ HEADERS += \
     mysentences.h \
     viewmanager.h \
     collectsentences.h \
-    collectwords.h
+    collectwords.h \
+    qmlfunc.h
 
 FORMS += \
         search.ui \
