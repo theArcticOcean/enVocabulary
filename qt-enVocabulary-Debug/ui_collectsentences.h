@@ -44,6 +44,7 @@ public:
     QPushButton *previousButton;
     QLabel *label;
     QPushButton *nextButton;
+    QPushButton *clearButton;
 
     void setupUi(QWidget *collectSentences)
     {
@@ -156,6 +157,9 @@ public:
 
         horizontalLayout->addWidget(nextButton);
 
+        clearButton = new QPushButton(collectSentences);
+        clearButton->setObjectName(QStringLiteral("clearButton"));
+        clearButton->setGeometry(QRect(580, 510, 31, 32));
 
         retranslateUi(collectSentences);
 
@@ -178,6 +182,7 @@ public:
         previousButton->setText(QString());
         label->setText(QApplication::translate("collectSentences", "TextLabel", Q_NULLPTR));
         nextButton->setText(QString());
+        clearButton->setText(QString());
     } // retranslateUi
 
 };

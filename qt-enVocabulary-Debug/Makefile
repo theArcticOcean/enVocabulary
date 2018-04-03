@@ -716,6 +716,7 @@ qrc_image.cpp: ../image.qrc \
 		../../../Qt5.9.2/5.9.2/clang_64/bin/rcc \
 		../rect.qml \
 		../image/play_circle.png \
+		../image/trash.png \
 		../image/rwhiteHeart.png \
 		../image/goBack.png \
 		../image/stop_circle.png \
@@ -1092,6 +1093,7 @@ moc_search.cpp: ../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
+		../qmlfunc.h \
 		../search.h \
 		moc_predefs.h \
 		../../../Qt5.9.2/5.9.2/clang_64/bin/moc
@@ -1811,6 +1813,7 @@ moc_controller.cpp: ../viewmanager.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
+		../qmlfunc.h \
 		../mysentences.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
@@ -2206,6 +2209,7 @@ moc_viewmanager.cpp: ../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Header
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
+		../qmlfunc.h \
 		../mysentences.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
@@ -2640,6 +2644,7 @@ main.o: ../main.cpp ../viewmanager.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
+		../qmlfunc.h \
 		../mysentences.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
@@ -2659,8 +2664,7 @@ main.o: ../main.cpp ../viewmanager.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers/QQmlEngine \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers/qqmlengine.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers/QQmlComponent \
-		../../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers/qqmlcomponent.h \
-		../qmlfunc.h
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers/qqmlcomponent.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../main.cpp
 
 search.o: ../search.cpp ../search.h \
@@ -3022,6 +3026,7 @@ search.o: ../search.cpp ../search.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
+		../qmlfunc.h \
 		../log.h \
 		ui_search.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers/QQuickItem \
@@ -3040,7 +3045,9 @@ search.o: ../search.cpp ../search.h \
 		../collectsentences.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QCheckBox \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
-		../collectwords.h
+		../collectwords.h \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers/QQmlContext \
+		../../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers/qqmlcontext.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o search.o ../search.cpp
 
 httpmanager.o: ../httpmanager.cpp ../httpmanager.h \
@@ -3769,6 +3776,7 @@ endata.o: ../endata.cpp ../endata.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
+		../qmlfunc.h \
 		../mysentences.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
@@ -4149,6 +4157,7 @@ controller.o: ../controller.cpp ../controller.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
+		../qmlfunc.h \
 		../mysentences.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
@@ -4537,6 +4546,7 @@ mysentences.o: ../mysentences.cpp ../mysentences.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
+		../qmlfunc.h \
 		../collectsentences.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QCheckBox \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
@@ -4906,6 +4916,7 @@ viewmanager.o: ../viewmanager.cpp ../viewmanager.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
+		../qmlfunc.h \
 		../mysentences.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
@@ -5287,6 +5298,7 @@ collectsentences.o: ../collectsentences.cpp ../collectsentences.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
+		../qmlfunc.h \
 		../mysentences.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
@@ -5664,6 +5676,7 @@ collectwords.o: ../collectwords.cpp ../collectwords.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
+		../qmlfunc.h \
 		../mysentences.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
@@ -6052,7 +6065,8 @@ qmlfunc.o: ../qmlfunc.cpp ../qmlfunc.h \
 		../collectsentences.h \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QCheckBox \
 		../../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
-		../collectwords.h
+		../collectwords.h \
+		../log.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qmlfunc.o ../qmlfunc.cpp
 
 qrc_image.o: qrc_image.cpp 

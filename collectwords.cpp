@@ -12,6 +12,9 @@ collectWords::collectWords(QWidget *parent) :
     ui->backButton->setStyleSheet("QPushButton{ border-image: url(:image/goBack.png); } ");
     ui->previousButton->setStyleSheet("QPushButton{ border-image: url(:image/left.png); }");
     ui->nextButton->setStyleSheet("QPushButton{ border-image: url(:image/right.png); }");
+    ui->clearButton->setStyleSheet("QPushButton{ border-image: url(:image/trash.png); }");
+    this->setWindowFlags(Qt::WindowTitleHint | Qt::CustomizeWindowHint | \
+                         Qt::WindowMinimizeButtonHint);
     pageIndex = 1;
 
     ui->label1->setWordWrap(true);

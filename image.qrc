@@ -9,5 +9,6 @@
         <file>image/left.png</file>
         <file>image/right.png</file>
         <file>image/rwhiteHeart.png</file>
+        <file>image/trash.png</file>
     </qresource>
 </RCC>

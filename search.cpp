@@ -21,8 +21,6 @@ void Search::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
-/* mousePressEvent's function is achived in QML file.
- *
 void Search::mousePressEvent(QMouseEvent *event)
 {
     LOGDBG("start");
@@ -30,24 +28,25 @@ void Search::mousePressEvent(QMouseEvent *event)
         lastPos = event->globalPos();
     }
 
-    int rx = event->x() - ui->quickWidget->x();
-    int ry = event->y() - ui->quickWidget->y();
+//!   we do these thing by QML
+//    int rx = event->x() - ui->quickWidget->x();
+//    int ry = event->y() - ui->quickWidget->y();
 
-    if(rx >=0 && rx <150 && ry >= 0 && ry < 50){
-        http = HttpManager::getInstance();
-        http->sendEnWordSentenceRequest();
-    }
-    else if(rx >= 75 && rx < 150 && ry >= 50 && ry < 200){
-        Controller *control = Controller::getInstance();
-        control->sendViewMsg(GotoCollectWord);
-    }
-    else if(rx >= 75 && rx < 150 && ry >= 200 && ry < 400){
-        Controller *control = Controller::getInstance();
-        control->sendViewMsg(GotoCollectSen);
-    }
+//    if(rx >=0 && rx <150 && ry >= 0 && ry < 50){
+//        http = HttpManager::getInstance();
+//        http->sendEnWordSentenceRequest();
+//    }
+//    else if(rx >= 75 && rx < 150 && ry >= 50 && ry < 200){
+//        Controller *control = Controller::getInstance();
+//        control->sendViewMsg(GotoCollectWord);
+//    }
+//    else if(rx >= 75 && rx < 150 && ry >= 200 && ry < 400){
+//        Controller *control = Controller::getInstance();
+//        control->sendViewMsg(GotoCollectSen);
+//    }
     LOGDBG("end!");
 }
-*/
+
 
 void Search::mouseMoveEvent(QMouseEvent *event)
 {

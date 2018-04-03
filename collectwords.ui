@@ -16,7 +16,7 @@
   <widget class="QPushButton" name="backButton">
    <property name="geometry">
     <rect>
-     <x>570</x>
+     <x>560</x>
      <y>10</y>
      <width>31</width>
      <height>31</height>
@@ -152,6 +152,19 @@ color: rgb(138,43,226);
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QPushButton" name="clearButton">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>510</y>
+     <width>31</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
   </widget>
  </widget>
  <resources/>

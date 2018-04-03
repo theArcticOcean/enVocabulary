@@ -46,6 +46,7 @@ public:
     QPushButton *previousButton;
     QLabel *label;
     QPushButton *nextButton;
+    QPushButton *clearButton;
 
     void setupUi(QWidget *collectWords)
     {
@@ -54,7 +55,7 @@ public:
         collectWords->resize(603, 557);
         backButton = new QPushButton(collectWords);
         backButton->setObjectName(QStringLiteral("backButton"));
-        backButton->setGeometry(QRect(570, 10, 31, 31));
+        backButton->setGeometry(QRect(560, 10, 31, 31));
         groupBox = new QGroupBox(collectWords);
         groupBox->setObjectName(QStringLiteral("groupBox"));
         groupBox->setGeometry(QRect(30, 40, 531, 471));
@@ -156,6 +157,9 @@ public:
 
         horizontalLayout->addWidget(nextButton);
 
+        clearButton = new QPushButton(collectWords);
+        clearButton->setObjectName(QStringLiteral("clearButton"));
+        clearButton->setGeometry(QRect(560, 510, 31, 31));
 
         retranslateUi(collectWords);
 
@@ -176,6 +180,7 @@ public:
         previousButton->setText(QString());
         label->setText(QApplication::translate("collectWords", "TextLabel", Q_NULLPTR));
         nextButton->setText(QString());
+        clearButton->setText(QString());
     } // retranslateUi
 
 };
