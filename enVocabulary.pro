@@ -17,13 +17,21 @@ TEMPLATE = app
 DEFINES += QT_DEBUG
 
 unix: LIBS += -L/usr/lib -lpthread
+unix: INCLUDEPATH += "/usr/local/include/"
 
-INCLUDEPATH += "/usr/local/include/"
+MOC_DIR = "./Moc"
+INCLUDEPATH += "./Inc/"
+UI_DIR = "./Res/"
+OBJECTS_DIR = "./OBJ"
+
+macx{
+    message("compile for mac os x")
+    ICON = image/dict.icns
+}
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
-# depend on your compiler). Please consult the documentation of the
-# deprecated API in order to know how to port your code away from it.
+# depend on your compiler).
 DEFINES += QT_DEPRECATED_WARNINGS
 
 # You can also make your code fail to compile if you use deprecated APIs.
@@ -33,35 +41,38 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        main.cpp \
-        search.cpp \
-    httpmanager.cpp \
-    log.cpp \
-    endata.cpp \
-    controller.cpp \
-    mysentences.cpp \
-    viewmanager.cpp \
-    collectsentences.cpp \
-    collectwords.cpp \
-    qmlfunc.cpp
+Src/main.cpp\
+Src/search.cpp\
+Src/httpmanager.cpp\
+Src/log.cpp\
+Src/endata.cpp\
+Src/controller.cpp\
+Src/mysentences.cpp\
+Src/viewmanager.cpp\
+Src/collectsentences.cpp\
+Src/collectwords.cpp\
+Src/qmlfunc.cpp
 
 HEADERS += \
-        search.h \
-    httpmanager.h \
-    log.h \
-    endata.h \
-    controller.h \
-    mysentences.h \
-    viewmanager.h \
-    collectsentences.h \
-    collectwords.h \
-    qmlfunc.h
+Inc/search.h\
+Inc/httpmanager.h\
+Inc/log.h\
+Inc/endata.h\
+Inc/controller.h\
+Inc/mysentences.h\
+Inc/viewmanager.h\
+Inc/collectsentences.h\
+Inc/collectwords.h\
+Inc/qmlfunc.h
 
 FORMS += \
-        search.ui \
-    mysentences.ui \
-    collectsentences.ui \
-    collectwords.ui
+Res/search.ui\
+Res/mysentences.ui\
+Res/collectsentences.ui\
+Res/collectwords.ui
 
 RESOURCES += \
     image.qrc
+
+DISTFILES +=
+

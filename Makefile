@@ -15,7 +15,7 @@ CXX           = /Library/Developer/CommandLineTools/usr/bin/clang++
 DEFINES       = -DQT_DEBUG -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_GUI_LIB -DQT_QML_LIB -DQT_NETWORK_LIB -DQT_SQL_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wall -W -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -stdlib=libc++ -O2 -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wall -W -fPIC $(DEFINES)
-INCPATH       = -I. -I/usr/local/include -I../../Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I../../Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib
+INCPATH       = -I. -I/usr/local/include -IInc -I../../Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -IMoc -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/AGL.framework/Headers -IRes -I../../Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib
 QMAKE         = /Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -50,23 +50,25 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = main.cpp \
-		search.cpp \
-		httpmanager.cpp \
-		log.cpp \
-		endata.cpp \
-		controller.cpp \
-		mysentences.cpp \
-		viewmanager.cpp \
-		collectsentences.cpp \
-		collectwords.cpp qrc_image.cpp \
-		moc_search.cpp \
-		moc_httpmanager.cpp \
-		moc_controller.cpp \
-		moc_mysentences.cpp \
-		moc_viewmanager.cpp \
-		moc_collectsentences.cpp \
-		moc_collectwords.cpp
+SOURCES       = Src/main.cpp \
+		Src/search.cpp \
+		Src/httpmanager.cpp \
+		Src/log.cpp \
+		Src/endata.cpp \
+		Src/controller.cpp \
+		Src/mysentences.cpp \
+		Src/viewmanager.cpp \
+		Src/collectsentences.cpp \
+		Src/collectwords.cpp \
+		Src/qmlfunc.cpp qrc_image.cpp \
+		Moc/moc_search.cpp \
+		Moc/moc_httpmanager.cpp \
+		Moc/moc_controller.cpp \
+		Moc/moc_mysentences.cpp \
+		Moc/moc_viewmanager.cpp \
+		Moc/moc_collectsentences.cpp \
+		Moc/moc_collectwords.cpp \
+		Moc/moc_qmlfunc.cpp
 OBJECTS       = main.o \
 		search.o \
 		httpmanager.o \
@@ -77,6 +79,7 @@ OBJECTS       = main.o \
 		viewmanager.o \
 		collectsentences.o \
 		collectwords.o \
+		qmlfunc.o \
 		qrc_image.o \
 		moc_search.o \
 		moc_httpmanager.o \
@@ -84,7 +87,8 @@ OBJECTS       = main.o \
 		moc_mysentences.o \
 		moc_viewmanager.o \
 		moc_collectsentences.o \
-		moc_collectwords.o
+		moc_collectwords.o \
+		moc_qmlfunc.o
 DIST          = ../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/spec_pre.prf \
 		../../Qt5.9.2/5.9.2/clang_64/mkspecs/qdevice.pri \
 		../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/device_config.prf \
@@ -252,24 +256,26 @@ DIST          = ../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/spec_pre.prf \
 		../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/exceptions.prf \
 		../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/yacc.prf \
 		../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/lex.prf \
-		enVocabulary.pro search.h \
-		httpmanager.h \
-		log.h \
-		endata.h \
-		controller.h \
-		mysentences.h \
-		viewmanager.h \
-		collectsentences.h \
-		collectwords.h main.cpp \
-		search.cpp \
-		httpmanager.cpp \
-		log.cpp \
-		endata.cpp \
-		controller.cpp \
-		mysentences.cpp \
-		viewmanager.cpp \
-		collectsentences.cpp \
-		collectwords.cpp
+		enVocabulary.pro Inc/search.h \
+		Inc/httpmanager.h \
+		Inc/log.h \
+		Inc/endata.h \
+		Inc/controller.h \
+		Inc/mysentences.h \
+		Inc/viewmanager.h \
+		Inc/collectsentences.h \
+		Inc/collectwords.h \
+		Inc/qmlfunc.h Src/main.cpp \
+		Src/search.cpp \
+		Src/httpmanager.cpp \
+		Src/log.cpp \
+		Src/endata.cpp \
+		Src/controller.cpp \
+		Src/mysentences.cpp \
+		Src/viewmanager.cpp \
+		Src/collectsentences.cpp \
+		Src/collectwords.cpp \
+		Src/qmlfunc.cpp
 QMAKE_TARGET  = enVocabulary
 DESTDIR       = 
 TARGET        = enVocabulary.app/Contents/MacOS/enVocabulary
@@ -283,7 +289,7 @@ EXPORT_ARCH_ARGS = $(foreach arch, $(if $(EXPORT_ACTIVE_ARCHS), $(EXPORT_ACTIVE_
 first: all
 ####### Build rules
 
-$(TARGET): ui_search.h ui_mysentences.h ui_collectsentences.h ui_collectwords.h $(OBJECTS)  
+$(TARGET): Res/ui_search.h Res/ui_mysentences.h Res/ui_collectsentences.h Res/ui_collectwords.h $(OBJECTS)  
 	@test -d enVocabulary.app/Contents/MacOS/ || mkdir -p enVocabulary.app/Contents/MacOS/
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
@@ -660,12 +666,17 @@ enVocabulary.app/Contents/Resources/empty.lproj:
 enVocabulary.app/Contents/Info.plist: 
 	@test -d enVocabulary.app/Contents || mkdir -p enVocabulary.app/Contents
 	@$(DEL_FILE) enVocabulary.app/Contents/Info.plist
-	@sed -e "s,@SHORT_VERSION@,1.0,g" -e "s,@FULL_VERSION@,1.0.0,g" -e "s,@TYPEINFO@,????,g" -e "s,@BUNDLEIDENTIFIER@,com.yourcompany.enVocabulary,g" -e "s,@ICON@,,g" -e "s,@EXECUTABLE@,enVocabulary,g" -e "s,@LIBRARY@,enVocabulary,g" -e "s,@TYPEINFO@,????,g" ../../Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang/Info.plist.app >enVocabulary.app/Contents/Info.plist
+	@sed -e "s,@SHORT_VERSION@,1.0,g" -e "s,@FULL_VERSION@,1.0.0,g" -e "s,@TYPEINFO@,????,g" -e "s,@BUNDLEIDENTIFIER@,com.yourcompany.enVocabulary,g" -e "s,@ICON@,dict.icns,g" -e "s,@EXECUTABLE@,enVocabulary,g" -e "s,@LIBRARY@,enVocabulary,g" -e "s,@TYPEINFO@,????,g" ../../Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang/Info.plist.app >enVocabulary.app/Contents/Info.plist
+enVocabulary.app/Contents/Resources/dict.icns: image/dict.icns
+	@test -d enVocabulary.app/Contents/Resources/ || mkdir -p enVocabulary.app/Contents/Resources/
+	@$(DEL_FILE) enVocabulary.app/Contents/Resources/dict.icns
+	@$(COPY_FILE) image/dict.icns enVocabulary.app/Contents/Resources/dict.icns
 
 all: Makefile \
 		enVocabulary.app/Contents/PkgInfo \
 		enVocabulary.app/Contents/Resources/empty.lproj \
-		enVocabulary.app/Contents/Info.plist $(TARGET)
+		enVocabulary.app/Contents/Info.plist \
+		enVocabulary.app/Contents/Resources/dict.icns $(TARGET)
 
 dist: distdir FORCE
 	(cd `dirname $(DISTDIR)` && $(TAR) $(DISTNAME).tar $(DISTNAME) && $(COMPRESS) $(DISTNAME).tar) && $(MOVE) `dirname $(DISTDIR)`/$(DISTNAME).tar.gz . && $(DEL_FILE) -r $(DISTDIR)
@@ -675,8 +686,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents image.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents search.h httpmanager.h log.h endata.h controller.h mysentences.h viewmanager.h collectsentences.h collectwords.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp search.cpp httpmanager.cpp log.cpp endata.cpp controller.cpp mysentences.cpp viewmanager.cpp collectsentences.cpp collectwords.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents Inc/search.h Inc/httpmanager.h Inc/log.h Inc/endata.h Inc/controller.h Inc/mysentences.h Inc/viewmanager.h Inc/collectsentences.h Inc/collectwords.h Inc/qmlfunc.h $(DISTDIR)/
+	$(COPY_FILE) --parents Src/main.cpp Src/search.cpp Src/httpmanager.cpp Src/log.cpp Src/endata.cpp Src/controller.cpp Src/mysentences.cpp Src/viewmanager.cpp Src/collectsentences.cpp Src/collectwords.cpp Src/qmlfunc.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents search.ui mysentences.ui collectsentences.ui collectwords.ui $(DISTDIR)/
 
 
@@ -706,29 +717,31 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_image.cpp
 qrc_image.cpp: image.qrc \
 		../../Qt5.9.2/5.9.2/clang_64/bin/rcc \
-		rect.qml \
+		Res/rect.qml \
 		image/play_circle.png \
+		image/trash.png \
 		image/rwhiteHeart.png \
 		image/goBack.png \
 		image/stop_circle.png \
 		image/redHeart.png \
+		image/dict.icns \
 		image/whiteHeart.png \
 		image/right.png \
 		image/left.png
 	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/rcc -name image image.qrc -o qrc_image.cpp
 
-compiler_moc_predefs_make_all: moc_predefs.h
+compiler_moc_predefs_make_all: Moc/moc_predefs.h
 compiler_moc_predefs_clean:
-	-$(DEL_FILE) moc_predefs.h
-moc_predefs.h: ../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/data/dummy.cpp
-	/Library/Developer/CommandLineTools/usr/bin/clang++ -pipe -stdlib=libc++ -O2 -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wall -W -dM -E -o moc_predefs.h ../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/data/dummy.cpp
+	-$(DEL_FILE) Moc/moc_predefs.h
+Moc/moc_predefs.h: ../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/data/dummy.cpp
+	/Library/Developer/CommandLineTools/usr/bin/clang++ -pipe -stdlib=libc++ -O2 -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wall -W -dM -E -o Moc/moc_predefs.h ../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_search.cpp moc_httpmanager.cpp moc_controller.cpp moc_mysentences.cpp moc_viewmanager.cpp moc_collectsentences.cpp moc_collectwords.cpp
+compiler_moc_header_make_all: Moc/moc_search.cpp Moc/moc_httpmanager.cpp Moc/moc_controller.cpp Moc/moc_mysentences.cpp Moc/moc_viewmanager.cpp Moc/moc_collectsentences.cpp Moc/moc_collectwords.cpp Moc/moc_qmlfunc.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_search.cpp moc_httpmanager.cpp moc_controller.cpp moc_mysentences.cpp moc_viewmanager.cpp moc_collectsentences.cpp moc_collectwords.cpp
-moc_search.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
+	-$(DEL_FILE) Moc/moc_search.cpp Moc/moc_httpmanager.cpp Moc/moc_controller.cpp Moc/moc_mysentences.cpp Moc/moc_viewmanager.cpp Moc/moc_collectsentences.cpp Moc/moc_collectwords.cpp Moc/moc_qmlfunc.cpp
+Moc/moc_search.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
-		httpmanager.h \
+		Inc/httpmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
@@ -1068,7 +1081,7 @@ moc_search.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWi
 		/usr/local/include/boost/type_traits/is_default_constructible.hpp \
 		/usr/local/include/boost/type_traits/has_trivial_destructor.hpp \
 		/usr/local/include/boost/type_traits/is_destructible.hpp \
-		endata.h \
+		Inc/endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlError \
@@ -1084,12 +1097,13 @@ moc_search.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWi
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
-		search.h \
-		moc_predefs.h \
+		Inc/qmlfunc.h \
+		Inc/search.h \
+		Moc/moc_predefs.h \
 		../../Qt5.9.2/5.9.2/clang_64/bin/moc
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/code/enVocabulary -I/usr/local/include -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib search.h -o moc_search.cpp
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./Moc/moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/code/enVocabulary -I/usr/local/include -I/Users/weiyang/code/enVocabulary/Inc -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib Inc/search.h -o Moc/moc_search.cpp
 
-moc_httpmanager.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
+Moc/moc_httpmanager.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
@@ -1428,7 +1442,7 @@ moc_httpmanager.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/Q
 		/usr/local/include/boost/type_traits/is_default_constructible.hpp \
 		/usr/local/include/boost/type_traits/has_trivial_destructor.hpp \
 		/usr/local/include/boost/type_traits/is_destructible.hpp \
-		endata.h \
+		Inc/endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlError \
@@ -1438,18 +1452,18 @@ moc_httpmanager.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/Q
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebugStateSaver \
-		httpmanager.h \
-		moc_predefs.h \
+		Inc/httpmanager.h \
+		Moc/moc_predefs.h \
 		../../Qt5.9.2/5.9.2/clang_64/bin/moc
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/code/enVocabulary -I/usr/local/include -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib httpmanager.h -o moc_httpmanager.cpp
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./Moc/moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/code/enVocabulary -I/usr/local/include -I/Users/weiyang/code/enVocabulary/Inc -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib Inc/httpmanager.h -o Moc/moc_httpmanager.cpp
 
-moc_controller.cpp: viewmanager.h \
+Moc/moc_controller.cpp: Inc/viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
-		search.h \
+		Inc/search.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
-		httpmanager.h \
+		Inc/httpmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
@@ -1787,7 +1801,7 @@ moc_controller.cpp: viewmanager.h \
 		/usr/local/include/boost/type_traits/is_default_constructible.hpp \
 		/usr/local/include/boost/type_traits/has_trivial_destructor.hpp \
 		/usr/local/include/boost/type_traits/is_destructible.hpp \
-		endata.h \
+		Inc/endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlError \
@@ -1803,7 +1817,8 @@ moc_controller.cpp: viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
-		mysentences.h \
+		Inc/qmlfunc.h \
+		Inc/mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
@@ -1812,14 +1827,16 @@ moc_controller.cpp: viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
-		collectsentences.h \
-		collectwords.h \
-		controller.h \
-		moc_predefs.h \
+		Inc/collectsentences.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QCheckBox \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
+		Inc/collectwords.h \
+		Inc/controller.h \
+		Moc/moc_predefs.h \
 		../../Qt5.9.2/5.9.2/clang_64/bin/moc
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/code/enVocabulary -I/usr/local/include -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib controller.h -o moc_controller.cpp
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./Moc/moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/code/enVocabulary -I/usr/local/include -I/Users/weiyang/code/enVocabulary/Inc -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib Inc/controller.h -o Moc/moc_controller.cpp
 
-moc_mysentences.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
+Moc/moc_mysentences.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
@@ -1832,17 +1849,17 @@ moc_mysentences.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Header
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
-		mysentences.h \
-		moc_predefs.h \
+		Inc/mysentences.h \
+		Moc/moc_predefs.h \
 		../../Qt5.9.2/5.9.2/clang_64/bin/moc
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/code/enVocabulary -I/usr/local/include -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib mysentences.h -o moc_mysentences.cpp
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./Moc/moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/code/enVocabulary -I/usr/local/include -I/Users/weiyang/code/enVocabulary/Inc -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib Inc/mysentences.h -o Moc/moc_mysentences.cpp
 
-moc_viewmanager.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
+Moc/moc_viewmanager.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
-		search.h \
+		Inc/search.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
-		httpmanager.h \
+		Inc/httpmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
@@ -2180,7 +2197,7 @@ moc_viewmanager.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/Q
 		/usr/local/include/boost/type_traits/is_default_constructible.hpp \
 		/usr/local/include/boost/type_traits/has_trivial_destructor.hpp \
 		/usr/local/include/boost/type_traits/is_destructible.hpp \
-		endata.h \
+		Inc/endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlError \
@@ -2196,7 +2213,8 @@ moc_viewmanager.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/Q
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
-		mysentences.h \
+		Inc/qmlfunc.h \
+		Inc/mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
@@ -2205,47 +2223,58 @@ moc_viewmanager.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/Q
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
-		collectsentences.h \
-		collectwords.h \
-		viewmanager.h \
-		moc_predefs.h \
+		Inc/collectsentences.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QCheckBox \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
+		Inc/collectwords.h \
+		Inc/viewmanager.h \
+		Moc/moc_predefs.h \
 		../../Qt5.9.2/5.9.2/clang_64/bin/moc
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/code/enVocabulary -I/usr/local/include -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib viewmanager.h -o moc_viewmanager.cpp
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./Moc/moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/code/enVocabulary -I/usr/local/include -I/Users/weiyang/code/enVocabulary/Inc -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib Inc/viewmanager.h -o Moc/moc_viewmanager.cpp
 
-moc_collectsentences.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
+Moc/moc_collectsentences.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
-		collectsentences.h \
-		moc_predefs.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QCheckBox \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
+		Inc/collectsentences.h \
+		Moc/moc_predefs.h \
 		../../Qt5.9.2/5.9.2/clang_64/bin/moc
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/code/enVocabulary -I/usr/local/include -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib collectsentences.h -o moc_collectsentences.cpp
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./Moc/moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/code/enVocabulary -I/usr/local/include -I/Users/weiyang/code/enVocabulary/Inc -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib Inc/collectsentences.h -o Moc/moc_collectsentences.cpp
 
-moc_collectwords.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
+Moc/moc_collectwords.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
-		collectwords.h \
-		moc_predefs.h \
+		Inc/collectwords.h \
+		Moc/moc_predefs.h \
 		../../Qt5.9.2/5.9.2/clang_64/bin/moc
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/code/enVocabulary -I/usr/local/include -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib collectwords.h -o moc_collectwords.cpp
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./Moc/moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/code/enVocabulary -I/usr/local/include -I/Users/weiyang/code/enVocabulary/Inc -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib Inc/collectwords.h -o Moc/moc_collectwords.cpp
+
+Moc/moc_qmlfunc.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		Inc/qmlfunc.h \
+		Moc/moc_predefs.h \
+		../../Qt5.9.2/5.9.2/clang_64/bin/moc
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./Moc/moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/code/enVocabulary -I/usr/local/include -I/Users/weiyang/code/enVocabulary/Inc -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib Inc/qmlfunc.h -o Moc/moc_qmlfunc.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_search.h ui_mysentences.h ui_collectsentences.h ui_collectwords.h
+compiler_uic_make_all: Res/ui_search.h Res/ui_mysentences.h Res/ui_collectsentences.h Res/ui_collectwords.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_search.h ui_mysentences.h ui_collectsentences.h ui_collectwords.h
-ui_search.h: search.ui \
+	-$(DEL_FILE) Res/ui_search.h Res/ui_mysentences.h Res/ui_collectsentences.h Res/ui_collectwords.h
+Res/ui_search.h: search.ui \
 		../../Qt5.9.2/5.9.2/clang_64/bin/uic
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/uic search.ui -o ui_search.h
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/uic search.ui -o Res/ui_search.h
 
-ui_mysentences.h: mysentences.ui \
+Res/ui_mysentences.h: mysentences.ui \
 		../../Qt5.9.2/5.9.2/clang_64/bin/uic
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/uic mysentences.ui -o ui_mysentences.h
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/uic mysentences.ui -o Res/ui_mysentences.h
 
-ui_collectsentences.h: collectsentences.ui \
+Res/ui_collectsentences.h: collectsentences.ui \
 		../../Qt5.9.2/5.9.2/clang_64/bin/uic
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/uic collectsentences.ui -o ui_collectsentences.h
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/uic collectsentences.ui -o Res/ui_collectsentences.h
 
-ui_collectwords.h: collectwords.ui \
+Res/ui_collectwords.h: collectwords.ui \
 		../../Qt5.9.2/5.9.2/clang_64/bin/uic
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/uic collectwords.ui -o ui_collectwords.h
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/uic collectwords.ui -o Res/ui_collectwords.h
 
 compiler_rez_source_make_all:
 compiler_rez_source_clean:
@@ -2259,13 +2288,13 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 
 ####### Compile
 
-main.o: main.cpp viewmanager.h \
+main.o: Src/main.cpp Inc/viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
-		search.h \
+		Inc/search.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
-		httpmanager.h \
+		Inc/httpmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
@@ -2603,7 +2632,7 @@ main.o: main.cpp viewmanager.h \
 		/usr/local/include/boost/type_traits/is_default_constructible.hpp \
 		/usr/local/include/boost/type_traits/has_trivial_destructor.hpp \
 		/usr/local/include/boost/type_traits/is_destructible.hpp \
-		endata.h \
+		Inc/endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlError \
@@ -2619,7 +2648,8 @@ main.o: main.cpp viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
-		mysentences.h \
+		Inc/qmlfunc.h \
+		Inc/mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
@@ -2628,17 +2658,23 @@ main.o: main.cpp viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
-		collectsentences.h \
-		collectwords.h \
-		controller.h \
+		Inc/collectsentences.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QCheckBox \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
+		Inc/collectwords.h \
+		Inc/controller.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QApplication \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qapplication.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers/QQmlEngine \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers/qqmlengine.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers/QQmlComponent \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers/qqmlcomponent.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o Src/main.cpp
 
-search.o: search.cpp search.h \
+search.o: Src/search.cpp Inc/search.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
-		httpmanager.h \
+		Inc/httpmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
@@ -2978,7 +3014,7 @@ search.o: search.cpp search.h \
 		/usr/local/include/boost/type_traits/is_default_constructible.hpp \
 		/usr/local/include/boost/type_traits/has_trivial_destructor.hpp \
 		/usr/local/include/boost/type_traits/is_destructible.hpp \
-		endata.h \
+		Inc/endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlError \
@@ -2994,13 +3030,14 @@ search.o: search.cpp search.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
-		log.h \
-		ui_search.h \
+		Inc/qmlfunc.h \
+		Inc/log.h \
+		Res/ui_search.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers/QQuickItem \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers/qquickitem.h \
-		controller.h \
-		viewmanager.h \
-		mysentences.h \
+		Inc/controller.h \
+		Inc/viewmanager.h \
+		Inc/mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
@@ -3009,11 +3046,15 @@ search.o: search.cpp search.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
-		collectsentences.h \
-		collectwords.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o search.o search.cpp
+		Inc/collectsentences.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QCheckBox \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
+		Inc/collectwords.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers/QQmlContext \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers/qqmlcontext.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o search.o Src/search.cpp
 
-httpmanager.o: httpmanager.cpp httpmanager.h \
+httpmanager.o: Src/httpmanager.cpp Inc/httpmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
@@ -3353,7 +3394,7 @@ httpmanager.o: httpmanager.cpp httpmanager.h \
 		/usr/local/include/boost/type_traits/is_default_constructible.hpp \
 		/usr/local/include/boost/type_traits/has_trivial_destructor.hpp \
 		/usr/local/include/boost/type_traits/is_destructible.hpp \
-		endata.h \
+		Inc/endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlError \
@@ -3363,17 +3404,17 @@ httpmanager.o: httpmanager.cpp httpmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebugStateSaver \
-		log.h \
+		Inc/log.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonDocument \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsondocument.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o httpmanager.o httpmanager.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o httpmanager.o Src/httpmanager.cpp
 
-log.o: log.cpp log.h \
+log.o: Src/log.cpp Inc/log.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o log.o log.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o log.o Src/log.cpp
 
-endata.o: endata.cpp endata.h \
+endata.o: Src/endata.cpp Inc/endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlError \
@@ -3383,19 +3424,19 @@ endata.o: endata.cpp endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebugStateSaver \
-		log.h \
+		Inc/log.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonParseError \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsondocument.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonArray \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonarray.h \
-		controller.h \
-		viewmanager.h \
+		Inc/controller.h \
+		Inc/viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
-		search.h \
+		Inc/search.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
-		httpmanager.h \
+		Inc/httpmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
@@ -3739,7 +3780,8 @@ endata.o: endata.cpp endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
-		mysentences.h \
+		Inc/qmlfunc.h \
+		Inc/mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
@@ -3748,22 +3790,24 @@ endata.o: endata.cpp endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
-		collectsentences.h \
-		collectwords.h \
+		Inc/collectsentences.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QCheckBox \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
+		Inc/collectwords.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QCoreApplication \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qcoreapplication.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QApplication \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o endata.o endata.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o endata.o Src/endata.cpp
 
-controller.o: controller.cpp controller.h \
-		viewmanager.h \
+controller.o: Src/controller.cpp Inc/controller.h \
+		Inc/viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
-		search.h \
+		Inc/search.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
-		httpmanager.h \
+		Inc/httpmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
@@ -4101,7 +4145,7 @@ controller.o: controller.cpp controller.h \
 		/usr/local/include/boost/type_traits/is_default_constructible.hpp \
 		/usr/local/include/boost/type_traits/has_trivial_destructor.hpp \
 		/usr/local/include/boost/type_traits/is_destructible.hpp \
-		endata.h \
+		Inc/endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlError \
@@ -4117,7 +4161,8 @@ controller.o: controller.cpp controller.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
-		mysentences.h \
+		Inc/qmlfunc.h \
+		Inc/mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
@@ -4126,12 +4171,14 @@ controller.o: controller.cpp controller.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
-		collectsentences.h \
-		collectwords.h \
-		log.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o controller.o controller.cpp
+		Inc/collectsentences.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QCheckBox \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
+		Inc/collectwords.h \
+		Inc/log.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o controller.o Src/controller.cpp
 
-mysentences.o: mysentences.cpp mysentences.h \
+mysentences.o: Src/mysentences.cpp Inc/mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
@@ -4145,16 +4192,16 @@ mysentences.o: mysentences.cpp mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
-		ui_mysentences.h \
-		log.h \
+		Res/ui_mysentences.h \
+		Inc/log.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
-		controller.h \
-		viewmanager.h \
+		Inc/controller.h \
+		Inc/viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
-		search.h \
-		httpmanager.h \
+		Inc/search.h \
+		Inc/httpmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
@@ -4492,7 +4539,7 @@ mysentences.o: mysentences.cpp mysentences.h \
 		/usr/local/include/boost/type_traits/is_default_constructible.hpp \
 		/usr/local/include/boost/type_traits/has_trivial_destructor.hpp \
 		/usr/local/include/boost/type_traits/is_destructible.hpp \
-		endata.h \
+		Inc/endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlError \
@@ -4503,20 +4550,23 @@ mysentences.o: mysentences.cpp mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
-		collectsentences.h \
-		collectwords.h \
+		Inc/qmlfunc.h \
+		Inc/collectsentences.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QCheckBox \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
+		Inc/collectwords.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QRegularExpression \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qregularexpression.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QRegularExpressionMatch
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mysentences.o mysentences.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mysentences.o Src/mysentences.cpp
 
-viewmanager.o: viewmanager.cpp viewmanager.h \
+viewmanager.o: Src/viewmanager.cpp Inc/viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
-		search.h \
+		Inc/search.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
-		httpmanager.h \
+		Inc/httpmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
@@ -4854,7 +4904,7 @@ viewmanager.o: viewmanager.cpp viewmanager.h \
 		/usr/local/include/boost/type_traits/is_default_constructible.hpp \
 		/usr/local/include/boost/type_traits/has_trivial_destructor.hpp \
 		/usr/local/include/boost/type_traits/is_destructible.hpp \
-		endata.h \
+		Inc/endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlError \
@@ -4870,7 +4920,8 @@ viewmanager.o: viewmanager.cpp viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
-		mysentences.h \
+		Inc/qmlfunc.h \
+		Inc/mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
@@ -4879,16 +4930,20 @@ viewmanager.o: viewmanager.cpp viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
-		collectsentences.h \
-		collectwords.h \
-		log.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o viewmanager.o viewmanager.cpp
+		Inc/collectsentences.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QCheckBox \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
+		Inc/collectwords.h \
+		Inc/log.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o viewmanager.o Src/viewmanager.cpp
 
-collectsentences.o: collectsentences.cpp collectsentences.h \
+collectsentences.o: Src/collectsentences.cpp Inc/collectsentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
-		ui_collectsentences.h \
-		endata.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QCheckBox \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
+		Res/ui_collectsentences.h \
+		Inc/endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlError \
@@ -4898,389 +4953,12 @@ collectsentences.o: collectsentences.cpp collectsentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebugStateSaver \
-		controller.h \
-		viewmanager.h \
+		Inc/controller.h \
+		Inc/viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
-		search.h \
-		httpmanager.h \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QSslSocket \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qsslsocket.h \
-		/usr/local/include/boost/smart_ptr.hpp \
-		/usr/local/include/boost/scoped_ptr.hpp \
-		/usr/local/include/boost/smart_ptr/scoped_ptr.hpp \
-		/usr/local/include/boost/config.hpp \
-		/usr/local/include/boost/config/user.hpp \
-		/usr/local/include/boost/config/detail/select_compiler_config.hpp \
-		/usr/local/include/boost/config/compiler/nvcc.hpp \
-		/usr/local/include/boost/config/compiler/gcc_xml.hpp \
-		/usr/local/include/boost/config/compiler/cray.hpp \
-		/usr/local/include/boost/config/compiler/common_edg.hpp \
-		/usr/local/include/boost/config/compiler/comeau.hpp \
-		/usr/local/include/boost/config/compiler/pathscale.hpp \
-		/usr/local/include/boost/config/compiler/clang.hpp \
-		/usr/local/include/boost/config/compiler/intel.hpp \
-		/usr/local/include/boost/config/compiler/visualc.hpp \
-		/usr/local/include/boost/config/compiler/gcc.hpp \
-		/usr/local/include/boost/config/compiler/digitalmars.hpp \
-		/usr/local/include/boost/config/compiler/kai.hpp \
-		/usr/local/include/boost/config/compiler/sgi_mipspro.hpp \
-		/usr/local/include/boost/config/compiler/compaq_cxx.hpp \
-		/usr/local/include/boost/config/compiler/greenhills.hpp \
-		/usr/local/include/boost/config/compiler/codegear.hpp \
-		/usr/local/include/boost/config/compiler/borland.hpp \
-		/usr/local/include/boost/config/compiler/metrowerks.hpp \
-		/usr/local/include/boost/config/compiler/sunpro_cc.hpp \
-		/usr/local/include/boost/config/compiler/hp_acc.hpp \
-		/usr/local/include/boost/config/compiler/mpw.hpp \
-		/usr/local/include/boost/config/compiler/xlcpp_zos.hpp \
-		/usr/local/include/boost/config/compiler/xlcpp.hpp \
-		/usr/local/include/boost/config/compiler/vacpp.hpp \
-		/usr/local/include/boost/config/compiler/pgi.hpp \
-		/usr/local/include/boost/config/detail/select_stdlib_config.hpp \
-		/usr/local/include/boost/config/stdlib/stlport.hpp \
-		/usr/local/include/boost/config/stdlib/libcomo.hpp \
-		/usr/local/include/boost/config/no_tr1/utility.hpp \
-		/usr/local/include/boost/config/stdlib/roguewave.hpp \
-		/usr/local/include/boost/config/stdlib/libcpp.hpp \
-		/usr/local/include/boost/config/stdlib/libstdcpp3.hpp \
-		/usr/local/include/boost/config/stdlib/sgi.hpp \
-		/usr/local/include/boost/config/stdlib/msl.hpp \
-		/usr/local/include/boost/config/detail/posix_features.hpp \
-		/usr/local/include/boost/config/stdlib/xlcpp_zos.hpp \
-		/usr/local/include/boost/config/stdlib/vacpp.hpp \
-		/usr/local/include/boost/config/stdlib/modena.hpp \
-		/usr/local/include/boost/config/stdlib/dinkumware.hpp \
-		/usr/local/include/boost/config/detail/select_platform_config.hpp \
-		/usr/local/include/boost/config/platform/linux.hpp \
-		/usr/local/include/boost/config/platform/bsd.hpp \
-		/usr/local/include/boost/config/platform/solaris.hpp \
-		/usr/local/include/boost/config/platform/irix.hpp \
-		/usr/local/include/boost/config/platform/hpux.hpp \
-		/usr/local/include/boost/config/platform/cygwin.hpp \
-		/usr/local/include/boost/config/platform/win32.hpp \
-		/usr/local/include/boost/config/platform/beos.hpp \
-		/usr/local/include/boost/config/platform/macos.hpp \
-		/usr/local/include/boost/config/platform/zos.hpp \
-		/usr/local/include/boost/config/platform/aix.hpp \
-		/usr/local/include/boost/config/platform/amigaos.hpp \
-		/usr/local/include/boost/config/platform/qnxnto.hpp \
-		/usr/local/include/boost/config/platform/vxworks.hpp \
-		/usr/local/include/boost/config/platform/symbian.hpp \
-		/usr/local/include/boost/config/platform/cray.hpp \
-		/usr/local/include/boost/config/platform/vms.hpp \
-		/usr/local/include/boost/config/detail/suffix.hpp \
-		/usr/local/include/boost/assert.hpp \
-		/usr/local/include/boost/current_function.hpp \
-		/usr/local/include/boost/checked_delete.hpp \
-		/usr/local/include/boost/core/checked_delete.hpp \
-		/usr/local/include/boost/smart_ptr/detail/sp_nullptr_t.hpp \
-		/usr/local/include/boost/smart_ptr/detail/sp_disable_deprecated.hpp \
-		/usr/local/include/boost/smart_ptr/detail/sp_noexcept.hpp \
-		/usr/local/include/boost/detail/workaround.hpp \
-		/usr/local/include/boost/config/workaround.hpp \
-		/usr/local/include/boost/smart_ptr/detail/operator_bool.hpp \
-		/usr/local/include/boost/scoped_array.hpp \
-		/usr/local/include/boost/smart_ptr/scoped_array.hpp \
-		/usr/local/include/boost/shared_ptr.hpp \
-		/usr/local/include/boost/smart_ptr/shared_ptr.hpp \
-		/usr/local/include/boost/config/no_tr1/memory.hpp \
-		/usr/local/include/boost/throw_exception.hpp \
-		/usr/local/include/boost/exception/exception.hpp \
-		/usr/local/include/boost/smart_ptr/detail/shared_count.hpp \
-		/usr/local/include/boost/smart_ptr/bad_weak_ptr.hpp \
-		/usr/local/include/boost/smart_ptr/detail/sp_counted_base.hpp \
-		/usr/local/include/boost/smart_ptr/detail/sp_has_sync.hpp \
-		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_nt.hpp \
-		/usr/local/include/boost/detail/sp_typeinfo.hpp \
-		/usr/local/include/boost/core/typeinfo.hpp \
-		/usr/local/include/boost/core/demangle.hpp \
-		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_std_atomic.hpp \
-		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_spin.hpp \
-		/usr/local/include/boost/smart_ptr/detail/spinlock_pool.hpp \
-		/usr/local/include/boost/smart_ptr/detail/spinlock.hpp \
-		/usr/local/include/boost/smart_ptr/detail/spinlock_std_atomic.hpp \
-		/usr/local/include/boost/smart_ptr/detail/yield_k.hpp \
-		/usr/local/include/boost/predef.h \
-		/usr/local/include/boost/predef/language.h \
-		/usr/local/include/boost/predef/language/stdc.h \
-		/usr/local/include/boost/predef/version_number.h \
-		/usr/local/include/boost/predef/make.h \
-		/usr/local/include/boost/predef/detail/test.h \
-		/usr/local/include/boost/predef/language/stdcpp.h \
-		/usr/local/include/boost/predef/language/objc.h \
-		/usr/local/include/boost/predef/architecture.h \
-		/usr/local/include/boost/predef/architecture/alpha.h \
-		/usr/local/include/boost/predef/architecture/arm.h \
-		/usr/local/include/boost/predef/architecture/blackfin.h \
-		/usr/local/include/boost/predef/architecture/convex.h \
-		/usr/local/include/boost/predef/architecture/ia64.h \
-		/usr/local/include/boost/predef/architecture/m68k.h \
-		/usr/local/include/boost/predef/architecture/mips.h \
-		/usr/local/include/boost/predef/architecture/parisc.h \
-		/usr/local/include/boost/predef/architecture/ppc.h \
-		/usr/local/include/boost/predef/architecture/pyramid.h \
-		/usr/local/include/boost/predef/architecture/rs6k.h \
-		/usr/local/include/boost/predef/architecture/sparc.h \
-		/usr/local/include/boost/predef/architecture/superh.h \
-		/usr/local/include/boost/predef/architecture/sys370.h \
-		/usr/local/include/boost/predef/architecture/sys390.h \
-		/usr/local/include/boost/predef/architecture/x86.h \
-		/usr/local/include/boost/predef/architecture/x86/32.h \
-		/usr/local/include/boost/predef/architecture/x86/64.h \
-		/usr/local/include/boost/predef/architecture/z.h \
-		/usr/local/include/boost/predef/compiler.h \
-		/usr/local/include/boost/predef/compiler/borland.h \
-		/usr/local/include/boost/predef/detail/comp_detected.h \
-		/usr/local/include/boost/predef/compiler/clang.h \
-		/usr/local/include/boost/predef/compiler/comeau.h \
-		/usr/local/include/boost/predef/compiler/compaq.h \
-		/usr/local/include/boost/predef/compiler/diab.h \
-		/usr/local/include/boost/predef/compiler/digitalmars.h \
-		/usr/local/include/boost/predef/compiler/dignus.h \
-		/usr/local/include/boost/predef/compiler/edg.h \
-		/usr/local/include/boost/predef/compiler/ekopath.h \
-		/usr/local/include/boost/predef/compiler/gcc_xml.h \
-		/usr/local/include/boost/predef/compiler/gcc.h \
-		/usr/local/include/boost/predef/compiler/greenhills.h \
-		/usr/local/include/boost/predef/compiler/hp_acc.h \
-		/usr/local/include/boost/predef/compiler/iar.h \
-		/usr/local/include/boost/predef/compiler/ibm.h \
-		/usr/local/include/boost/predef/compiler/intel.h \
-		/usr/local/include/boost/predef/compiler/kai.h \
-		/usr/local/include/boost/predef/compiler/llvm.h \
-		/usr/local/include/boost/predef/compiler/metaware.h \
-		/usr/local/include/boost/predef/compiler/metrowerks.h \
-		/usr/local/include/boost/predef/compiler/microtec.h \
-		/usr/local/include/boost/predef/compiler/mpw.h \
-		/usr/local/include/boost/predef/compiler/palm.h \
-		/usr/local/include/boost/predef/compiler/pgi.h \
-		/usr/local/include/boost/predef/compiler/sgi_mipspro.h \
-		/usr/local/include/boost/predef/compiler/sunpro.h \
-		/usr/local/include/boost/predef/compiler/tendra.h \
-		/usr/local/include/boost/predef/compiler/visualc.h \
-		/usr/local/include/boost/predef/compiler/watcom.h \
-		/usr/local/include/boost/predef/library.h \
-		/usr/local/include/boost/predef/library/c.h \
-		/usr/local/include/boost/predef/library/c/_prefix.h \
-		/usr/local/include/boost/predef/detail/_cassert.h \
-		/usr/local/include/boost/predef/library/c/cloudabi.h \
-		/usr/local/include/boost/predef/library/c/gnu.h \
-		/usr/local/include/boost/predef/library/c/uc.h \
-		/usr/local/include/boost/predef/library/c/vms.h \
-		/usr/local/include/boost/predef/library/c/zos.h \
-		/usr/local/include/boost/predef/library/std.h \
-		/usr/local/include/boost/predef/library/std/_prefix.h \
-		/usr/local/include/boost/predef/detail/_exception.h \
-		/usr/local/include/boost/predef/library/std/cxx.h \
-		/usr/local/include/boost/predef/library/std/dinkumware.h \
-		/usr/local/include/boost/predef/library/std/libcomo.h \
-		/usr/local/include/boost/predef/library/std/modena.h \
-		/usr/local/include/boost/predef/library/std/msl.h \
-		/usr/local/include/boost/predef/library/std/roguewave.h \
-		/usr/local/include/boost/predef/library/std/sgi.h \
-		/usr/local/include/boost/predef/library/std/stdcpp3.h \
-		/usr/local/include/boost/predef/library/std/stlport.h \
-		/usr/local/include/boost/predef/library/std/vacpp.h \
-		/usr/local/include/boost/predef/os.h \
-		/usr/local/include/boost/predef/os/aix.h \
-		/usr/local/include/boost/predef/detail/os_detected.h \
-		/usr/local/include/boost/predef/os/amigaos.h \
-		/usr/local/include/boost/predef/os/android.h \
-		/usr/local/include/boost/predef/os/beos.h \
-		/usr/local/include/boost/predef/os/bsd.h \
-		/usr/local/include/boost/predef/os/macos.h \
-		/usr/local/include/boost/predef/os/ios.h \
-		/usr/local/include/boost/predef/os/bsd/bsdi.h \
-		/usr/local/include/boost/predef/os/bsd/dragonfly.h \
-		/usr/local/include/boost/predef/os/bsd/free.h \
-		/usr/local/include/boost/predef/os/bsd/open.h \
-		/usr/local/include/boost/predef/os/bsd/net.h \
-		/usr/local/include/boost/predef/os/cygwin.h \
-		/usr/local/include/boost/predef/os/haiku.h \
-		/usr/local/include/boost/predef/os/hpux.h \
-		/usr/local/include/boost/predef/os/irix.h \
-		/usr/local/include/boost/predef/os/linux.h \
-		/usr/local/include/boost/predef/os/os400.h \
-		/usr/local/include/boost/predef/os/qnxnto.h \
-		/usr/local/include/boost/predef/os/solaris.h \
-		/usr/local/include/boost/predef/os/unix.h \
-		/usr/local/include/boost/predef/os/vms.h \
-		/usr/local/include/boost/predef/os/windows.h \
-		/usr/local/include/boost/predef/other.h \
-		/usr/local/include/boost/predef/other/endian.h \
-		/usr/local/include/boost/predef/platform.h \
-		/usr/local/include/boost/predef/platform/cloudabi.h \
-		/usr/local/include/boost/predef/detail/platform_detected.h \
-		/usr/local/include/boost/predef/platform/mingw.h \
-		/usr/local/include/boost/predef/platform/mingw32.h \
-		/usr/local/include/boost/predef/platform/mingw64.h \
-		/usr/local/include/boost/predef/platform/windows_uwp.h \
-		/usr/local/include/boost/predef/platform/windows_desktop.h \
-		/usr/local/include/boost/predef/platform/windows_phone.h \
-		/usr/local/include/boost/predef/platform/windows_server.h \
-		/usr/local/include/boost/predef/platform/windows_store.h \
-		/usr/local/include/boost/predef/platform/windows_system.h \
-		/usr/local/include/boost/predef/platform/windows_runtime.h \
-		/usr/local/include/boost/predef/platform/ios.h \
-		/usr/local/include/boost/predef/hardware.h \
-		/usr/local/include/boost/predef/hardware/simd.h \
-		/usr/local/include/boost/predef/hardware/simd/x86.h \
-		/usr/local/include/boost/predef/hardware/simd/x86/versions.h \
-		/usr/local/include/boost/predef/hardware/simd/x86_amd.h \
-		/usr/local/include/boost/predef/hardware/simd/x86_amd/versions.h \
-		/usr/local/include/boost/predef/hardware/simd/arm.h \
-		/usr/local/include/boost/predef/hardware/simd/arm/versions.h \
-		/usr/local/include/boost/predef/hardware/simd/ppc.h \
-		/usr/local/include/boost/predef/hardware/simd/ppc/versions.h \
-		/usr/local/include/boost/predef/version.h \
-		/usr/local/include/boost/smart_ptr/detail/spinlock_sync.hpp \
-		/usr/local/include/boost/smart_ptr/detail/spinlock_pt.hpp \
-		/usr/local/include/boost/smart_ptr/detail/spinlock_gcc_arm.hpp \
-		/usr/local/include/boost/smart_ptr/detail/spinlock_w32.hpp \
-		/usr/local/include/boost/smart_ptr/detail/sp_interlocked.hpp \
-		/usr/local/include/boost/smart_ptr/detail/spinlock_nt.hpp \
-		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_pt.hpp \
-		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_clang.hpp \
-		/usr/local/include/boost/cstdint.hpp \
-		/usr/local/include/boost/limits.hpp \
-		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_snc_ps3.hpp \
-		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp \
-		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_acc_ia64.hpp \
-		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_gcc_ia64.hpp \
-		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_vacpp_ppc.hpp \
-		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_cw_ppc.hpp \
-		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_gcc_ppc.hpp \
-		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_gcc_mips.hpp \
-		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_sync.hpp \
-		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_gcc_sparc.hpp \
-		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_w32.hpp \
-		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_aix.hpp \
-		/usr/local/include/boost/smart_ptr/detail/sp_counted_impl.hpp \
-		/usr/local/include/boost/core/addressof.hpp \
-		/usr/local/include/boost/smart_ptr/detail/quick_allocator.hpp \
-		/usr/local/include/boost/smart_ptr/detail/lightweight_mutex.hpp \
-		/usr/local/include/boost/smart_ptr/detail/lwm_nop.hpp \
-		/usr/local/include/boost/smart_ptr/detail/lwm_pthreads.hpp \
-		/usr/local/include/boost/smart_ptr/detail/lwm_win32_cs.hpp \
-		/usr/local/include/boost/type_traits/type_with_alignment.hpp \
-		/usr/local/include/boost/type_traits/alignment_of.hpp \
-		/usr/local/include/boost/type_traits/intrinsics.hpp \
-		/usr/local/include/boost/type_traits/detail/config.hpp \
-		/usr/local/include/boost/version.hpp \
-		/usr/local/include/boost/type_traits/is_same.hpp \
-		/usr/local/include/boost/type_traits/integral_constant.hpp \
-		/usr/local/include/boost/type_traits/is_reference.hpp \
-		/usr/local/include/boost/type_traits/is_lvalue_reference.hpp \
-		/usr/local/include/boost/type_traits/is_rvalue_reference.hpp \
-		/usr/local/include/boost/type_traits/is_volatile.hpp \
-		/usr/local/include/boost/type_traits/is_void.hpp \
-		/usr/local/include/boost/type_traits/is_pod.hpp \
-		/usr/local/include/boost/type_traits/is_scalar.hpp \
-		/usr/local/include/boost/type_traits/is_arithmetic.hpp \
-		/usr/local/include/boost/type_traits/is_integral.hpp \
-		/usr/local/include/boost/type_traits/is_floating_point.hpp \
-		/usr/local/include/boost/type_traits/is_enum.hpp \
-		/usr/local/include/boost/type_traits/add_reference.hpp \
-		/usr/local/include/boost/type_traits/is_convertible.hpp \
-		/usr/local/include/boost/type_traits/detail/yes_no_type.hpp \
-		/usr/local/include/boost/type_traits/is_array.hpp \
-		/usr/local/include/boost/type_traits/is_abstract.hpp \
-		/usr/local/include/boost/static_assert.hpp \
-		/usr/local/include/boost/type_traits/is_class.hpp \
-		/usr/local/include/boost/type_traits/is_union.hpp \
-		/usr/local/include/boost/type_traits/is_function.hpp \
-		/usr/local/include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		/usr/local/include/boost/type_traits/detail/is_function_ptr_tester.hpp \
-		/usr/local/include/boost/type_traits/is_polymorphic.hpp \
-		/usr/local/include/boost/type_traits/add_lvalue_reference.hpp \
-		/usr/local/include/boost/type_traits/add_rvalue_reference.hpp \
-		/usr/local/include/boost/type_traits/remove_reference.hpp \
-		/usr/local/include/boost/type_traits/declval.hpp \
-		/usr/local/include/boost/type_traits/is_pointer.hpp \
-		/usr/local/include/boost/type_traits/is_member_pointer.hpp \
-		/usr/local/include/boost/type_traits/is_member_function_pointer.hpp \
-		/usr/local/include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		/usr/local/include/boost/type_traits/remove_cv.hpp \
-		/usr/local/include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		/usr/local/include/boost/type_traits/conditional.hpp \
-		/usr/local/include/boost/smart_ptr/detail/sp_convertible.hpp \
-		/usr/local/include/boost/smart_ptr/detail/local_sp_deleter.hpp \
-		/usr/local/include/boost/smart_ptr/detail/local_counted_base.hpp \
-		/usr/local/include/boost/shared_array.hpp \
-		/usr/local/include/boost/smart_ptr/shared_array.hpp \
-		/usr/local/include/boost/weak_ptr.hpp \
-		/usr/local/include/boost/smart_ptr/weak_ptr.hpp \
-		/usr/local/include/boost/intrusive_ptr.hpp \
-		/usr/local/include/boost/smart_ptr/intrusive_ptr.hpp \
-		/usr/local/include/boost/config/no_tr1/functional.hpp \
-		/usr/local/include/boost/enable_shared_from_this.hpp \
-		/usr/local/include/boost/smart_ptr/enable_shared_from_this.hpp \
-		/usr/local/include/boost/make_shared.hpp \
-		/usr/local/include/boost/smart_ptr/make_shared.hpp \
-		/usr/local/include/boost/smart_ptr/make_shared_object.hpp \
-		/usr/local/include/boost/move/core.hpp \
-		/usr/local/include/boost/move/detail/config_begin.hpp \
-		/usr/local/include/boost/move/detail/workaround.hpp \
-		/usr/local/include/boost/move/detail/type_traits.hpp \
-		/usr/local/include/boost/move/detail/meta_utils.hpp \
-		/usr/local/include/boost/move/detail/meta_utils_core.hpp \
-		/usr/local/include/boost/move/detail/config_end.hpp \
-		/usr/local/include/boost/move/utility_core.hpp \
-		/usr/local/include/boost/smart_ptr/detail/sp_forward.hpp \
-		/usr/local/include/boost/smart_ptr/make_shared_array.hpp \
-		/usr/local/include/boost/smart_ptr/allocate_shared_array.hpp \
-		/usr/local/include/boost/type_traits/has_trivial_assign.hpp \
-		/usr/local/include/boost/type_traits/is_const.hpp \
-		/usr/local/include/boost/type_traits/is_assignable.hpp \
-		/usr/local/include/boost/type_traits/has_trivial_constructor.hpp \
-		/usr/local/include/boost/type_traits/is_default_constructible.hpp \
-		/usr/local/include/boost/type_traits/has_trivial_destructor.hpp \
-		/usr/local/include/boost/type_traits/is_destructible.hpp \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
-		mysentences.h \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
-		collectwords.h \
-		log.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o collectsentences.o collectsentences.cpp
-
-collectwords.o: collectwords.cpp collectwords.h \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
-		ui_collectwords.h \
-		endata.h \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlError \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebugStateSaver \
-		log.h \
-		controller.h \
-		viewmanager.h \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
-		search.h \
-		httpmanager.h \
+		Inc/search.h \
+		Inc/httpmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
@@ -5624,7 +5302,8 @@ collectwords.o: collectwords.cpp collectwords.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
-		mysentences.h \
+		Inc/qmlfunc.h \
+		Inc/mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
@@ -5633,32 +5312,797 @@ collectwords.o: collectwords.cpp collectwords.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
-		collectsentences.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o collectwords.o collectwords.cpp
+		Inc/collectwords.h \
+		Inc/log.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o collectsentences.o Src/collectsentences.cpp
+
+collectwords.o: Src/collectwords.cpp Inc/collectwords.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		Res/ui_collectwords.h \
+		Inc/endata.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlError \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebugStateSaver \
+		Inc/log.h \
+		Inc/controller.h \
+		Inc/viewmanager.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		Inc/search.h \
+		Inc/httpmanager.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QSslSocket \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qsslsocket.h \
+		/usr/local/include/boost/smart_ptr.hpp \
+		/usr/local/include/boost/scoped_ptr.hpp \
+		/usr/local/include/boost/smart_ptr/scoped_ptr.hpp \
+		/usr/local/include/boost/config.hpp \
+		/usr/local/include/boost/config/user.hpp \
+		/usr/local/include/boost/config/detail/select_compiler_config.hpp \
+		/usr/local/include/boost/config/compiler/nvcc.hpp \
+		/usr/local/include/boost/config/compiler/gcc_xml.hpp \
+		/usr/local/include/boost/config/compiler/cray.hpp \
+		/usr/local/include/boost/config/compiler/common_edg.hpp \
+		/usr/local/include/boost/config/compiler/comeau.hpp \
+		/usr/local/include/boost/config/compiler/pathscale.hpp \
+		/usr/local/include/boost/config/compiler/clang.hpp \
+		/usr/local/include/boost/config/compiler/intel.hpp \
+		/usr/local/include/boost/config/compiler/visualc.hpp \
+		/usr/local/include/boost/config/compiler/gcc.hpp \
+		/usr/local/include/boost/config/compiler/digitalmars.hpp \
+		/usr/local/include/boost/config/compiler/kai.hpp \
+		/usr/local/include/boost/config/compiler/sgi_mipspro.hpp \
+		/usr/local/include/boost/config/compiler/compaq_cxx.hpp \
+		/usr/local/include/boost/config/compiler/greenhills.hpp \
+		/usr/local/include/boost/config/compiler/codegear.hpp \
+		/usr/local/include/boost/config/compiler/borland.hpp \
+		/usr/local/include/boost/config/compiler/metrowerks.hpp \
+		/usr/local/include/boost/config/compiler/sunpro_cc.hpp \
+		/usr/local/include/boost/config/compiler/hp_acc.hpp \
+		/usr/local/include/boost/config/compiler/mpw.hpp \
+		/usr/local/include/boost/config/compiler/xlcpp_zos.hpp \
+		/usr/local/include/boost/config/compiler/xlcpp.hpp \
+		/usr/local/include/boost/config/compiler/vacpp.hpp \
+		/usr/local/include/boost/config/compiler/pgi.hpp \
+		/usr/local/include/boost/config/detail/select_stdlib_config.hpp \
+		/usr/local/include/boost/config/stdlib/stlport.hpp \
+		/usr/local/include/boost/config/stdlib/libcomo.hpp \
+		/usr/local/include/boost/config/no_tr1/utility.hpp \
+		/usr/local/include/boost/config/stdlib/roguewave.hpp \
+		/usr/local/include/boost/config/stdlib/libcpp.hpp \
+		/usr/local/include/boost/config/stdlib/libstdcpp3.hpp \
+		/usr/local/include/boost/config/stdlib/sgi.hpp \
+		/usr/local/include/boost/config/stdlib/msl.hpp \
+		/usr/local/include/boost/config/detail/posix_features.hpp \
+		/usr/local/include/boost/config/stdlib/xlcpp_zos.hpp \
+		/usr/local/include/boost/config/stdlib/vacpp.hpp \
+		/usr/local/include/boost/config/stdlib/modena.hpp \
+		/usr/local/include/boost/config/stdlib/dinkumware.hpp \
+		/usr/local/include/boost/config/detail/select_platform_config.hpp \
+		/usr/local/include/boost/config/platform/linux.hpp \
+		/usr/local/include/boost/config/platform/bsd.hpp \
+		/usr/local/include/boost/config/platform/solaris.hpp \
+		/usr/local/include/boost/config/platform/irix.hpp \
+		/usr/local/include/boost/config/platform/hpux.hpp \
+		/usr/local/include/boost/config/platform/cygwin.hpp \
+		/usr/local/include/boost/config/platform/win32.hpp \
+		/usr/local/include/boost/config/platform/beos.hpp \
+		/usr/local/include/boost/config/platform/macos.hpp \
+		/usr/local/include/boost/config/platform/zos.hpp \
+		/usr/local/include/boost/config/platform/aix.hpp \
+		/usr/local/include/boost/config/platform/amigaos.hpp \
+		/usr/local/include/boost/config/platform/qnxnto.hpp \
+		/usr/local/include/boost/config/platform/vxworks.hpp \
+		/usr/local/include/boost/config/platform/symbian.hpp \
+		/usr/local/include/boost/config/platform/cray.hpp \
+		/usr/local/include/boost/config/platform/vms.hpp \
+		/usr/local/include/boost/config/detail/suffix.hpp \
+		/usr/local/include/boost/assert.hpp \
+		/usr/local/include/boost/current_function.hpp \
+		/usr/local/include/boost/checked_delete.hpp \
+		/usr/local/include/boost/core/checked_delete.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_nullptr_t.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_disable_deprecated.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_noexcept.hpp \
+		/usr/local/include/boost/detail/workaround.hpp \
+		/usr/local/include/boost/config/workaround.hpp \
+		/usr/local/include/boost/smart_ptr/detail/operator_bool.hpp \
+		/usr/local/include/boost/scoped_array.hpp \
+		/usr/local/include/boost/smart_ptr/scoped_array.hpp \
+		/usr/local/include/boost/shared_ptr.hpp \
+		/usr/local/include/boost/smart_ptr/shared_ptr.hpp \
+		/usr/local/include/boost/config/no_tr1/memory.hpp \
+		/usr/local/include/boost/throw_exception.hpp \
+		/usr/local/include/boost/exception/exception.hpp \
+		/usr/local/include/boost/smart_ptr/detail/shared_count.hpp \
+		/usr/local/include/boost/smart_ptr/bad_weak_ptr.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_has_sync.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_nt.hpp \
+		/usr/local/include/boost/detail/sp_typeinfo.hpp \
+		/usr/local/include/boost/core/typeinfo.hpp \
+		/usr/local/include/boost/core/demangle.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_std_atomic.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_spin.hpp \
+		/usr/local/include/boost/smart_ptr/detail/spinlock_pool.hpp \
+		/usr/local/include/boost/smart_ptr/detail/spinlock.hpp \
+		/usr/local/include/boost/smart_ptr/detail/spinlock_std_atomic.hpp \
+		/usr/local/include/boost/smart_ptr/detail/yield_k.hpp \
+		/usr/local/include/boost/predef.h \
+		/usr/local/include/boost/predef/language.h \
+		/usr/local/include/boost/predef/language/stdc.h \
+		/usr/local/include/boost/predef/version_number.h \
+		/usr/local/include/boost/predef/make.h \
+		/usr/local/include/boost/predef/detail/test.h \
+		/usr/local/include/boost/predef/language/stdcpp.h \
+		/usr/local/include/boost/predef/language/objc.h \
+		/usr/local/include/boost/predef/architecture.h \
+		/usr/local/include/boost/predef/architecture/alpha.h \
+		/usr/local/include/boost/predef/architecture/arm.h \
+		/usr/local/include/boost/predef/architecture/blackfin.h \
+		/usr/local/include/boost/predef/architecture/convex.h \
+		/usr/local/include/boost/predef/architecture/ia64.h \
+		/usr/local/include/boost/predef/architecture/m68k.h \
+		/usr/local/include/boost/predef/architecture/mips.h \
+		/usr/local/include/boost/predef/architecture/parisc.h \
+		/usr/local/include/boost/predef/architecture/ppc.h \
+		/usr/local/include/boost/predef/architecture/pyramid.h \
+		/usr/local/include/boost/predef/architecture/rs6k.h \
+		/usr/local/include/boost/predef/architecture/sparc.h \
+		/usr/local/include/boost/predef/architecture/superh.h \
+		/usr/local/include/boost/predef/architecture/sys370.h \
+		/usr/local/include/boost/predef/architecture/sys390.h \
+		/usr/local/include/boost/predef/architecture/x86.h \
+		/usr/local/include/boost/predef/architecture/x86/32.h \
+		/usr/local/include/boost/predef/architecture/x86/64.h \
+		/usr/local/include/boost/predef/architecture/z.h \
+		/usr/local/include/boost/predef/compiler.h \
+		/usr/local/include/boost/predef/compiler/borland.h \
+		/usr/local/include/boost/predef/detail/comp_detected.h \
+		/usr/local/include/boost/predef/compiler/clang.h \
+		/usr/local/include/boost/predef/compiler/comeau.h \
+		/usr/local/include/boost/predef/compiler/compaq.h \
+		/usr/local/include/boost/predef/compiler/diab.h \
+		/usr/local/include/boost/predef/compiler/digitalmars.h \
+		/usr/local/include/boost/predef/compiler/dignus.h \
+		/usr/local/include/boost/predef/compiler/edg.h \
+		/usr/local/include/boost/predef/compiler/ekopath.h \
+		/usr/local/include/boost/predef/compiler/gcc_xml.h \
+		/usr/local/include/boost/predef/compiler/gcc.h \
+		/usr/local/include/boost/predef/compiler/greenhills.h \
+		/usr/local/include/boost/predef/compiler/hp_acc.h \
+		/usr/local/include/boost/predef/compiler/iar.h \
+		/usr/local/include/boost/predef/compiler/ibm.h \
+		/usr/local/include/boost/predef/compiler/intel.h \
+		/usr/local/include/boost/predef/compiler/kai.h \
+		/usr/local/include/boost/predef/compiler/llvm.h \
+		/usr/local/include/boost/predef/compiler/metaware.h \
+		/usr/local/include/boost/predef/compiler/metrowerks.h \
+		/usr/local/include/boost/predef/compiler/microtec.h \
+		/usr/local/include/boost/predef/compiler/mpw.h \
+		/usr/local/include/boost/predef/compiler/palm.h \
+		/usr/local/include/boost/predef/compiler/pgi.h \
+		/usr/local/include/boost/predef/compiler/sgi_mipspro.h \
+		/usr/local/include/boost/predef/compiler/sunpro.h \
+		/usr/local/include/boost/predef/compiler/tendra.h \
+		/usr/local/include/boost/predef/compiler/visualc.h \
+		/usr/local/include/boost/predef/compiler/watcom.h \
+		/usr/local/include/boost/predef/library.h \
+		/usr/local/include/boost/predef/library/c.h \
+		/usr/local/include/boost/predef/library/c/_prefix.h \
+		/usr/local/include/boost/predef/detail/_cassert.h \
+		/usr/local/include/boost/predef/library/c/cloudabi.h \
+		/usr/local/include/boost/predef/library/c/gnu.h \
+		/usr/local/include/boost/predef/library/c/uc.h \
+		/usr/local/include/boost/predef/library/c/vms.h \
+		/usr/local/include/boost/predef/library/c/zos.h \
+		/usr/local/include/boost/predef/library/std.h \
+		/usr/local/include/boost/predef/library/std/_prefix.h \
+		/usr/local/include/boost/predef/detail/_exception.h \
+		/usr/local/include/boost/predef/library/std/cxx.h \
+		/usr/local/include/boost/predef/library/std/dinkumware.h \
+		/usr/local/include/boost/predef/library/std/libcomo.h \
+		/usr/local/include/boost/predef/library/std/modena.h \
+		/usr/local/include/boost/predef/library/std/msl.h \
+		/usr/local/include/boost/predef/library/std/roguewave.h \
+		/usr/local/include/boost/predef/library/std/sgi.h \
+		/usr/local/include/boost/predef/library/std/stdcpp3.h \
+		/usr/local/include/boost/predef/library/std/stlport.h \
+		/usr/local/include/boost/predef/library/std/vacpp.h \
+		/usr/local/include/boost/predef/os.h \
+		/usr/local/include/boost/predef/os/aix.h \
+		/usr/local/include/boost/predef/detail/os_detected.h \
+		/usr/local/include/boost/predef/os/amigaos.h \
+		/usr/local/include/boost/predef/os/android.h \
+		/usr/local/include/boost/predef/os/beos.h \
+		/usr/local/include/boost/predef/os/bsd.h \
+		/usr/local/include/boost/predef/os/macos.h \
+		/usr/local/include/boost/predef/os/ios.h \
+		/usr/local/include/boost/predef/os/bsd/bsdi.h \
+		/usr/local/include/boost/predef/os/bsd/dragonfly.h \
+		/usr/local/include/boost/predef/os/bsd/free.h \
+		/usr/local/include/boost/predef/os/bsd/open.h \
+		/usr/local/include/boost/predef/os/bsd/net.h \
+		/usr/local/include/boost/predef/os/cygwin.h \
+		/usr/local/include/boost/predef/os/haiku.h \
+		/usr/local/include/boost/predef/os/hpux.h \
+		/usr/local/include/boost/predef/os/irix.h \
+		/usr/local/include/boost/predef/os/linux.h \
+		/usr/local/include/boost/predef/os/os400.h \
+		/usr/local/include/boost/predef/os/qnxnto.h \
+		/usr/local/include/boost/predef/os/solaris.h \
+		/usr/local/include/boost/predef/os/unix.h \
+		/usr/local/include/boost/predef/os/vms.h \
+		/usr/local/include/boost/predef/os/windows.h \
+		/usr/local/include/boost/predef/other.h \
+		/usr/local/include/boost/predef/other/endian.h \
+		/usr/local/include/boost/predef/platform.h \
+		/usr/local/include/boost/predef/platform/cloudabi.h \
+		/usr/local/include/boost/predef/detail/platform_detected.h \
+		/usr/local/include/boost/predef/platform/mingw.h \
+		/usr/local/include/boost/predef/platform/mingw32.h \
+		/usr/local/include/boost/predef/platform/mingw64.h \
+		/usr/local/include/boost/predef/platform/windows_uwp.h \
+		/usr/local/include/boost/predef/platform/windows_desktop.h \
+		/usr/local/include/boost/predef/platform/windows_phone.h \
+		/usr/local/include/boost/predef/platform/windows_server.h \
+		/usr/local/include/boost/predef/platform/windows_store.h \
+		/usr/local/include/boost/predef/platform/windows_system.h \
+		/usr/local/include/boost/predef/platform/windows_runtime.h \
+		/usr/local/include/boost/predef/platform/ios.h \
+		/usr/local/include/boost/predef/hardware.h \
+		/usr/local/include/boost/predef/hardware/simd.h \
+		/usr/local/include/boost/predef/hardware/simd/x86.h \
+		/usr/local/include/boost/predef/hardware/simd/x86/versions.h \
+		/usr/local/include/boost/predef/hardware/simd/x86_amd.h \
+		/usr/local/include/boost/predef/hardware/simd/x86_amd/versions.h \
+		/usr/local/include/boost/predef/hardware/simd/arm.h \
+		/usr/local/include/boost/predef/hardware/simd/arm/versions.h \
+		/usr/local/include/boost/predef/hardware/simd/ppc.h \
+		/usr/local/include/boost/predef/hardware/simd/ppc/versions.h \
+		/usr/local/include/boost/predef/version.h \
+		/usr/local/include/boost/smart_ptr/detail/spinlock_sync.hpp \
+		/usr/local/include/boost/smart_ptr/detail/spinlock_pt.hpp \
+		/usr/local/include/boost/smart_ptr/detail/spinlock_gcc_arm.hpp \
+		/usr/local/include/boost/smart_ptr/detail/spinlock_w32.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_interlocked.hpp \
+		/usr/local/include/boost/smart_ptr/detail/spinlock_nt.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_pt.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_clang.hpp \
+		/usr/local/include/boost/cstdint.hpp \
+		/usr/local/include/boost/limits.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_snc_ps3.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_acc_ia64.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_gcc_ia64.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_vacpp_ppc.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_cw_ppc.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_gcc_ppc.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_gcc_mips.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_sync.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_gcc_sparc.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_w32.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_aix.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_impl.hpp \
+		/usr/local/include/boost/core/addressof.hpp \
+		/usr/local/include/boost/smart_ptr/detail/quick_allocator.hpp \
+		/usr/local/include/boost/smart_ptr/detail/lightweight_mutex.hpp \
+		/usr/local/include/boost/smart_ptr/detail/lwm_nop.hpp \
+		/usr/local/include/boost/smart_ptr/detail/lwm_pthreads.hpp \
+		/usr/local/include/boost/smart_ptr/detail/lwm_win32_cs.hpp \
+		/usr/local/include/boost/type_traits/type_with_alignment.hpp \
+		/usr/local/include/boost/type_traits/alignment_of.hpp \
+		/usr/local/include/boost/type_traits/intrinsics.hpp \
+		/usr/local/include/boost/type_traits/detail/config.hpp \
+		/usr/local/include/boost/version.hpp \
+		/usr/local/include/boost/type_traits/is_same.hpp \
+		/usr/local/include/boost/type_traits/integral_constant.hpp \
+		/usr/local/include/boost/type_traits/is_reference.hpp \
+		/usr/local/include/boost/type_traits/is_lvalue_reference.hpp \
+		/usr/local/include/boost/type_traits/is_rvalue_reference.hpp \
+		/usr/local/include/boost/type_traits/is_volatile.hpp \
+		/usr/local/include/boost/type_traits/is_void.hpp \
+		/usr/local/include/boost/type_traits/is_pod.hpp \
+		/usr/local/include/boost/type_traits/is_scalar.hpp \
+		/usr/local/include/boost/type_traits/is_arithmetic.hpp \
+		/usr/local/include/boost/type_traits/is_integral.hpp \
+		/usr/local/include/boost/type_traits/is_floating_point.hpp \
+		/usr/local/include/boost/type_traits/is_enum.hpp \
+		/usr/local/include/boost/type_traits/add_reference.hpp \
+		/usr/local/include/boost/type_traits/is_convertible.hpp \
+		/usr/local/include/boost/type_traits/detail/yes_no_type.hpp \
+		/usr/local/include/boost/type_traits/is_array.hpp \
+		/usr/local/include/boost/type_traits/is_abstract.hpp \
+		/usr/local/include/boost/static_assert.hpp \
+		/usr/local/include/boost/type_traits/is_class.hpp \
+		/usr/local/include/boost/type_traits/is_union.hpp \
+		/usr/local/include/boost/type_traits/is_function.hpp \
+		/usr/local/include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		/usr/local/include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		/usr/local/include/boost/type_traits/is_polymorphic.hpp \
+		/usr/local/include/boost/type_traits/add_lvalue_reference.hpp \
+		/usr/local/include/boost/type_traits/add_rvalue_reference.hpp \
+		/usr/local/include/boost/type_traits/remove_reference.hpp \
+		/usr/local/include/boost/type_traits/declval.hpp \
+		/usr/local/include/boost/type_traits/is_pointer.hpp \
+		/usr/local/include/boost/type_traits/is_member_pointer.hpp \
+		/usr/local/include/boost/type_traits/is_member_function_pointer.hpp \
+		/usr/local/include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		/usr/local/include/boost/type_traits/remove_cv.hpp \
+		/usr/local/include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		/usr/local/include/boost/type_traits/conditional.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_convertible.hpp \
+		/usr/local/include/boost/smart_ptr/detail/local_sp_deleter.hpp \
+		/usr/local/include/boost/smart_ptr/detail/local_counted_base.hpp \
+		/usr/local/include/boost/shared_array.hpp \
+		/usr/local/include/boost/smart_ptr/shared_array.hpp \
+		/usr/local/include/boost/weak_ptr.hpp \
+		/usr/local/include/boost/smart_ptr/weak_ptr.hpp \
+		/usr/local/include/boost/intrusive_ptr.hpp \
+		/usr/local/include/boost/smart_ptr/intrusive_ptr.hpp \
+		/usr/local/include/boost/config/no_tr1/functional.hpp \
+		/usr/local/include/boost/enable_shared_from_this.hpp \
+		/usr/local/include/boost/smart_ptr/enable_shared_from_this.hpp \
+		/usr/local/include/boost/make_shared.hpp \
+		/usr/local/include/boost/smart_ptr/make_shared.hpp \
+		/usr/local/include/boost/smart_ptr/make_shared_object.hpp \
+		/usr/local/include/boost/move/core.hpp \
+		/usr/local/include/boost/move/detail/config_begin.hpp \
+		/usr/local/include/boost/move/detail/workaround.hpp \
+		/usr/local/include/boost/move/detail/type_traits.hpp \
+		/usr/local/include/boost/move/detail/meta_utils.hpp \
+		/usr/local/include/boost/move/detail/meta_utils_core.hpp \
+		/usr/local/include/boost/move/detail/config_end.hpp \
+		/usr/local/include/boost/move/utility_core.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_forward.hpp \
+		/usr/local/include/boost/smart_ptr/make_shared_array.hpp \
+		/usr/local/include/boost/smart_ptr/allocate_shared_array.hpp \
+		/usr/local/include/boost/type_traits/has_trivial_assign.hpp \
+		/usr/local/include/boost/type_traits/is_const.hpp \
+		/usr/local/include/boost/type_traits/is_assignable.hpp \
+		/usr/local/include/boost/type_traits/has_trivial_constructor.hpp \
+		/usr/local/include/boost/type_traits/is_default_constructible.hpp \
+		/usr/local/include/boost/type_traits/has_trivial_destructor.hpp \
+		/usr/local/include/boost/type_traits/is_destructible.hpp \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
+		Inc/qmlfunc.h \
+		Inc/mysentences.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		Inc/collectsentences.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QCheckBox \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o collectwords.o Src/collectwords.cpp
+
+qmlfunc.o: Src/qmlfunc.cpp Inc/qmlfunc.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		Inc/httpmanager.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QSslSocket \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qsslsocket.h \
+		/usr/local/include/boost/smart_ptr.hpp \
+		/usr/local/include/boost/scoped_ptr.hpp \
+		/usr/local/include/boost/smart_ptr/scoped_ptr.hpp \
+		/usr/local/include/boost/config.hpp \
+		/usr/local/include/boost/config/user.hpp \
+		/usr/local/include/boost/config/detail/select_compiler_config.hpp \
+		/usr/local/include/boost/config/compiler/nvcc.hpp \
+		/usr/local/include/boost/config/compiler/gcc_xml.hpp \
+		/usr/local/include/boost/config/compiler/cray.hpp \
+		/usr/local/include/boost/config/compiler/common_edg.hpp \
+		/usr/local/include/boost/config/compiler/comeau.hpp \
+		/usr/local/include/boost/config/compiler/pathscale.hpp \
+		/usr/local/include/boost/config/compiler/clang.hpp \
+		/usr/local/include/boost/config/compiler/intel.hpp \
+		/usr/local/include/boost/config/compiler/visualc.hpp \
+		/usr/local/include/boost/config/compiler/gcc.hpp \
+		/usr/local/include/boost/config/compiler/digitalmars.hpp \
+		/usr/local/include/boost/config/compiler/kai.hpp \
+		/usr/local/include/boost/config/compiler/sgi_mipspro.hpp \
+		/usr/local/include/boost/config/compiler/compaq_cxx.hpp \
+		/usr/local/include/boost/config/compiler/greenhills.hpp \
+		/usr/local/include/boost/config/compiler/codegear.hpp \
+		/usr/local/include/boost/config/compiler/borland.hpp \
+		/usr/local/include/boost/config/compiler/metrowerks.hpp \
+		/usr/local/include/boost/config/compiler/sunpro_cc.hpp \
+		/usr/local/include/boost/config/compiler/hp_acc.hpp \
+		/usr/local/include/boost/config/compiler/mpw.hpp \
+		/usr/local/include/boost/config/compiler/xlcpp_zos.hpp \
+		/usr/local/include/boost/config/compiler/xlcpp.hpp \
+		/usr/local/include/boost/config/compiler/vacpp.hpp \
+		/usr/local/include/boost/config/compiler/pgi.hpp \
+		/usr/local/include/boost/config/detail/select_stdlib_config.hpp \
+		/usr/local/include/boost/config/stdlib/stlport.hpp \
+		/usr/local/include/boost/config/stdlib/libcomo.hpp \
+		/usr/local/include/boost/config/no_tr1/utility.hpp \
+		/usr/local/include/boost/config/stdlib/roguewave.hpp \
+		/usr/local/include/boost/config/stdlib/libcpp.hpp \
+		/usr/local/include/boost/config/stdlib/libstdcpp3.hpp \
+		/usr/local/include/boost/config/stdlib/sgi.hpp \
+		/usr/local/include/boost/config/stdlib/msl.hpp \
+		/usr/local/include/boost/config/detail/posix_features.hpp \
+		/usr/local/include/boost/config/stdlib/xlcpp_zos.hpp \
+		/usr/local/include/boost/config/stdlib/vacpp.hpp \
+		/usr/local/include/boost/config/stdlib/modena.hpp \
+		/usr/local/include/boost/config/stdlib/dinkumware.hpp \
+		/usr/local/include/boost/config/detail/select_platform_config.hpp \
+		/usr/local/include/boost/config/platform/linux.hpp \
+		/usr/local/include/boost/config/platform/bsd.hpp \
+		/usr/local/include/boost/config/platform/solaris.hpp \
+		/usr/local/include/boost/config/platform/irix.hpp \
+		/usr/local/include/boost/config/platform/hpux.hpp \
+		/usr/local/include/boost/config/platform/cygwin.hpp \
+		/usr/local/include/boost/config/platform/win32.hpp \
+		/usr/local/include/boost/config/platform/beos.hpp \
+		/usr/local/include/boost/config/platform/macos.hpp \
+		/usr/local/include/boost/config/platform/zos.hpp \
+		/usr/local/include/boost/config/platform/aix.hpp \
+		/usr/local/include/boost/config/platform/amigaos.hpp \
+		/usr/local/include/boost/config/platform/qnxnto.hpp \
+		/usr/local/include/boost/config/platform/vxworks.hpp \
+		/usr/local/include/boost/config/platform/symbian.hpp \
+		/usr/local/include/boost/config/platform/cray.hpp \
+		/usr/local/include/boost/config/platform/vms.hpp \
+		/usr/local/include/boost/config/detail/suffix.hpp \
+		/usr/local/include/boost/assert.hpp \
+		/usr/local/include/boost/current_function.hpp \
+		/usr/local/include/boost/checked_delete.hpp \
+		/usr/local/include/boost/core/checked_delete.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_nullptr_t.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_disable_deprecated.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_noexcept.hpp \
+		/usr/local/include/boost/detail/workaround.hpp \
+		/usr/local/include/boost/config/workaround.hpp \
+		/usr/local/include/boost/smart_ptr/detail/operator_bool.hpp \
+		/usr/local/include/boost/scoped_array.hpp \
+		/usr/local/include/boost/smart_ptr/scoped_array.hpp \
+		/usr/local/include/boost/shared_ptr.hpp \
+		/usr/local/include/boost/smart_ptr/shared_ptr.hpp \
+		/usr/local/include/boost/config/no_tr1/memory.hpp \
+		/usr/local/include/boost/throw_exception.hpp \
+		/usr/local/include/boost/exception/exception.hpp \
+		/usr/local/include/boost/smart_ptr/detail/shared_count.hpp \
+		/usr/local/include/boost/smart_ptr/bad_weak_ptr.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_has_sync.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_nt.hpp \
+		/usr/local/include/boost/detail/sp_typeinfo.hpp \
+		/usr/local/include/boost/core/typeinfo.hpp \
+		/usr/local/include/boost/core/demangle.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_std_atomic.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_spin.hpp \
+		/usr/local/include/boost/smart_ptr/detail/spinlock_pool.hpp \
+		/usr/local/include/boost/smart_ptr/detail/spinlock.hpp \
+		/usr/local/include/boost/smart_ptr/detail/spinlock_std_atomic.hpp \
+		/usr/local/include/boost/smart_ptr/detail/yield_k.hpp \
+		/usr/local/include/boost/predef.h \
+		/usr/local/include/boost/predef/language.h \
+		/usr/local/include/boost/predef/language/stdc.h \
+		/usr/local/include/boost/predef/version_number.h \
+		/usr/local/include/boost/predef/make.h \
+		/usr/local/include/boost/predef/detail/test.h \
+		/usr/local/include/boost/predef/language/stdcpp.h \
+		/usr/local/include/boost/predef/language/objc.h \
+		/usr/local/include/boost/predef/architecture.h \
+		/usr/local/include/boost/predef/architecture/alpha.h \
+		/usr/local/include/boost/predef/architecture/arm.h \
+		/usr/local/include/boost/predef/architecture/blackfin.h \
+		/usr/local/include/boost/predef/architecture/convex.h \
+		/usr/local/include/boost/predef/architecture/ia64.h \
+		/usr/local/include/boost/predef/architecture/m68k.h \
+		/usr/local/include/boost/predef/architecture/mips.h \
+		/usr/local/include/boost/predef/architecture/parisc.h \
+		/usr/local/include/boost/predef/architecture/ppc.h \
+		/usr/local/include/boost/predef/architecture/pyramid.h \
+		/usr/local/include/boost/predef/architecture/rs6k.h \
+		/usr/local/include/boost/predef/architecture/sparc.h \
+		/usr/local/include/boost/predef/architecture/superh.h \
+		/usr/local/include/boost/predef/architecture/sys370.h \
+		/usr/local/include/boost/predef/architecture/sys390.h \
+		/usr/local/include/boost/predef/architecture/x86.h \
+		/usr/local/include/boost/predef/architecture/x86/32.h \
+		/usr/local/include/boost/predef/architecture/x86/64.h \
+		/usr/local/include/boost/predef/architecture/z.h \
+		/usr/local/include/boost/predef/compiler.h \
+		/usr/local/include/boost/predef/compiler/borland.h \
+		/usr/local/include/boost/predef/detail/comp_detected.h \
+		/usr/local/include/boost/predef/compiler/clang.h \
+		/usr/local/include/boost/predef/compiler/comeau.h \
+		/usr/local/include/boost/predef/compiler/compaq.h \
+		/usr/local/include/boost/predef/compiler/diab.h \
+		/usr/local/include/boost/predef/compiler/digitalmars.h \
+		/usr/local/include/boost/predef/compiler/dignus.h \
+		/usr/local/include/boost/predef/compiler/edg.h \
+		/usr/local/include/boost/predef/compiler/ekopath.h \
+		/usr/local/include/boost/predef/compiler/gcc_xml.h \
+		/usr/local/include/boost/predef/compiler/gcc.h \
+		/usr/local/include/boost/predef/compiler/greenhills.h \
+		/usr/local/include/boost/predef/compiler/hp_acc.h \
+		/usr/local/include/boost/predef/compiler/iar.h \
+		/usr/local/include/boost/predef/compiler/ibm.h \
+		/usr/local/include/boost/predef/compiler/intel.h \
+		/usr/local/include/boost/predef/compiler/kai.h \
+		/usr/local/include/boost/predef/compiler/llvm.h \
+		/usr/local/include/boost/predef/compiler/metaware.h \
+		/usr/local/include/boost/predef/compiler/metrowerks.h \
+		/usr/local/include/boost/predef/compiler/microtec.h \
+		/usr/local/include/boost/predef/compiler/mpw.h \
+		/usr/local/include/boost/predef/compiler/palm.h \
+		/usr/local/include/boost/predef/compiler/pgi.h \
+		/usr/local/include/boost/predef/compiler/sgi_mipspro.h \
+		/usr/local/include/boost/predef/compiler/sunpro.h \
+		/usr/local/include/boost/predef/compiler/tendra.h \
+		/usr/local/include/boost/predef/compiler/visualc.h \
+		/usr/local/include/boost/predef/compiler/watcom.h \
+		/usr/local/include/boost/predef/library.h \
+		/usr/local/include/boost/predef/library/c.h \
+		/usr/local/include/boost/predef/library/c/_prefix.h \
+		/usr/local/include/boost/predef/detail/_cassert.h \
+		/usr/local/include/boost/predef/library/c/cloudabi.h \
+		/usr/local/include/boost/predef/library/c/gnu.h \
+		/usr/local/include/boost/predef/library/c/uc.h \
+		/usr/local/include/boost/predef/library/c/vms.h \
+		/usr/local/include/boost/predef/library/c/zos.h \
+		/usr/local/include/boost/predef/library/std.h \
+		/usr/local/include/boost/predef/library/std/_prefix.h \
+		/usr/local/include/boost/predef/detail/_exception.h \
+		/usr/local/include/boost/predef/library/std/cxx.h \
+		/usr/local/include/boost/predef/library/std/dinkumware.h \
+		/usr/local/include/boost/predef/library/std/libcomo.h \
+		/usr/local/include/boost/predef/library/std/modena.h \
+		/usr/local/include/boost/predef/library/std/msl.h \
+		/usr/local/include/boost/predef/library/std/roguewave.h \
+		/usr/local/include/boost/predef/library/std/sgi.h \
+		/usr/local/include/boost/predef/library/std/stdcpp3.h \
+		/usr/local/include/boost/predef/library/std/stlport.h \
+		/usr/local/include/boost/predef/library/std/vacpp.h \
+		/usr/local/include/boost/predef/os.h \
+		/usr/local/include/boost/predef/os/aix.h \
+		/usr/local/include/boost/predef/detail/os_detected.h \
+		/usr/local/include/boost/predef/os/amigaos.h \
+		/usr/local/include/boost/predef/os/android.h \
+		/usr/local/include/boost/predef/os/beos.h \
+		/usr/local/include/boost/predef/os/bsd.h \
+		/usr/local/include/boost/predef/os/macos.h \
+		/usr/local/include/boost/predef/os/ios.h \
+		/usr/local/include/boost/predef/os/bsd/bsdi.h \
+		/usr/local/include/boost/predef/os/bsd/dragonfly.h \
+		/usr/local/include/boost/predef/os/bsd/free.h \
+		/usr/local/include/boost/predef/os/bsd/open.h \
+		/usr/local/include/boost/predef/os/bsd/net.h \
+		/usr/local/include/boost/predef/os/cygwin.h \
+		/usr/local/include/boost/predef/os/haiku.h \
+		/usr/local/include/boost/predef/os/hpux.h \
+		/usr/local/include/boost/predef/os/irix.h \
+		/usr/local/include/boost/predef/os/linux.h \
+		/usr/local/include/boost/predef/os/os400.h \
+		/usr/local/include/boost/predef/os/qnxnto.h \
+		/usr/local/include/boost/predef/os/solaris.h \
+		/usr/local/include/boost/predef/os/unix.h \
+		/usr/local/include/boost/predef/os/vms.h \
+		/usr/local/include/boost/predef/os/windows.h \
+		/usr/local/include/boost/predef/other.h \
+		/usr/local/include/boost/predef/other/endian.h \
+		/usr/local/include/boost/predef/platform.h \
+		/usr/local/include/boost/predef/platform/cloudabi.h \
+		/usr/local/include/boost/predef/detail/platform_detected.h \
+		/usr/local/include/boost/predef/platform/mingw.h \
+		/usr/local/include/boost/predef/platform/mingw32.h \
+		/usr/local/include/boost/predef/platform/mingw64.h \
+		/usr/local/include/boost/predef/platform/windows_uwp.h \
+		/usr/local/include/boost/predef/platform/windows_desktop.h \
+		/usr/local/include/boost/predef/platform/windows_phone.h \
+		/usr/local/include/boost/predef/platform/windows_server.h \
+		/usr/local/include/boost/predef/platform/windows_store.h \
+		/usr/local/include/boost/predef/platform/windows_system.h \
+		/usr/local/include/boost/predef/platform/windows_runtime.h \
+		/usr/local/include/boost/predef/platform/ios.h \
+		/usr/local/include/boost/predef/hardware.h \
+		/usr/local/include/boost/predef/hardware/simd.h \
+		/usr/local/include/boost/predef/hardware/simd/x86.h \
+		/usr/local/include/boost/predef/hardware/simd/x86/versions.h \
+		/usr/local/include/boost/predef/hardware/simd/x86_amd.h \
+		/usr/local/include/boost/predef/hardware/simd/x86_amd/versions.h \
+		/usr/local/include/boost/predef/hardware/simd/arm.h \
+		/usr/local/include/boost/predef/hardware/simd/arm/versions.h \
+		/usr/local/include/boost/predef/hardware/simd/ppc.h \
+		/usr/local/include/boost/predef/hardware/simd/ppc/versions.h \
+		/usr/local/include/boost/predef/version.h \
+		/usr/local/include/boost/smart_ptr/detail/spinlock_sync.hpp \
+		/usr/local/include/boost/smart_ptr/detail/spinlock_pt.hpp \
+		/usr/local/include/boost/smart_ptr/detail/spinlock_gcc_arm.hpp \
+		/usr/local/include/boost/smart_ptr/detail/spinlock_w32.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_interlocked.hpp \
+		/usr/local/include/boost/smart_ptr/detail/spinlock_nt.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_pt.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_clang.hpp \
+		/usr/local/include/boost/cstdint.hpp \
+		/usr/local/include/boost/limits.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_snc_ps3.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_acc_ia64.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_gcc_ia64.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_vacpp_ppc.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_cw_ppc.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_gcc_ppc.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_gcc_mips.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_sync.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_gcc_sparc.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_w32.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_base_aix.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_counted_impl.hpp \
+		/usr/local/include/boost/core/addressof.hpp \
+		/usr/local/include/boost/smart_ptr/detail/quick_allocator.hpp \
+		/usr/local/include/boost/smart_ptr/detail/lightweight_mutex.hpp \
+		/usr/local/include/boost/smart_ptr/detail/lwm_nop.hpp \
+		/usr/local/include/boost/smart_ptr/detail/lwm_pthreads.hpp \
+		/usr/local/include/boost/smart_ptr/detail/lwm_win32_cs.hpp \
+		/usr/local/include/boost/type_traits/type_with_alignment.hpp \
+		/usr/local/include/boost/type_traits/alignment_of.hpp \
+		/usr/local/include/boost/type_traits/intrinsics.hpp \
+		/usr/local/include/boost/type_traits/detail/config.hpp \
+		/usr/local/include/boost/version.hpp \
+		/usr/local/include/boost/type_traits/is_same.hpp \
+		/usr/local/include/boost/type_traits/integral_constant.hpp \
+		/usr/local/include/boost/type_traits/is_reference.hpp \
+		/usr/local/include/boost/type_traits/is_lvalue_reference.hpp \
+		/usr/local/include/boost/type_traits/is_rvalue_reference.hpp \
+		/usr/local/include/boost/type_traits/is_volatile.hpp \
+		/usr/local/include/boost/type_traits/is_void.hpp \
+		/usr/local/include/boost/type_traits/is_pod.hpp \
+		/usr/local/include/boost/type_traits/is_scalar.hpp \
+		/usr/local/include/boost/type_traits/is_arithmetic.hpp \
+		/usr/local/include/boost/type_traits/is_integral.hpp \
+		/usr/local/include/boost/type_traits/is_floating_point.hpp \
+		/usr/local/include/boost/type_traits/is_enum.hpp \
+		/usr/local/include/boost/type_traits/add_reference.hpp \
+		/usr/local/include/boost/type_traits/is_convertible.hpp \
+		/usr/local/include/boost/type_traits/detail/yes_no_type.hpp \
+		/usr/local/include/boost/type_traits/is_array.hpp \
+		/usr/local/include/boost/type_traits/is_abstract.hpp \
+		/usr/local/include/boost/static_assert.hpp \
+		/usr/local/include/boost/type_traits/is_class.hpp \
+		/usr/local/include/boost/type_traits/is_union.hpp \
+		/usr/local/include/boost/type_traits/is_function.hpp \
+		/usr/local/include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		/usr/local/include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		/usr/local/include/boost/type_traits/is_polymorphic.hpp \
+		/usr/local/include/boost/type_traits/add_lvalue_reference.hpp \
+		/usr/local/include/boost/type_traits/add_rvalue_reference.hpp \
+		/usr/local/include/boost/type_traits/remove_reference.hpp \
+		/usr/local/include/boost/type_traits/declval.hpp \
+		/usr/local/include/boost/type_traits/is_pointer.hpp \
+		/usr/local/include/boost/type_traits/is_member_pointer.hpp \
+		/usr/local/include/boost/type_traits/is_member_function_pointer.hpp \
+		/usr/local/include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		/usr/local/include/boost/type_traits/remove_cv.hpp \
+		/usr/local/include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		/usr/local/include/boost/type_traits/conditional.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_convertible.hpp \
+		/usr/local/include/boost/smart_ptr/detail/local_sp_deleter.hpp \
+		/usr/local/include/boost/smart_ptr/detail/local_counted_base.hpp \
+		/usr/local/include/boost/shared_array.hpp \
+		/usr/local/include/boost/smart_ptr/shared_array.hpp \
+		/usr/local/include/boost/weak_ptr.hpp \
+		/usr/local/include/boost/smart_ptr/weak_ptr.hpp \
+		/usr/local/include/boost/intrusive_ptr.hpp \
+		/usr/local/include/boost/smart_ptr/intrusive_ptr.hpp \
+		/usr/local/include/boost/config/no_tr1/functional.hpp \
+		/usr/local/include/boost/enable_shared_from_this.hpp \
+		/usr/local/include/boost/smart_ptr/enable_shared_from_this.hpp \
+		/usr/local/include/boost/make_shared.hpp \
+		/usr/local/include/boost/smart_ptr/make_shared.hpp \
+		/usr/local/include/boost/smart_ptr/make_shared_object.hpp \
+		/usr/local/include/boost/move/core.hpp \
+		/usr/local/include/boost/move/detail/config_begin.hpp \
+		/usr/local/include/boost/move/detail/workaround.hpp \
+		/usr/local/include/boost/move/detail/type_traits.hpp \
+		/usr/local/include/boost/move/detail/meta_utils.hpp \
+		/usr/local/include/boost/move/detail/meta_utils_core.hpp \
+		/usr/local/include/boost/move/detail/config_end.hpp \
+		/usr/local/include/boost/move/utility_core.hpp \
+		/usr/local/include/boost/smart_ptr/detail/sp_forward.hpp \
+		/usr/local/include/boost/smart_ptr/make_shared_array.hpp \
+		/usr/local/include/boost/smart_ptr/allocate_shared_array.hpp \
+		/usr/local/include/boost/type_traits/has_trivial_assign.hpp \
+		/usr/local/include/boost/type_traits/is_const.hpp \
+		/usr/local/include/boost/type_traits/is_assignable.hpp \
+		/usr/local/include/boost/type_traits/has_trivial_constructor.hpp \
+		/usr/local/include/boost/type_traits/is_default_constructible.hpp \
+		/usr/local/include/boost/type_traits/has_trivial_destructor.hpp \
+		/usr/local/include/boost/type_traits/is_destructible.hpp \
+		Inc/endata.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlError \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebugStateSaver \
+		Inc/controller.h \
+		Inc/viewmanager.h \
+		Inc/search.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/QMediaPlayer \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers/qmediaplayer.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QThread \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
+		Inc/mysentences.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QLabel \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		Inc/collectsentences.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QCheckBox \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
+		Inc/collectwords.h \
+		Inc/log.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qmlfunc.o Src/qmlfunc.cpp
 
 qrc_image.o: qrc_image.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_image.o qrc_image.cpp
 
-moc_search.o: moc_search.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_search.o moc_search.cpp
+moc_search.o: Moc/moc_search.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_search.o Moc/moc_search.cpp
 
-moc_httpmanager.o: moc_httpmanager.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_httpmanager.o moc_httpmanager.cpp
+moc_httpmanager.o: Moc/moc_httpmanager.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_httpmanager.o Moc/moc_httpmanager.cpp
 
-moc_controller.o: moc_controller.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_controller.o moc_controller.cpp
+moc_controller.o: Moc/moc_controller.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_controller.o Moc/moc_controller.cpp
 
-moc_mysentences.o: moc_mysentences.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mysentences.o moc_mysentences.cpp
+moc_mysentences.o: Moc/moc_mysentences.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mysentences.o Moc/moc_mysentences.cpp
 
-moc_viewmanager.o: moc_viewmanager.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_viewmanager.o moc_viewmanager.cpp
+moc_viewmanager.o: Moc/moc_viewmanager.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_viewmanager.o Moc/moc_viewmanager.cpp
 
-moc_collectsentences.o: moc_collectsentences.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_collectsentences.o moc_collectsentences.cpp
+moc_collectsentences.o: Moc/moc_collectsentences.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_collectsentences.o Moc/moc_collectsentences.cpp
 
-moc_collectwords.o: moc_collectwords.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_collectwords.o moc_collectwords.cpp
+moc_collectwords.o: Moc/moc_collectwords.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_collectwords.o Moc/moc_collectwords.cpp
+
+moc_qmlfunc.o: Moc/moc_qmlfunc.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_qmlfunc.o Moc/moc_qmlfunc.cpp
 
 ####### Install
 

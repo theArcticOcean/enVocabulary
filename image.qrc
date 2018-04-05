@@ -2,7 +2,7 @@
     <qresource prefix="/">
         <file>image/play_circle.png</file>
         <file>image/stop_circle.png</file>
-        <file>rect.qml</file>
+        <file>Res/rect.qml</file>
         <file>image/whiteHeart.png</file>
         <file>image/redHeart.png</file>
         <file>image/goBack.png</file>
@@ -10,5 +10,6 @@
         <file>image/right.png</file>
         <file>image/rwhiteHeart.png</file>
         <file>image/trash.png</file>
+        <file>image/dict.icns</file>
     </qresource>
 </RCC>
