@@ -8,8 +8,11 @@
 <li>收藏例句 
 
 ## 制作
-使用QT 5.9.2开发(许多功能还在开发中)。  
-  
+使用QT 5.9.2开发。  
+
+## access_token的改变
+我使用自己的账号申请了access_token，但根据自己使用经历，发现access_token隔一段时间（大约2个月）会发生变化，需要重新申请access_token，故该软件想要正常使用，需要开发者长期维护。
+
 ## 联系
 博客: http://blog.csdn.net/thearcticocean/  
 邮件: wei_yang1994@163.com  
