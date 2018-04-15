@@ -196,8 +196,9 @@ void enData::jsonParseForWord(const QJsonObject cjson)
     if(json.contains("status_code")){
         varInt = json["status_code"].toInt();
         if(0 != varInt){
-            LOGDBG("status_code: ", varInt);
+            LOGDBG("status_code: %d", varInt);
             LOGDBG("msg: %s", json["msg"].toString().toStdString().c_str());
+            Controller::getInstance()->sendViewMsg(WordNotFound);
             return ;
         }
     }

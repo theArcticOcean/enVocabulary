@@ -7,11 +7,12 @@
 #include <QQuickItem>
 #include "controller.h"
 #include <QQmlContext>
+#include <QMessageBox>
 
 void Search::keyReleaseEvent(QKeyEvent *event)
 {
+    LOGDBG("event->key() is 0x%x",event->key());
     if(event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return){
-        LOGDBG("0x%x", event->key());  // Key_Return
         http = HttpManager::getInstance();
         QString str = ui->lineEdit->text();
         bool ret = http->sendEnWordSearchRequest((char *)str.toStdString().c_str());
@@ -134,7 +135,7 @@ void Search::slotStateChanged(QMediaPlayer::State state)
 
 void Search::slotPlayerError(QMediaPlayer::Error err)
 {
-    LOGDBG("player error: %d, %s",err, player->errorString().toStdString().c_str());
+    QMessageBox::warning(this,"Play Error",player->errorString());
 }
 
 void Search::on_uk_button_clicked()

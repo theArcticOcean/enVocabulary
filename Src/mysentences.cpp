@@ -107,6 +107,7 @@ void mySentences::updateSentences()
         heartButtons.push_back(button);
         hLayout->addWidget(button, 1);//Qt::AlignAbsolute);
         vLayout->addLayout(hLayout,1);
+        sentenceHLays.push_back(hLayout);
 
         QLabel *translationLabel = new QLabel(this);
         v_sentenceLabel.push_back(translationLabel);

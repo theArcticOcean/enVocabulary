@@ -1,5 +1,7 @@
 #include "viewmanager.h"
 #include "log.h"
+#include <QMessageBox>
+#include <QDesktopServices>
 
 viewManager::viewManager(QObject *parent) : QObject(parent)
 {
@@ -77,4 +79,28 @@ void viewManager::slotMoveEventHappened(srcEnum e, QPoint newPoint)
     collectWordsUI.get()->move(newPoint);
     mySentencesUI.get()->move(newPoint);
     LOGDBG("end!");
+}
+
+void viewManager::slotAccessTokenInvalid()
+{
+    int ret;
+    ret = QMessageBox::warning(searchUI.get(),
+                         "notice",
+                         "Your access_token is no longer valid for remote server.\n"
+                         "Please contact with software enginer to solve the problem.",
+                         QMessageBox::Ok,
+                         QMessageBox::Help);
+    if(QMessageBox::Help == ret)
+    {
+        QDesktopServices::openUrl(QUrl("http://weiy.org/2018/04/07/envocabulary/"));
+    }
+}
+
+void viewManager::slotWordNotFound()
+{
+    QMessageBox::warning(searchUI.get(),
+                             "notice",
+                             "Your word is not found by Shanbay API.\n"
+                             "Please enter another valid English word to look up.",
+                             QMessageBox::Ok);
 }

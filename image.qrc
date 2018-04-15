@@ -11,5 +11,6 @@
         <file>image/rwhiteHeart.png</file>
         <file>image/trash.png</file>
         <file>image/dict.icns</file>
+        <file>image/dict.ico</file>
     </qresource>
 </RCC>

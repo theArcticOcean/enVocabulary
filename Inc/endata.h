@@ -6,7 +6,7 @@
 #define DOWNFILES_PATH          "./Down"
 #define DOWNFILES_PICS_PATH     "./Down/Pics"
 #define DOWNFILES_WORDS_PATH    "./Down/Words"
-#define TOKEN_STR               "access_token=NC5Bk1jVBoALcVcDuh05hkBVgi0wG5"
+#define TOKEN_STR               "access_token=jAwmT8KZGYV1TuhskUYgqTPS45Dvkj"
 #define SENTENCE_TABLE          "Statement"
 
 #define MAX_PICS_NUMBER             200

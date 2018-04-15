@@ -15,7 +15,8 @@ typedef enum _viewMsgEnum{
     SentenceWinToHome,
     CollectSenWndToHome,
     CollectWordWndToHome,
-    moveEventHappened,
+    AccessTokenInvalid,
+    WordNotFound,
     EnumMax
 }viewMsgEnum;
 
@@ -42,10 +43,12 @@ signals:
     void gotoCollectSenWnd();
     void gotoCollectWordWnd();
     void SentenceWinToHomeWnd();
-    void CollectSenWndToHomeWnd();
-    void CollectWordWndToHomeWnd();
+    void collectSenWndToHomeWnd();
+    void collectWordWndToHomeWnd();
     void moveEventHappenedSig(srcEnum e, QPoint newPoint);
     void updateCollectSentencePage();
+    void accessTokenInvalid();
+    void wordNotFound();
 };
 
 #endif // CONTROLLER_H

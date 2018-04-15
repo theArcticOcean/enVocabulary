@@ -31,6 +31,8 @@ public slots:
     void slotCollectSenWndToHomeWnd();
     void slotCollectWordWndToHomeWnd();
     void slotMoveEventHappened(srcEnum e, QPoint newPoint);
+    void slotAccessTokenInvalid();
+    void slotWordNotFound();
 };
 
 #endif // VIEWMANAGER_H

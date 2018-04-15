@@ -15,9 +15,11 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = enVocabulary
 TEMPLATE = app
 DEFINES += QT_DEBUG
+#embed_manifest_exe
 
 unix: LIBS += -L/usr/lib -lpthread
 unix: INCLUDEPATH += "/usr/local/include/"
+win32: INCLUDEPATH += "C:\Users\weiyang\Downloads\boost_1_66_0"
 
 MOC_DIR = "./Moc"
 INCLUDEPATH += "./Inc/"
@@ -27,6 +29,11 @@ OBJECTS_DIR = "./OBJ"
 macx{
     message("compile for mac os x")
     ICON = image/dict.icns
+}
+
+win32{
+    message("compile for windows")
+    RC_FILE = Res/res.rc
 }
 
 # The following define makes your compiler emit warnings if you use

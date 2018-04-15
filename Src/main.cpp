@@ -17,7 +17,8 @@ int main(int argc, char *argv[])
     control->signalAndSlotsConenct();
 
     qDebug()<<"SSL version use for build: "<<QSslSocket::sslLibraryBuildVersionString();
-    qDebug()<<"SSL version use for run-time: "<<QSslSocket::sslLibraryVersionNumber();
+    qDebug()<<"SSL version use for run-time: "<<QSslSocket::sslLibraryVersionString();
+    qDebug()<<QSslSocket::supportsSsl()<<endl;
     qDebug()<<QCoreApplication::libraryPaths();
     return a.exec();
 }

@@ -3,10 +3,12 @@
 #include <math.h>
 #include "log.h"
 #include "endata.h"
+#include "controller.h"
 #include <errno.h>
 #include <fcntl.h>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QMessageBox>
 
 HttpManager* HttpManager::instance = NULL;
 pthread_mutex_t HttpManager::mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -325,6 +327,10 @@ HttpManager *HttpManager::getInstance()
 
 void HttpManager::slotError(enum QNetworkReply::NetworkError val)
 {
+    if( QNetworkReply::AuthenticationRequiredError == val )
+    {
+        Controller::getInstance()->sendViewMsg(AccessTokenInvalid);
+    }
     LOGDBG("error: %d",val);
 }
 
