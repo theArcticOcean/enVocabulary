@@ -1,3 +1,11 @@
+/**********************************************************
+*
+* @brief    Class collectWords is for UI page of collected
+*           words.
+*
+* @author   theArcticOcean
+***********************************************************/
+
 #ifndef COLLECTWORDS_H
 #define COLLECTWORDS_H
 
@@ -17,10 +25,12 @@ public:
     void fillWordInLabels(const int index, QString str);
 
     QPoint lastPos;
+
 protected:
     virtual void showEvent(QShowEvent *event);
     virtual void mousePressEvent(QMouseEvent *event);
     virtual void mouseMoveEvent(QMouseEvent *event);
+
 private slots:
     void on_backButton_clicked();
 

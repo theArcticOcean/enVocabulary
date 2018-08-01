@@ -1,3 +1,11 @@
+/**********************************************************
+*
+* @brief    The file contains declaration of viewManager
+*           that manages all windows of envocabulary.
+*
+* @author   theArcticOcean
+***********************************************************/
+
 #ifndef VIEWMANAGER_H
 #define VIEWMANAGER_H
 

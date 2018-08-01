@@ -1,3 +1,11 @@
+/**********************************************************
+*
+* @brief    HttpManager is responsible to request word's
+*           information based on shanbay API.
+*
+* @author   theArcticOcean
+***********************************************************/
+
 #include "httpmanager.h"
 #include <unistd.h>
 #include <math.h>
@@ -13,6 +21,9 @@
 HttpManager* HttpManager::instance = NULL;
 pthread_mutex_t HttpManager::mutex = PTHREAD_MUTEX_INITIALIZER;
 
+/*
+*   Constructor of class HttpManager.
+*/
 HttpManager::HttpManager(QObject *parent) :
     QObject(parent),
     buffer_len(BUFFER_LEN)
@@ -26,6 +37,9 @@ HttpManager::HttpManager(QObject *parent) :
     model = enData::getInstance();
 }
 
+/*
+*   Destructor of class HttpManager.
+*/
 HttpManager::~HttpManager()
 {
     if(NULL != netPicReply){
@@ -46,6 +60,9 @@ HttpManager::~HttpManager()
     }
 }
 
+/*
+*   The function is used to breakpoint resuming for picture receiving.
+*/
 void HttpManager::slotPicReadyRead()
 {
     QByteArray bytes = netPicReply->readAll();
@@ -60,7 +77,7 @@ void HttpManager::slotPicReadyRead()
     }
     else { //not exist
         string path = getIncomLocalPicPath(url.toStdString());
-#ifdef  Q_OS_LINUX
+#ifndef  Q_OS_WIN
         fd = open(path.c_str(),O_WRONLY | O_CREAT | O_TRUNC, 0755);
 #else
         fd = open(path.c_str(), O_WRONLY | O_CREAT | O_TRUNC);
@@ -78,6 +95,9 @@ void HttpManager::slotPicReadyRead()
     LOGDBG("fd: %d, url: %s", fd, netPicReply->request().url().toString().toStdString().c_str());
 }
 
+/*
+*   The function is used to finish receiving picture.
+*/
 void HttpManager::slotPicFinished()
 {
     QString url = netPicReply->request().url().toString();
@@ -94,6 +114,9 @@ void HttpManager::slotPicFinished()
     LOGDBG("%d, finished.", fd);
 }
 
+/*
+*   Slot function for QNetworkReply::readyRead
+*/
 void HttpManager::slotEnWordReadyRead()
 {
     QByteArray bytes;
@@ -101,6 +124,9 @@ void HttpManager::slotEnWordReadyRead()
     buffer_pos += sprintf(buffer+buffer_pos, "%s", bytes.toStdString().c_str());
 }
 
+/*
+*   After fetch all data from internet, analyze json data.
+*/
 void HttpManager::slotEnWordFinished()
 {
     QByteArray bytes;
@@ -125,6 +151,9 @@ void HttpManager::slotEnWordFinished()
     buffer_pos = 0;
 }
 
+/*
+*   Slot function for request word's sentences.
+*/
 void HttpManager::slotSentenceReadyRead()
 {
     QByteArray bytes;
@@ -132,6 +161,9 @@ void HttpManager::slotSentenceReadyRead()
     buffer_pos += sprintf(buffer+buffer_pos, "%s", bytes.toStdString().c_str());
 }
 
+/*
+*   After fetch all data from internet, analyze json data.
+*/
 void HttpManager::slotSentenceFinished()
 {
     QByteArray bytes;
@@ -156,6 +188,9 @@ void HttpManager::slotSentenceFinished()
     memset(buffer, 0, strlen(buffer));
 }
 
+/*
+*   Check whether picture file exists.
+*/
 bool HttpManager::searchFilesMap(string g_url)
 {
     map<string, int>::iterator it;
@@ -164,6 +199,9 @@ bool HttpManager::searchFilesMap(string g_url)
     return false;
 }
 
+/*
+*   Get the name of incomplete local file for storing picture.
+*/
 string HttpManager::getIncomLocalPicPath(string url)
 {
     char* ptr = (char *)strrchr(url.c_str(),'/');
@@ -177,6 +215,9 @@ string HttpManager::getIncomLocalPicPath(string url)
     return result;
 }
 
+/*
+*   Get the name of complete local file for storing picture.
+*/
 string HttpManager::getComLocalPicPath(string url)
 {
     char* ptr = (char *)strrchr(url.c_str(),'/');
@@ -191,6 +232,9 @@ string HttpManager::getComLocalPicPath(string url)
     return result;
 }
 
+/*
+*   Interface for requesting picture.
+*/
 bool HttpManager::sendPicRequest(char *url)
 {
     if(NULL != netPicReply){
@@ -226,6 +270,9 @@ bool HttpManager::sendPicRequest(char *url)
     return true;
 }
 
+/*
+*   Interface for request word information.
+*/
 bool HttpManager::sendEnWordSearchRequest(char *word)
 {
     if(NULL != netWordReply){
@@ -267,6 +314,9 @@ bool HttpManager::sendEnWordSearchRequest(char *word)
     return true;
 }
 
+/*
+*   Interface for requesting word's sentences.
+*/
 bool HttpManager::sendEnWordSentenceRequest()
 {
     LOGDBG("start");
@@ -315,6 +365,10 @@ bool HttpManager::sendEnWordSentenceRequest()
     return true;
 }
 
+/*
+*   Get singleton pointer which point to HttpManager object.
+*   In fact, our software has not multi-thread mechanism, it's just for practice.
+*/
 HttpManager *HttpManager::getInstance()
 {
     if(NULL == instance){
@@ -325,6 +379,9 @@ HttpManager *HttpManager::getInstance()
     return instance;
 }
 
+/*
+*   Handle reply error of internet request.
+*/
 void HttpManager::slotError(enum QNetworkReply::NetworkError val)
 {
     if( QNetworkReply::AuthenticationRequiredError == val )
@@ -334,6 +391,9 @@ void HttpManager::slotError(enum QNetworkReply::NetworkError val)
     LOGDBG("error: %d",val);
 }
 
+/*
+*   Handle ssl error of internet request.
+*/
 void HttpManager::slotSslErrors(QList<QSslError> list)
 {
     LOGDBG("%s","ssl errors: ");

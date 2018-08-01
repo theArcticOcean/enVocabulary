@@ -1,3 +1,11 @@
+/**********************************************************
+*
+* @brief    Class Search is home page of enVocabulary. The
+*           file has declaration of it.
+*
+* @author   theArcticOcean
+***********************************************************/
+
 #ifndef SEARCH_H
 #define SEARCH_H
 

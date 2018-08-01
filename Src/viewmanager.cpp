@@ -1,8 +1,18 @@
+/**********************************************************
+*
+* @brief    The file contains definition of class viewManager.
+*
+* @author   theArcticOcean
+***********************************************************/
+
 #include "viewmanager.h"
 #include "log.h"
 #include <QMessageBox>
 #include <QDesktopServices>
 
+/*
+*   Constructor of viewManager.
+*/
 viewManager::viewManager(QObject *parent) : QObject(parent)
 {
     searchUI = boost::make_shared<Search>();
@@ -13,6 +23,9 @@ viewManager::viewManager(QObject *parent) : QObject(parent)
     searchUI.get()->show();
 }
 
+/*
+*   Slot function for close all windows.
+*/
 void viewManager::slotCloseAllUI()
 {
     LOGDBG("start");
@@ -23,6 +36,9 @@ void viewManager::slotCloseAllUI()
     LOGDBG("end!");
 }
 
+/*
+*   Slot function for user go to example sentences of special word.
+*/
 void viewManager::slotGotoWordSentencesWnd()
 {
     LOGDBG("start");
@@ -31,6 +47,9 @@ void viewManager::slotGotoWordSentencesWnd()
     LOGDBG("end!");
 }
 
+/*
+*   Slot function for user go to collected sentences window.
+*/
 void viewManager::slotGotoCollectSenWnd()
 {
     LOGDBG("start");
@@ -39,6 +58,9 @@ void viewManager::slotGotoCollectSenWnd()
     LOGDBG("end!");
 }
 
+/*
+*   Slot function for user go to collected words window.
+*/
 void viewManager::slotGotoCollectWordWnd()
 {
     LOGDBG("start");
@@ -47,6 +69,9 @@ void viewManager::slotGotoCollectWordWnd()
     LOGDBG("end!");
 }
 
+/*
+*   Slot function for user go back to home page from example sentences window.
+*/
 void viewManager::slotSentenceWinToHomeWnd()
 {
     LOGDBG("start");
@@ -55,6 +80,9 @@ void viewManager::slotSentenceWinToHomeWnd()
     LOGDBG("end!");
 }
 
+/*
+*   Slot function for user go back to home page from collected sentences window.
+*/
 void viewManager::slotCollectSenWndToHomeWnd()
 {
     LOGDBG("start");
@@ -63,6 +91,9 @@ void viewManager::slotCollectSenWndToHomeWnd()
     LOGDBG("end!");
 }
 
+/*
+*   Slot function for user go back to home page from collected words window.
+*/
 void viewManager::slotCollectWordWndToHomeWnd()
 {
     LOGDBG("start");
@@ -71,6 +102,9 @@ void viewManager::slotCollectWordWndToHomeWnd()
     LOGDBG("end!");
 }
 
+/*
+*   Slot function for user move software action.
+*/
 void viewManager::slotMoveEventHappened(srcEnum e, QPoint newPoint)
 {
     LOGDBG("start, srcEnum is %d", e);
@@ -81,6 +115,9 @@ void viewManager::slotMoveEventHappened(srcEnum e, QPoint newPoint)
     LOGDBG("end!");
 }
 
+/*
+*   Slot function for dealing with the scene shanbay access token become invalid.
+*/
 void viewManager::slotAccessTokenInvalid()
 {
     int ret;
@@ -96,6 +133,9 @@ void viewManager::slotAccessTokenInvalid()
     }
 }
 
+/*
+*   Slot function deal with the scene request word is not found.
+*/
 void viewManager::slotWordNotFound()
 {
     QMessageBox::warning(searchUI.get(),

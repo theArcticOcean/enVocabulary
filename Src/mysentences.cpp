@@ -1,3 +1,11 @@
+/**********************************************************
+*
+* @brief    The file has details of class mySentences that
+*           is responsible for UI page collected sentences.
+*
+* @author   theArcticOcean
+***********************************************************/
+
 #include "mysentences.h"
 #include "ui_mysentences.h"
 #include "log.h"
@@ -5,6 +13,9 @@
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>
 
+/*
+*   Constructor of class mySentences. Initinate UI page and refresh.
+*/
 mySentences::mySentences(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::mySentences)
@@ -19,6 +30,9 @@ mySentences::mySentences(QWidget *parent) :
     vLayout->addSpacing(50);
 }
 
+/*
+*   Destructor of class mySentences.
+*/
 mySentences::~mySentences()
 {
     delete ui;
@@ -42,6 +56,9 @@ mySentences::~mySentences()
     delete backLabel;
 }
 
+/*
+*   Heart button signal-slot mechanism building.
+*/
 void mySentences::builtHButtonSigAndSLot()
 {
     for (auto it:heartButtons) {
@@ -49,12 +66,18 @@ void mySentences::builtHButtonSigAndSLot()
     }
 }
 
+/*
+*   Rewrite show event when go to new UI page.
+*/
 void mySentences::showEvent(QShowEvent *event)
 {
     updateSentences();
     builtHButtonSigAndSLot();
 }
 
+/*
+*   Record left-button click position to move software on the screen.
+*/
 void mySentences::mousePressEvent(QMouseEvent *event)
 {
     if(event->button() == Qt::LeftButton){
@@ -62,6 +85,9 @@ void mySentences::mousePressEvent(QMouseEvent *event)
     }
 }
 
+/*
+*   Move software on the screen.
+*/
 void mySentences::mouseMoveEvent(QMouseEvent *event)
 {
     if( event->buttons().testFlag(Qt::LeftButton)) {
@@ -71,6 +97,9 @@ void mySentences::mouseMoveEvent(QMouseEvent *event)
     }
 }
 
+/*
+*   Update sentence lines on UI page in showEvent.
+*/
 void mySentences::updateSentences()
 {
     LOGDBG("start");
@@ -127,6 +156,9 @@ void mySentences::updateSentences()
     LOGDBG("end!");
 }
 
+/*
+*   Deal with backButton click event. Go to search-word home page.
+*/
 void mySentences::on_backButton_clicked()
 {
     LOGDBG("start");
@@ -135,6 +167,9 @@ void mySentences::on_backButton_clicked()
     LOGDBG("end!");
 }
 
+/*
+*   Deal with collect button click event, add or delete relevant sentence.
+*/
 void mySentences::on_collectClick()
 {
     QPushButton *button = dynamic_cast<QPushButton*>(sender());

@@ -1,3 +1,11 @@
+/**********************************************************
+*
+* @brief    Class QmlFunc provides responsing function for
+*           click event of rect.qml.
+*
+* @author   theArcticOcean
+***********************************************************/
+
 #ifndef QMLFUNC_H
 #define QMLFUNC_H
 

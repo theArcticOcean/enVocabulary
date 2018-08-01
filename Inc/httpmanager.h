@@ -1,3 +1,11 @@
+/**********************************************************
+*
+* @brief    HttpManager is responsible to request word's
+*           information based on shanbay API.
+*
+* @author   theArcticOcean
+***********************************************************/
+
 #ifndef HTTPMANAGER_H
 #define HTTPMANAGER_H
 
@@ -14,11 +22,6 @@ using namespace std;
 class HttpManager : public QObject
 {
     Q_OBJECT
-    const int buffer_len;
-    int buffer_pos;
-    enData *model;
-    static HttpManager* instance;
-    static pthread_mutex_t mutex;
 
 public:
     explicit HttpManager(QObject *parent = nullptr);
@@ -52,6 +55,13 @@ public slots:
     void slotSentenceFinished();
     void slotError(enum QNetworkReply::NetworkError);
     void slotSslErrors(QList<QSslError> list);
+
+private:
+    const int buffer_len;
+    int buffer_pos;
+    enData *model;
+    static HttpManager* instance;
+    static pthread_mutex_t mutex;
 };
 
 #endif // HTTPMANAGER_H

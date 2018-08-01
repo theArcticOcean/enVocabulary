@@ -1,3 +1,11 @@
+/**********************************************************
+*
+* @brief    The header file defines class mySentences that
+*           is responsible for UI page collected sentences.
+*
+* @author   theArcticOcean
+***********************************************************/
+
 #ifndef MYSENTENCES_H
 #define MYSENTENCES_H
 

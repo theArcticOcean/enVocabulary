@@ -1,3 +1,11 @@
+/**********************************************************
+*
+* @brief    The file contains details of class collectSentences
+*           That manage page of collected sentences.
+*
+* @author   theArcticOcean
+***********************************************************/
+
 #include "collectsentences.h"
 #include "ui_collectsentences.h"
 #include "endata.h"
@@ -5,6 +13,10 @@
 #include "log.h"
 #include <QMessageBox>
 
+/*
+*   Initiate UI page of collected sentences.
+*   Connect checkBox click signal and slot function that shows delete button.
+*/
 collectSentences::collectSentences(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::collectSentences)
@@ -22,11 +34,17 @@ collectSentences::collectSentences(QWidget *parent) :
     connectCheckBoxClickAndShowDelBtn();
 }
 
+/*
+*   Destructor of class collectSentences
+*/
 collectSentences::~collectSentences()
 {
     delete ui;
 }
 
+/*
+*   Interface for add sentence in checkBox on page in every line.
+*/
 void collectSentences::fillSentenceInCheckBox(const int index,QString str)
 {
     switch(index){
@@ -59,6 +77,10 @@ void collectSentences::fillSentenceInCheckBox(const int index,QString str)
     }
 }
 
+/*
+*   Connect checkbox's click signal and slot function showDeleteButton.
+*   The function is used in constructor function.
+*/
 void collectSentences::connectCheckBoxClickAndShowDelBtn()
 {
     connect(ui->checkBox,SIGNAL(clicked(bool)),this,SLOT(showDeleteButton()));
@@ -70,6 +92,10 @@ void collectSentences::connectCheckBoxClickAndShowDelBtn()
     connect(ui->checkBox_7,SIGNAL(clicked(bool)),this,SLOT(showDeleteButton()));
 }
 
+/*
+*   Rewrite showEvent function to receive widget show event before it shows.
+*   We can custom page initiation.
+*/
 void collectSentences::showEvent(QShowEvent *event)
 {
     ui->checkBox->hide();
@@ -104,6 +130,10 @@ void collectSentences::showEvent(QShowEvent *event)
     ui->label->setText(page);
 }
 
+/*
+*   Rewrite mousePressEvent to record the postion of left button click on the page.
+*   This is important for move our software on screen.
+*/
 void collectSentences::mousePressEvent(QMouseEvent *event)
 {
     if(event->button() == Qt::LeftButton)
@@ -112,6 +142,9 @@ void collectSentences::mousePressEvent(QMouseEvent *event)
     }
 }
 
+/*
+*   Records new postion in mouseMoveEvent and notify UIMgr to move CollectSentenceUI.
+*/
 void collectSentences::mouseMoveEvent(QMouseEvent *event)
 {
     if(event->buttons().testFlag(Qt::LeftButton))
@@ -123,6 +156,9 @@ void collectSentences::mouseMoveEvent(QMouseEvent *event)
     }
 }
 
+/*
+*   Interface of Checkbox's check action. It is useful for all checked and all not checked scene.
+*/
 void collectSentences::setCheckBoxChecked(QCheckBox *box, bool checked)
 {
     if(!box->isHidden())
@@ -131,17 +167,26 @@ void collectSentences::setCheckBoxChecked(QCheckBox *box, bool checked)
     }
 }
 
+/*
+*   Interface of show delete button.
+*/
 void collectSentences::showDeleteButton()
 {
     ui->deleteButton->show();
 }
 
+/*
+*   Deal with user's click on back button.
+*/
 void collectSentences::on_backButton_clicked()
 {
     Controller *control = Controller::getInstance();
     control->sendViewMsg(CollectSenWndToHome);
 }
 
+/*
+*   Delete sentences from current UI page and database.
+*/
 void collectSentences::on_deleteButton_clicked()
 {
     LOGDBG("start");
@@ -186,6 +231,9 @@ void collectSentences::on_deleteButton_clicked()
     LOGDBG("end!");
 }
 
+/*
+*   Go to next page and refresh UI.
+*/
 void collectSentences::on_nextButton_clicked()
 {
     pageIndex++;
@@ -197,6 +245,9 @@ void collectSentences::on_nextButton_clicked()
     showEvent(NULL);
 }
 
+/*
+*   Go to previous page and refresh UI.
+*/
 void collectSentences::on_previousButton_clicked()
 {
     pageIndex--;
@@ -207,6 +258,9 @@ void collectSentences::on_previousButton_clicked()
     showEvent(NULL);
 }
 
+/*
+*   Choose all sentences or choose none sentence.
+*/
 void collectSentences::on_checkBox_7_clicked()
 {
     if(ui->checkBox_7->isChecked())
@@ -230,6 +284,9 @@ void collectSentences::on_checkBox_7_clicked()
     }
 }
 
+/*
+*   Delete all collected sentences and refresh UI page.
+*/
 void collectSentences::on_clearButton_clicked()
 {
     QMessageBox::StandardButton reply;

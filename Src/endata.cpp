@@ -1,3 +1,12 @@
+/**********************************************************
+*
+* @brief    Class enData is used to store vocabulary data,
+*           delete local data and load local data at start-up
+*           time.
+*
+* @author   theArcticOcean
+***********************************************************/
+
 #include "endata.h"
 #include "log.h"
 #include <queue>
@@ -24,6 +33,10 @@ using namespace std;
 pthread_mutex_t enData::instanceMutex = PTHREAD_MUTEX_INITIALIZER;
 enData* enData::instance = NULL;
 
+/*
+*   Constructor of class enData. Create database, table and local files
+*   if they don't exist.
+*/
 enData::enData()
 {
     db = QSqlDatabase::addDatabase("QSQLITE");
@@ -47,25 +60,6 @@ enData::enData()
                db.databaseName().toStdString().c_str());
     }
 
-    /*
-    if(db.open()){
-        query->prepare("CREATE TABLE IF NOT EXISTS Vocabulary (myWord text, translation text, secs INTEGER, PRIMARY KEY(myWord, secs))");
-        if(!query->exec()) {
-            LOGDBG("create: %s", query->lastError().text().toStdString().c_str());
-        }
-        else {
-            LOGDBG("create table ok!");
-        }
-        db.close();
-    }
-    else {
-        LOGDBG("create table failed: %s\n"
-               "path is %s",
-               db.lastError().text().toStdString().c_str(),
-               db.databaseName().toStdString().c_str());
-    }
-    */
-
     pthread_mutex_init(&instanceMutex, NULL);
     v_sentences.clear();
 
@@ -78,17 +72,6 @@ enData::enData()
 #endif
         }
     }
-/*
-    if(0 != access(DOWNFILES_PICS_PATH, F_OK)){
-#ifdef Q_OS_WIN32
-        if(0 != mkdir(DOWNFILES_PICS_PATH)){
-#else
-        if(0 != mkdir(DOWNFILES_PICS_PATH, 0777)){
-            LOGDBG("mkdir failed: %s", strerror(errno));
-#endif
-        }
-    }
-*/
 
     if(0 != access(DOWNFILES_WORDS_PATH, F_OK)){
 #ifdef Q_OS_WIN32
@@ -100,7 +83,6 @@ enData::enData()
         }
     }
 
-    //picsCheck();
     getCollectWordFromDisc();
     wordInf.init();
     memset(number,0,sizeof(number));
@@ -112,6 +94,9 @@ enData::enData()
 #endif
 }
 
+/*
+*   Destructor of class enData
+*/
 enData::~enData()
 {
     if(instance){
@@ -125,12 +110,10 @@ enData::~enData()
 }
 
 /*
-* @brief    it works at program start, check the number of pictures, make sure it is less than
-*           equal to MAX_PICS_NUMBER.
-*           But I need not pictures in my software in the end for production, so the function is
-*           not necessary.
-* @author   weiyang
-* @date     2017.12.31
+*   The function works at program start, check the number of pictures, make sure it is less than
+*   equal to MAX_PICS_NUMBER.
+*   But I need not pictures in my software in the end for production, so the function is not
+*   necessary.
 */
 void enData::picsCheck()
 {
@@ -165,6 +148,10 @@ void enData::picsCheck()
     }
 }
 
+/*
+*   Get singleton pointer for enData.
+*   In fact, our software has not multi-threads mechanism, the mutex added is just for practice.
+*/
 enData *enData::getInstance()
 {
     if(NULL == instance){
@@ -175,18 +162,26 @@ enData *enData::getInstance()
     return instance;
 }
 
+/*
+*   Judge whether string contains number.
+*/
 bool enData::strIsNum(string str)
 {
     double de;
     char ch;
     stringstream in(str);
-    if(!(in>>de) || in>>ch){
+    // The following code is what I read on the internet, actually I think !(in>>de) is enough.
+    if( !(in>>de) || in>>ch )
+    {
         return false;
     }
     return true;
 }
 
-void enData::jsonParseForWord(const QJsonObject cjson)
+/*
+*   Analyzes json data from shanbay and stores information, then notifies UIMgr to update.
+*/
+void enData::jsonParseForWord(const QJsonObject &cjson)
 {
     QJsonValue value;
     QJsonParseError error;
@@ -238,14 +233,18 @@ void enData::jsonParseForWord(const QJsonObject cjson)
         jsonTmp = json["data"].toObject();
         if(!checkElementInJson(jsonTmp, "id")) return;
         wordInf.vocabulary_id = jsonTmp["id"].toDouble();
-
-        //wordInfShow();
+#ifdef DEBUG
+        wordInfShow();
+#endif
         Controller *control = Controller::getInstance();
-        control->sendViewMsg(SearchWordEnum);
+        control->sendViewMsg(SearchWord);
     }
 }
 
-void enData::jsonParseForSentence(const QJsonObject cjson)
+/*
+*   Analyzes json data from shanbay and stores information, then notifies UIMgr to update.
+*/
+void enData::jsonParseForSentence(const QJsonObject &cjson)
 {
     QJsonValue value;
     QJsonParseError error;
@@ -275,12 +274,17 @@ void enData::jsonParseForSentence(const QJsonObject cjson)
             v_sentences.push_back(senUnit);
             if(v_sentences.size() == SENTENCE_NUM) break;
         }
+#ifdef DEBUG
         sentencesShow();
+#endif
         Controller *control = Controller::getInstance();
         control->sendViewMsg(GotoWordSentences);
     }
 }
 
+/*
+*   Simple interface to check whether json data contains special key.
+*/
 bool enData::checkElementInJson(QJsonObject &json, const string key)
 {
     if(!json.contains(key.c_str())){
@@ -292,9 +296,8 @@ bool enData::checkElementInJson(QJsonObject &json, const string key)
     return true;
 }
 /*
-* @brief    this function is used to show table Vocabulary's content
-* @author   weiyang
-* @date     2018.03.21
+*   This function is used to show table Vocabulary's content.
+*   It's always used in debug scene.
 */
 void enData::showTableVocabulary()
 {
@@ -331,6 +334,10 @@ void enData::showTableVocabulary()
     //LOGDBG("bytes: %d\n%send!",buffer.length(),buffer.c_str());
 }
 
+/*
+*   This function is used to show all data of table Statement.
+*   It's always used in debug scene.
+*/
 void enData::showTableSentence()
 {
     LOGDBG("start show table sentence:");
@@ -351,6 +358,9 @@ void enData::showTableSentence()
     }
 }
 
+/*
+*   The function is used to show word information in debug scene.
+*/
 void enData::wordInfShow()
 {
     string str;
@@ -372,6 +382,9 @@ void enData::wordInfShow()
     LOGDBG("\n%s",str.c_str());
 }
 
+/*
+*   The function is used to show sentence information in debug scene.
+*/
 void enData::sentencesShow()
 {
     string str;
@@ -390,6 +403,9 @@ void enData::sentencesShow()
     LOGDBG("\n%s",str.c_str());
 }
 
+/*
+*   Insert sentence into Sqlite database.
+*/
 void enData::addSentenceToDB(const int index)
 {
     sentenceUnit tmp = v_sentences[index];
@@ -411,6 +427,9 @@ void enData::addSentenceToDB(const int index)
     }
 }
 
+/*
+*   Store word and save as local file just like database.
+*/
 bool enData::addWordToDB(QString str)
 {
     LOGDBG("start");
@@ -470,6 +489,9 @@ bool enData::addWordToDB(QString str)
     return true;
 }
 
+/*
+*   Delete special recoid from database table by index.
+*/
 void enData::deleteSentenceFromDB(const int index)
 {
     LOGDBG("start");
@@ -491,6 +513,9 @@ void enData::deleteSentenceFromDB(const int index)
     LOGDBG("end!");
 }
 
+/*
+*   delete special record from database table by string content.
+*/
 void enData::deleteSentenceFromDB(const QString text)
 {
     QStringList strList = text.split("\n\n");
@@ -513,6 +538,9 @@ void enData::deleteSentenceFromDB(const QString text)
     }
 }
 
+/*
+*   Delete all collected sentences from sqlite database.
+*/
 void enData::clearSentenceFromDB()
 {
     if(db.open()){
@@ -530,11 +558,18 @@ void enData::clearSentenceFromDB()
     }
 }
 
+/*
+*   Delete all collected sentences form memory.
+*   Notice: our software reads data from disc when gets new page.
+*/
 void enData::clearSentenceInMem()
 {
     v_collectSentences.clear();
 }
 
+/*
+*   Delete all word files from disc.
+*/
 void enData::clearWordFromDisc()
 {
     LOGDBG("start");
@@ -560,11 +595,17 @@ void enData::clearWordFromDisc()
     LOGDBG("end!");
 }
 
+/*
+*   Delete all collected words in memory.
+*/
 void enData::clearWordInMem()
 {
     m_collectWords.clear();
 }
 
+/*
+*   Check whether special sentence exists in database according to index.
+*/
 bool enData::checkSentenceInDB(const int index)
 {
     LOGDBG("start");
@@ -592,6 +633,10 @@ bool enData::checkSentenceInDB(const int index)
     return ret;
 }
 
+/*
+*   Check whether collected words is in memory, m_collectWords would be wrote into disc at close
+*   time.
+*/
 bool enData::checkWordInDB(string str)
 {
     LOGDBG("start");
@@ -607,6 +652,9 @@ bool enData::checkWordInDB(string str)
     return ret;
 }
 
+/*
+*   Fetch collecte sentences in special page from disc.
+*/
 void enData::getCollectSentencePage(const int index)
 {
     LOGDBG("start!");
@@ -634,6 +682,9 @@ void enData::getCollectSentencePage(const int index)
     LOGDBG("end!");
 }
 
+/*
+*   Get word information from local word file.
+*/
 wordUnit enData::readWordFile(const char *path)
 {
     LOGDBG("start, path is %s",path);
@@ -655,10 +706,9 @@ wordUnit enData::readWordFile(const char *path)
     LOGDBG("end!");
     return myWord;
 }
+
 /*
-* @brief    make sure the count of words is less than limit.
-* @author   weiyang
-* @date     2018.03.21
+*   The function is used to make sure the count of words is less than limit.
 */
 bool enData::wordStoreLimit()
 {
@@ -682,6 +732,9 @@ bool enData::wordStoreLimit()
     return true;
 }
 
+/*
+*   Get collected word information from local word file.
+*/
 void enData::getCollectWordFromDisc()
 {
     DIR *dir = opendir(DOWNFILES_WORDS_PATH);
@@ -719,6 +772,9 @@ void enData::getCollectWordFromDisc()
     wordStoreLimit();
 }
 
+/*
+*   Get page count of collected sentences.
+*/
 int enData::getColSentencePageCount()
 {
     int ret = 0;
@@ -744,6 +800,9 @@ int enData::getColSentencePageCount()
     return ret;
 }
 
+/*
+*   Get page count of collected word.
+*/
 int enData::getColWordPageCount()
 {
     int ret = 0;
@@ -752,6 +811,9 @@ int enData::getColWordPageCount()
     return ret;
 }
 
+/*
+*   Remove html tag from internet data.
+*/
 QString enData::simpleSentence(const QString sentence)
 {
     QString tmp = sentence;
@@ -762,15 +824,16 @@ QString enData::simpleSentence(const QString sentence)
     return tmp;
 }
 
+/*
+*   Get the count of word's example sentences.
+*/
 int enData::getSentenceCount() const
 {
     return v_sentences.size();
 }
 
 /*
-* @brief    the function is used to convert unsigned integer to string.
-* @author   weiyang
-* @date     2018.03.21
+*   The function is used to convert integer to string.
 */
 template<typename T>
 void enData::uintegerToStr(T value)
@@ -778,11 +841,11 @@ void enData::uintegerToStr(T value)
     memset(number,0,sizeof(number));
     num_size = 0;
     while(value){
-        short b = value%10;
-        value = value/10;
+        short b = value % 10;
+        value = value / 10;
         number[num_size++] = b+'0';
     }
-    for(int i=0; i<num_size/2; i++){
+    for( int i=0; i < num_size/2; ++i ){
         std::swap(number[i], number[num_size-1-i]);
     }
 }

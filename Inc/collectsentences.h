@@ -1,3 +1,10 @@
+/**********************************************************
+*
+* @brief    The class is for page of collected sentences
+*
+* @author   theArcticOcean
+***********************************************************/
+
 #ifndef COLLECTSENTENCES_H
 #define COLLECTSENTENCES_H
 
@@ -11,7 +18,6 @@ class collectSentences;
 class collectSentences : public QWidget
 {
     Q_OBJECT
-    int pageIndex;
 public:
     explicit collectSentences(QWidget *parent = 0);
     ~collectSentences();
@@ -19,13 +25,16 @@ public:
     void connectCheckBoxClickAndShowDelBtn();
 
     QPoint lastPos;
+
+public slots:
+    void showDeleteButton();
+
 protected:
     virtual void showEvent(QShowEvent *event);
     virtual void mousePressEvent(QMouseEvent *event);
     virtual void mouseMoveEvent(QMouseEvent *event);
     void setCheckBoxChecked(QCheckBox *box, bool checked);
-public slots:
-    void showDeleteButton();
+
 private slots:
     void on_backButton_clicked();
     void on_deleteButton_clicked();
@@ -39,6 +48,7 @@ private slots:
 
 private:
     Ui::collectSentences *ui;
+    int pageIndex;
 };
 
 #endif // COLLECTSENTENCES_H

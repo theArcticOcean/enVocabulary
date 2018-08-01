@@ -1,7 +1,18 @@
+/**********************************************************
+*
+* @brief    The source file has detail of log print function
+*           that is used in our project.
+*
+* @author   theArcticOcean
+***********************************************************/
+
 #include "log.h"
 #include <stdio.h>
 #include <unistd.h>
 
+/*
+*   The function is base of printing log.
+*/
 void LOGBASE(const char *file, const int line, const char *funcName, const char * fmt, ...)
 {
     #define BUFFSIZE    1024*16
@@ -14,8 +25,6 @@ void LOGBASE(const char *file, const int line, const char *funcName, const char 
     va_end(vap);
 
 #ifdef DEBUG
-//    write(STDOUT_FILENO, buffer, strlen(buffer));
-//    write(STDOUT_FILENO, "\n", 2);
-    qDebug()<<buffer;
+    qDebug() << buffer;
 #endif
 }

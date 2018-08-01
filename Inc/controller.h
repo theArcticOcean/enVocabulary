@@ -1,3 +1,11 @@
+/**********************************************************
+*
+* @brief    The file defines interfaces of Model module in
+*           MVC design pattern.
+*
+* @author   theArcticOcean
+***********************************************************/
+
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
@@ -6,8 +14,12 @@
 #include <pthread.h>
 #include "endata.h"
 
+/*
+*   Defines view message types, controller would emit different
+*   signal based on these enum variables.
+*/
 typedef enum _viewMsgEnum{
-    SearchWordEnum,
+    SearchWord,
     CloseAllUI,
     GotoWordSentences,
     GotoCollectSen,
@@ -23,6 +35,7 @@ typedef enum _viewMsgEnum{
 class Controller : public QObject
 {
     Q_OBJECT
+
     static Controller* instance;
     static pthread_mutex_t mutex;
     viewManager *UIMgr;

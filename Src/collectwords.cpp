@@ -1,3 +1,10 @@
+/**********************************************************
+*
+* @brief    The details of class collectWords.
+*
+* @author   theArcticOcean
+***********************************************************/
+
 #include "collectwords.h"
 #include "ui_collectwords.h"
 #include "endata.h"
@@ -5,6 +12,9 @@
 #include "controller.h"
 #include <QMessageBox>
 
+/*
+*   Constructor of class collectWords, set UI style.
+*/
 collectWords::collectWords(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::collectWords)
@@ -16,7 +26,9 @@ collectWords::collectWords(QWidget *parent) :
     ui->clearButton->setStyleSheet("QPushButton{ border-image: url(:image/trash.png); }");
     this->setWindowFlags(Qt::WindowTitleHint | Qt::CustomizeWindowHint | \
                          Qt::WindowMinimizeButtonHint);
+#ifdef Q_OS_MACX
     this->setWindowIcon(QIcon(QString(":/image/dict.icns")));
+#endif
     pageIndex = 1;
 
     ui->label1->setWordWrap(true);
@@ -27,11 +39,17 @@ collectWords::collectWords(QWidget *parent) :
     ui->label6->setWordWrap(true);
 }
 
+/*
+*   Destrctor of class collectWords
+*/
 collectWords::~collectWords()
 {
     delete ui;
 }
 
+/*
+*   Interface of adding words in page collectWords.
+*/
 void collectWords::fillWordInLabels(const int index, QString str)
 {
     switch(index){
@@ -64,6 +82,9 @@ void collectWords::fillWordInLabels(const int index, QString str)
     }
 }
 
+/*
+*   Rewrite function showEvent to refresh UI when go to new page.
+*/
 void collectWords::showEvent(QShowEvent *event)
 {
     ui->label1->hide();
@@ -97,6 +118,10 @@ void collectWords::showEvent(QShowEvent *event)
     ui->label->setText(page);
 }
 
+/*
+*   Rewrite mousePressEvent to record the postion of left button click on the page.
+*   This is important for move our software on screen.
+*/
 void collectWords::mousePressEvent(QMouseEvent *event)
 {
     if(event->button() == Qt::LeftButton){
@@ -104,6 +129,9 @@ void collectWords::mousePressEvent(QMouseEvent *event)
     }
 }
 
+/*
+*   Records new postion in mouseMoveEvent and notify UIMgr to move CollectWordUI.
+*/
 void collectWords::mouseMoveEvent(QMouseEvent *event)
 {
     if(event->buttons().testFlag(Qt::LeftButton)){
@@ -114,12 +142,18 @@ void collectWords::mouseMoveEvent(QMouseEvent *event)
     }
 }
 
+/*
+*   Deal with user's click on back button.
+*/
 void collectWords::on_backButton_clicked()
 {
     Controller *control = Controller::getInstance();
     control->sendViewMsg(CollectWordWndToHome);
 }
 
+/*
+*   Go to next page and refresh UI.
+*/
 void collectWords::on_nextButton_clicked()
 {
     pageIndex++;
@@ -130,6 +164,9 @@ void collectWords::on_nextButton_clicked()
     showEvent(NULL);
 }
 
+/*
+*   Go to previous page and refresh UI.
+*/
 void collectWords::on_previousButton_clicked()
 {
     pageIndex--;
@@ -140,6 +177,9 @@ void collectWords::on_previousButton_clicked()
     showEvent(NULL);
 }
 
+/*
+*   Delete all collected words from disc and memory.
+*/
 void collectWords::on_clearButton_clicked()
 {
     QMessageBox::StandardButton reply;

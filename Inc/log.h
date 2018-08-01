@@ -1,3 +1,11 @@
+/**********************************************************
+*
+* @brief    The header file contains log print function which
+*           is used in our project.
+*
+* @author   theArcticOcean
+***********************************************************/
+
 #ifndef LOG_H
 #define LOG_H
 

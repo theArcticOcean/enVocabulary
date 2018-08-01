@@ -1,3 +1,12 @@
+/**********************************************************
+*
+* @brief    This header file defines data need by shanbay API
+*           and data structures which store vocabulary
+*           information.
+*
+* @author   theArcticOcean
+***********************************************************/
+
 #ifndef ENDATA_H
 #define ENDATA_H
 
@@ -148,19 +157,12 @@ struct more : binary_function<_Tp, _Tp, bool>
 
 class enData
 {    
-    static enData *instance;
-    static pthread_mutex_t instanceMutex;
-    QSqlDatabase db;
-    QSqlQuery *query;
-    char number[25];
-    int num_size;
-
 public:
     enData();
     ~enData();
     void picsCheck();
-    void jsonParseForWord(const QJsonObject cjson);
-    void jsonParseForSentence(const QJsonObject cjson);
+    void jsonParseForWord(const QJsonObject &cjson);
+    void jsonParseForSentence(const QJsonObject &cjson);
     void wordInfShow();
     void sentencesShow();
     void addSentenceToDB(const int index);
@@ -195,6 +197,14 @@ public:
     vector<sentenceUnit> v_sentences;
     vector<sentenceUnit> v_collectSentences;
     map<ulong, wordUnit, more<ulong>> m_collectWords;  //we make sure map orders as desc
+
+private:
+    static enData *instance;
+    static pthread_mutex_t instanceMutex;
+    QSqlDatabase db;
+    QSqlQuery *query;
+    char number[25];
+    int num_size;
 };
 
 #endif // ENDATA_H

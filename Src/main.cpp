@@ -1,3 +1,10 @@
+/**********************************************************
+*
+* @brief    The file defines main entry of software enVocabulary.
+*
+* @author   theArcticOcean
+***********************************************************/
+
 #include "viewmanager.h"
 #include "controller.h"
 #include <QApplication>

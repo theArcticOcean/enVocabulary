@@ -1,15 +1,29 @@
+/**********************************************************
+*
+* @brief    The file has interfaces of Model module in
+*           MVC design pattern.
+*
+* @author   theArcticOcean
+***********************************************************/
+
 #include "controller.h"
 #include "log.h"
 
 Controller* Controller::instance = NULL;
 pthread_mutex_t Controller::mutex = PTHREAD_MUTEX_INITIALIZER;
 
+/*
+*   Constructor of class Controller
+*/
 Controller::Controller()
 {
     UIMgr = NULL;
     pthread_mutex_init(&mutex, NULL);
 }
 
+/*
+*   Destructor of class Controller
+*/
 Controller::~Controller()
 {
     if(NULL != instance){
@@ -18,11 +32,17 @@ Controller::~Controller()
     }
 }
 
+/*
+*   Get view manager object pointer.
+*/
 void Controller::attachViewManager(viewManager *UIMgr)
 {
     this->UIMgr = UIMgr;
 }
 
+/*
+*   Connect signals and slots to notify UI Manager to update HMI.
+*/
 void Controller::signalAndSlotsConenct()
 {
     bool ret = connect(this,SIGNAL(getWord()),UIMgr->searchUI.get(),SLOT(slotGetWord()));
@@ -59,12 +79,15 @@ void Controller::signalAndSlotsConenct()
     LOGDBG("connected: %d for wordNotFound, UIMgr is %p", ret, UIMgr);
 }
 
+/*
+*   Public interface provided to send view message to UIMgr.
+*/
 void Controller::sendViewMsg(viewMsgEnum msg)
 {
     LOGDBG("start, msg is %d", msg);
     switch(msg)
     {
-    case SearchWordEnum:
+    case SearchWord:
         emit getWord();
         break;
     case CloseAllUI:
@@ -100,11 +123,18 @@ void Controller::sendViewMsg(viewMsgEnum msg)
     LOGDBG("end!");
 }
 
+/*
+*   For user moving software, notifies UIMgr to update HMI.
+*/
 void Controller::sendMoveViewSignal(srcEnum e, QPoint newPoint)
 {
     emit moveEventHappenedSig(e, newPoint);
 }
 
+/*
+*   Get singleton pointer for Controller.
+*   In fact, our software has not multi-threads mechanism, the mutex added is just for practice.
+*/
 Controller *Controller::getInstance()
 {
     if(NULL == instance){

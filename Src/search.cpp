@@ -1,3 +1,10 @@
+/**********************************************************
+*
+* @brief    The file contains definition of class Search.
+*
+* @author   theArcticOcean
+***********************************************************/
+
 #include "search.h"
 #include "log.h"
 #include "ui_search.h"
@@ -9,6 +16,9 @@
 #include <QQmlContext>
 #include <QMessageBox>
 
+/*
+*   Rewrite keyReleaseEvent to request word data by enter "carriage return".
+*/
 void Search::keyReleaseEvent(QKeyEvent *event)
 {
     LOGDBG("event->key() is 0x%x",event->key());
@@ -22,33 +32,21 @@ void Search::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
+/*
+*   Record left-button press postion to move enVocabulary on the screen.
+*/
 void Search::mousePressEvent(QMouseEvent *event)
 {
     LOGDBG("start");
     if(event->button() == Qt::LeftButton){
         lastPos = event->globalPos();
     }
-
-//!   we do these thing by QML
-//    int rx = event->x() - ui->quickWidget->x();
-//    int ry = event->y() - ui->quickWidget->y();
-
-//    if(rx >=0 && rx <150 && ry >= 0 && ry < 50){
-//        http = HttpManager::getInstance();
-//        http->sendEnWordSentenceRequest();
-//    }
-//    else if(rx >= 75 && rx < 150 && ry >= 50 && ry < 200){
-//        Controller *control = Controller::getInstance();
-//        control->sendViewMsg(GotoCollectWord);
-//    }
-//    else if(rx >= 75 && rx < 150 && ry >= 200 && ry < 400){
-//        Controller *control = Controller::getInstance();
-//        control->sendViewMsg(GotoCollectSen);
-//    }
     LOGDBG("end!");
 }
 
-
+/*
+*   Move software on the desktop.
+*/
 void Search::mouseMoveEvent(QMouseEvent *event)
 {
     if( event->buttons().testFlag(Qt::LeftButton)) {
@@ -58,6 +56,9 @@ void Search::mouseMoveEvent(QMouseEvent *event)
     }
 }
 
+/*
+*   When user click close button on the home page, let controller to notify UIMgr.
+*/
 void Search::closeEvent(QCloseEvent *event)
 {
     if (QEvent::Close == event->type()) {
@@ -66,6 +67,9 @@ void Search::closeEvent(QCloseEvent *event)
     }
 }
 
+/*
+*   Constructor of class Search. Initinate HMI, signal-slot mechanism and media player.
+*/
 Search::Search(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Search)
@@ -92,11 +96,17 @@ Search::Search(QWidget *parent) :
             SLOT(slotPlayerError(QMediaPlayer::Error)));
 }
 
+/*
+*   Destrutor of class Search
+*/
 Search::~Search()
 {
     delete ui;
 }
 
+/*
+*   After getting word's information, store it by model module
+*/
 void Search::slotGetWord()
 {
     LOGDBG("start");
@@ -125,6 +135,9 @@ void Search::slotGetWord()
     LOGDBG("end!");
 }
 
+/*
+*   When media player finish playing, make UI show stop icon.
+*/
 void Search::slotStateChanged(QMediaPlayer::State state)
 {
     if(state != QMediaPlayer::PlayingState){
@@ -133,11 +146,17 @@ void Search::slotStateChanged(QMediaPlayer::State state)
     }
 }
 
+/*
+*   If media player has playing error, show message dialog.
+*/
 void Search::slotPlayerError(QMediaPlayer::Error err)
 {
     QMessageBox::warning(this,"Play Error",player->errorString());
 }
 
+/*
+*   If user click uk voice to speak, let player do it rightly.
+*/
 void Search::on_uk_button_clicked()
 {
     QString url = model->wordInf.uk_audio_addresses;
@@ -151,6 +170,9 @@ void Search::on_uk_button_clicked()
     LOGDBG("played. url is %s", url.toStdString().c_str());
 }
 
+/*
+*   If user click us voice to speak, let player do it rightly.
+*/
 void Search::on_us_button_clicked()
 {
     QString url = model->wordInf.us_audio_addresses;
