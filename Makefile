@@ -15,7 +15,7 @@ CXX           = /Library/Developer/CommandLineTools/usr/bin/clang++
 DEFINES       = -DQT_DEBUG -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_QUICKWIDGETS_LIB -DQT_QUICK_LIB -DQT_WIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_GUI_LIB -DQT_QML_LIB -DQT_NETWORK_LIB -DQT_SQL_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wall -W -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -stdlib=libc++ -O2 -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wall -W -fPIC $(DEFINES)
-INCPATH       = -I. -I/usr/local/include -IInc -I../../Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -IMoc -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/AGL.framework/Headers -IRes -I../../Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib
+INCPATH       = -I. -I/usr/local/include -IInc -I../../Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -IOut -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/AGL.framework/Headers -IOut -I../../Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib
 QMAKE         = /Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -35,7 +35,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = enVocabulary1.0.0
-DISTDIR = /Users/weiyang/pro/enVocabulary/OBJ/enVocabulary1.0.0
+DISTDIR = /Users/weiyang/pro/enVocabulary/Out/enVocabulary1.0.0
 LINK          = /Library/Developer/CommandLineTools/usr/bin/clang++
 LFLAGS        = -stdlib=libc++ -headerpad_max_install_names $(EXPORT_ARCH_ARGS) -Wl,-syslibroot,/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wl,-rpath,@executable_path/Frameworks -Wl,-rpath,/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib
 LIBS          = $(SUBLIBS) -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib -L/usr/lib -lpthread -framework QtQuickWidgets -framework QtQuick -framework QtQml -framework QtNetwork -framework QtCore -framework DiskArbitration -framework IOKit -framework QtGui -framework QtWidgets -framework QtMultimedia -framework QtSql -framework OpenGL -framework AGL 
@@ -46,7 +46,7 @@ STRIP         = strip
 
 ####### Output directory
 
-OBJECTS_DIR   = OBJ/
+OBJECTS_DIR   = Out/
 
 ####### Files
 
@@ -60,35 +60,35 @@ SOURCES       = Src/main.cpp \
 		Src/viewmanager.cpp \
 		Src/collectsentences.cpp \
 		Src/collectwords.cpp \
-		Src/qmlfunc.cpp qrc_image.cpp \
-		Moc/moc_search.cpp \
-		Moc/moc_httpmanager.cpp \
-		Moc/moc_controller.cpp \
-		Moc/moc_mysentences.cpp \
-		Moc/moc_viewmanager.cpp \
-		Moc/moc_collectsentences.cpp \
-		Moc/moc_collectwords.cpp \
-		Moc/moc_qmlfunc.cpp
-OBJECTS       = OBJ/main.o \
-		OBJ/search.o \
-		OBJ/httpmanager.o \
-		OBJ/log.o \
-		OBJ/endata.o \
-		OBJ/controller.o \
-		OBJ/mysentences.o \
-		OBJ/viewmanager.o \
-		OBJ/collectsentences.o \
-		OBJ/collectwords.o \
-		OBJ/qmlfunc.o \
-		OBJ/qrc_image.o \
-		OBJ/moc_search.o \
-		OBJ/moc_httpmanager.o \
-		OBJ/moc_controller.o \
-		OBJ/moc_mysentences.o \
-		OBJ/moc_viewmanager.o \
-		OBJ/moc_collectsentences.o \
-		OBJ/moc_collectwords.o \
-		OBJ/moc_qmlfunc.o
+		Src/qmlfunc.cpp Out/qrc_image.cpp \
+		Out/moc_search.cpp \
+		Out/moc_httpmanager.cpp \
+		Out/moc_controller.cpp \
+		Out/moc_mysentences.cpp \
+		Out/moc_viewmanager.cpp \
+		Out/moc_collectsentences.cpp \
+		Out/moc_collectwords.cpp \
+		Out/moc_qmlfunc.cpp
+OBJECTS       = Out/main.o \
+		Out/search.o \
+		Out/httpmanager.o \
+		Out/log.o \
+		Out/endata.o \
+		Out/controller.o \
+		Out/mysentences.o \
+		Out/viewmanager.o \
+		Out/collectsentences.o \
+		Out/collectwords.o \
+		Out/qmlfunc.o \
+		Out/qrc_image.o \
+		Out/moc_search.o \
+		Out/moc_httpmanager.o \
+		Out/moc_controller.o \
+		Out/moc_mysentences.o \
+		Out/moc_viewmanager.o \
+		Out/moc_collectsentences.o \
+		Out/moc_collectwords.o \
+		Out/moc_qmlfunc.o
 DIST          = ../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/spec_pre.prf \
 		../../Qt5.9.2/5.9.2/clang_64/mkspecs/qdevice.pri \
 		../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/device_config.prf \
@@ -289,7 +289,7 @@ EXPORT_ARCH_ARGS = $(foreach arch, $(if $(EXPORT_ACTIVE_ARCHS), $(EXPORT_ACTIVE_
 first: all
 ####### Build rules
 
-$(TARGET): Res/ui_search.h Res/ui_mysentences.h Res/ui_collectsentences.h Res/ui_collectwords.h $(OBJECTS)  
+$(TARGET): Out/ui_search.h Out/ui_mysentences.h Out/ui_collectsentences.h Out/ui_collectwords.h $(OBJECTS)  
 	@test -d enVocabulary.app/Contents/MacOS/ || mkdir -p enVocabulary.app/Contents/MacOS/
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
@@ -712,10 +712,10 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all: qrc_image.cpp
+compiler_rcc_make_all: Out/qrc_image.cpp
 compiler_rcc_clean:
-	-$(DEL_FILE) qrc_image.cpp
-qrc_image.cpp: image.qrc \
+	-$(DEL_FILE) Out/qrc_image.cpp
+Out/qrc_image.cpp: image.qrc \
 		../../Qt5.9.2/5.9.2/clang_64/bin/rcc \
 		Res/rect.qml \
 		image/play_circle.png \
@@ -729,18 +729,18 @@ qrc_image.cpp: image.qrc \
 		image/whiteHeart.png \
 		image/right.png \
 		image/left.png
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/rcc -name image image.qrc -o qrc_image.cpp
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/rcc -name image image.qrc -o Out/qrc_image.cpp
 
-compiler_moc_predefs_make_all: Moc/moc_predefs.h
+compiler_moc_predefs_make_all: Out/moc_predefs.h
 compiler_moc_predefs_clean:
-	-$(DEL_FILE) Moc/moc_predefs.h
-Moc/moc_predefs.h: ../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/data/dummy.cpp
-	/Library/Developer/CommandLineTools/usr/bin/clang++ -pipe -stdlib=libc++ -O2 -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wall -W -dM -E -o Moc/moc_predefs.h ../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/data/dummy.cpp
+	-$(DEL_FILE) Out/moc_predefs.h
+Out/moc_predefs.h: ../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/data/dummy.cpp
+	/Library/Developer/CommandLineTools/usr/bin/clang++ -pipe -stdlib=libc++ -O2 -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wall -W -dM -E -o Out/moc_predefs.h ../../Qt5.9.2/5.9.2/clang_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: Moc/moc_search.cpp Moc/moc_httpmanager.cpp Moc/moc_controller.cpp Moc/moc_mysentences.cpp Moc/moc_viewmanager.cpp Moc/moc_collectsentences.cpp Moc/moc_collectwords.cpp Moc/moc_qmlfunc.cpp
+compiler_moc_header_make_all: Out/moc_search.cpp Out/moc_httpmanager.cpp Out/moc_controller.cpp Out/moc_mysentences.cpp Out/moc_viewmanager.cpp Out/moc_collectsentences.cpp Out/moc_collectwords.cpp Out/moc_qmlfunc.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) Moc/moc_search.cpp Moc/moc_httpmanager.cpp Moc/moc_controller.cpp Moc/moc_mysentences.cpp Moc/moc_viewmanager.cpp Moc/moc_collectsentences.cpp Moc/moc_collectwords.cpp Moc/moc_qmlfunc.cpp
-Moc/moc_search.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
+	-$(DEL_FILE) Out/moc_search.cpp Out/moc_httpmanager.cpp Out/moc_controller.cpp Out/moc_mysentences.cpp Out/moc_viewmanager.cpp Out/moc_collectsentences.cpp Out/moc_collectwords.cpp Out/moc_qmlfunc.cpp
+Out/moc_search.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
 		Inc/httpmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
@@ -1100,11 +1100,11 @@ Moc/moc_search.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
 		Inc/qmlfunc.h \
 		Inc/search.h \
-		Moc/moc_predefs.h \
+		Out/moc_predefs.h \
 		../../Qt5.9.2/5.9.2/clang_64/bin/moc
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./Moc/moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/pro/enVocabulary -I/usr/local/include -I/Users/weiyang/pro/enVocabulary/Inc -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib Inc/search.h -o Moc/moc_search.cpp
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./Out/moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/pro/enVocabulary -I/usr/local/include -I/Users/weiyang/pro/enVocabulary/Inc -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib Inc/search.h -o Out/moc_search.cpp
 
-Moc/moc_httpmanager.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
+Out/moc_httpmanager.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
@@ -1454,11 +1454,11 @@ Moc/moc_httpmanager.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Heade
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebugStateSaver \
 		Inc/httpmanager.h \
-		Moc/moc_predefs.h \
+		Out/moc_predefs.h \
 		../../Qt5.9.2/5.9.2/clang_64/bin/moc
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./Moc/moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/pro/enVocabulary -I/usr/local/include -I/Users/weiyang/pro/enVocabulary/Inc -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib Inc/httpmanager.h -o Moc/moc_httpmanager.cpp
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./Out/moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/pro/enVocabulary -I/usr/local/include -I/Users/weiyang/pro/enVocabulary/Inc -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib Inc/httpmanager.h -o Out/moc_httpmanager.cpp
 
-Moc/moc_controller.cpp: Inc/viewmanager.h \
+Out/moc_controller.cpp: Inc/viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
 		Inc/search.h \
@@ -1833,11 +1833,11 @@ Moc/moc_controller.cpp: Inc/viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
 		Inc/collectwords.h \
 		Inc/controller.h \
-		Moc/moc_predefs.h \
+		Out/moc_predefs.h \
 		../../Qt5.9.2/5.9.2/clang_64/bin/moc
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./Moc/moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/pro/enVocabulary -I/usr/local/include -I/Users/weiyang/pro/enVocabulary/Inc -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib Inc/controller.h -o Moc/moc_controller.cpp
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./Out/moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/pro/enVocabulary -I/usr/local/include -I/Users/weiyang/pro/enVocabulary/Inc -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib Inc/controller.h -o Out/moc_controller.cpp
 
-Moc/moc_mysentences.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
+Out/moc_mysentences.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qevent.h \
@@ -1851,11 +1851,11 @@ Moc/moc_mysentences.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/He
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		Inc/mysentences.h \
-		Moc/moc_predefs.h \
+		Out/moc_predefs.h \
 		../../Qt5.9.2/5.9.2/clang_64/bin/moc
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./Moc/moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/pro/enVocabulary -I/usr/local/include -I/Users/weiyang/pro/enVocabulary/Inc -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib Inc/mysentences.h -o Moc/moc_mysentences.cpp
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./Out/moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/pro/enVocabulary -I/usr/local/include -I/Users/weiyang/pro/enVocabulary/Inc -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib Inc/mysentences.h -o Out/moc_mysentences.cpp
 
-Moc/moc_viewmanager.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
+Out/moc_viewmanager.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
 		Inc/search.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
@@ -2229,53 +2229,53 @@ Moc/moc_viewmanager.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Heade
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
 		Inc/collectwords.h \
 		Inc/viewmanager.h \
-		Moc/moc_predefs.h \
+		Out/moc_predefs.h \
 		../../Qt5.9.2/5.9.2/clang_64/bin/moc
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./Moc/moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/pro/enVocabulary -I/usr/local/include -I/Users/weiyang/pro/enVocabulary/Inc -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib Inc/viewmanager.h -o Moc/moc_viewmanager.cpp
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./Out/moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/pro/enVocabulary -I/usr/local/include -I/Users/weiyang/pro/enVocabulary/Inc -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib Inc/viewmanager.h -o Out/moc_viewmanager.cpp
 
-Moc/moc_collectsentences.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
+Out/moc_collectsentences.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QCheckBox \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
 		Inc/collectsentences.h \
-		Moc/moc_predefs.h \
+		Out/moc_predefs.h \
 		../../Qt5.9.2/5.9.2/clang_64/bin/moc
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./Moc/moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/pro/enVocabulary -I/usr/local/include -I/Users/weiyang/pro/enVocabulary/Inc -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib Inc/collectsentences.h -o Moc/moc_collectsentences.cpp
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./Out/moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/pro/enVocabulary -I/usr/local/include -I/Users/weiyang/pro/enVocabulary/Inc -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib Inc/collectsentences.h -o Out/moc_collectsentences.cpp
 
-Moc/moc_collectwords.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
+Out/moc_collectwords.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
 		Inc/collectwords.h \
-		Moc/moc_predefs.h \
+		Out/moc_predefs.h \
 		../../Qt5.9.2/5.9.2/clang_64/bin/moc
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./Moc/moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/pro/enVocabulary -I/usr/local/include -I/Users/weiyang/pro/enVocabulary/Inc -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib Inc/collectwords.h -o Moc/moc_collectwords.cpp
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./Out/moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/pro/enVocabulary -I/usr/local/include -I/Users/weiyang/pro/enVocabulary/Inc -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib Inc/collectwords.h -o Out/moc_collectwords.cpp
 
-Moc/moc_qmlfunc.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
+Out/moc_qmlfunc.cpp: ../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
 		Inc/qmlfunc.h \
-		Moc/moc_predefs.h \
+		Out/moc_predefs.h \
 		../../Qt5.9.2/5.9.2/clang_64/bin/moc
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./Moc/moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/pro/enVocabulary -I/usr/local/include -I/Users/weiyang/pro/enVocabulary/Inc -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib Inc/qmlfunc.h -o Moc/moc_qmlfunc.cpp
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/moc $(DEFINES) --include ./Out/moc_predefs.h -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/mkspecs/macx-clang -I/Users/weiyang/pro/enVocabulary -I/usr/local/include -I/Users/weiyang/pro/enVocabulary/Inc -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuickWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtMultimedia.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers -I/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk/usr/include -F/Users/weiyang/Qt5.9.2/5.9.2/clang_64/lib Inc/qmlfunc.h -o Out/moc_qmlfunc.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: Res/ui_search.h Res/ui_mysentences.h Res/ui_collectsentences.h Res/ui_collectwords.h
+compiler_uic_make_all: Out/ui_search.h Out/ui_mysentences.h Out/ui_collectsentences.h Out/ui_collectwords.h
 compiler_uic_clean:
-	-$(DEL_FILE) Res/ui_search.h Res/ui_mysentences.h Res/ui_collectsentences.h Res/ui_collectwords.h
-Res/ui_search.h: Res/search.ui \
+	-$(DEL_FILE) Out/ui_search.h Out/ui_mysentences.h Out/ui_collectsentences.h Out/ui_collectwords.h
+Out/ui_search.h: Res/search.ui \
 		../../Qt5.9.2/5.9.2/clang_64/bin/uic
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/uic Res/search.ui -o Res/ui_search.h
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/uic Res/search.ui -o Out/ui_search.h
 
-Res/ui_mysentences.h: Res/mysentences.ui \
+Out/ui_mysentences.h: Res/mysentences.ui \
 		../../Qt5.9.2/5.9.2/clang_64/bin/uic
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/uic Res/mysentences.ui -o Res/ui_mysentences.h
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/uic Res/mysentences.ui -o Out/ui_mysentences.h
 
-Res/ui_collectsentences.h: Res/collectsentences.ui \
+Out/ui_collectsentences.h: Res/collectsentences.ui \
 		../../Qt5.9.2/5.9.2/clang_64/bin/uic
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/uic Res/collectsentences.ui -o Res/ui_collectsentences.h
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/uic Res/collectsentences.ui -o Out/ui_collectsentences.h
 
-Res/ui_collectwords.h: Res/collectwords.ui \
+Out/ui_collectwords.h: Res/collectwords.ui \
 		../../Qt5.9.2/5.9.2/clang_64/bin/uic
-	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/uic Res/collectwords.ui -o Res/ui_collectwords.h
+	/Users/weiyang/Qt5.9.2/5.9.2/clang_64/bin/uic Res/collectwords.ui -o Out/ui_collectwords.h
 
 compiler_rez_source_make_all:
 compiler_rez_source_clean:
@@ -2289,7 +2289,7 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 
 ####### Compile
 
-OBJ/main.o: Src/main.cpp Inc/viewmanager.h \
+Out/main.o: Src/main.cpp Inc/viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
 		Inc/search.h \
@@ -2669,10 +2669,13 @@ OBJ/main.o: Src/main.cpp Inc/viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers/QQmlEngine \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers/qqmlengine.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers/QQmlComponent \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers/qqmlcomponent.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJ/main.o Src/main.cpp
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers/qqmlcomponent.h \
+		Inc/log.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QString \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qstring.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Out/main.o Src/main.cpp
 
-OBJ/search.o: Src/search.cpp Inc/search.h \
+Out/search.o: Src/search.cpp Inc/search.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
 		Inc/httpmanager.h \
@@ -3033,7 +3036,9 @@ OBJ/search.o: Src/search.cpp Inc/search.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qthread.h \
 		Inc/qmlfunc.h \
 		Inc/log.h \
-		Res/ui_search.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QString \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		Out/ui_search.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers/QQuickItem \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtQuick.framework/Headers/qquickitem.h \
 		Inc/controller.h \
@@ -3055,9 +3060,9 @@ OBJ/search.o: Src/search.cpp Inc/search.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtQml.framework/Headers/qqmlcontext.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJ/search.o Src/search.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Out/search.o Src/search.cpp
 
-OBJ/httpmanager.o: Src/httpmanager.cpp Inc/httpmanager.h \
+Out/httpmanager.o: Src/httpmanager.cpp Inc/httpmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
@@ -3408,6 +3413,8 @@ OBJ/httpmanager.o: Src/httpmanager.cpp Inc/httpmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebugStateSaver \
 		Inc/log.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QString \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qstring.h \
 		Inc/controller.h \
 		Inc/viewmanager.h \
 		Inc/search.h \
@@ -3437,14 +3444,18 @@ OBJ/httpmanager.o: Src/httpmanager.cpp Inc/httpmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsondocument.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJ/httpmanager.o Src/httpmanager.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Out/httpmanager.o Src/httpmanager.cpp
 
-OBJ/log.o: Src/log.cpp Inc/log.h \
+Out/log.o: Src/log.cpp Inc/log.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
-		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJ/log.o Src/log.cpp
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QString \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QCoreApplication \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qcoreapplication.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Out/log.o Src/log.cpp
 
-OBJ/endata.o: Src/endata.cpp Inc/endata.h \
+Out/endata.o: Src/endata.cpp Inc/endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtSql.framework/Headers/QSqlError \
@@ -3455,6 +3466,8 @@ OBJ/endata.o: Src/endata.cpp Inc/endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebugStateSaver \
 		Inc/log.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QString \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qstring.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonParseError \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsondocument.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonArray \
@@ -3828,9 +3841,9 @@ OBJ/endata.o: Src/endata.cpp Inc/endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qcoreapplication.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QApplication \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJ/endata.o Src/endata.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Out/endata.o Src/endata.cpp
 
-OBJ/controller.o: Src/controller.cpp Inc/controller.h \
+Out/controller.o: Src/controller.cpp Inc/controller.h \
 		Inc/viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
@@ -4205,10 +4218,12 @@ OBJ/controller.o: Src/controller.cpp Inc/controller.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QCheckBox \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
 		Inc/collectwords.h \
-		Inc/log.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJ/controller.o Src/controller.cpp
+		Inc/log.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QString \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qstring.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Out/controller.o Src/controller.cpp
 
-OBJ/mysentences.o: Src/mysentences.cpp Inc/mysentences.h \
+Out/mysentences.o: Src/mysentences.cpp Inc/mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QShowEvent \
@@ -4222,10 +4237,12 @@ OBJ/mysentences.o: Src/mysentences.cpp Inc/mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
-		Res/ui_mysentences.h \
+		Out/ui_mysentences.h \
 		Inc/log.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QString \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qstring.h \
 		Inc/controller.h \
 		Inc/viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
@@ -4588,9 +4605,9 @@ OBJ/mysentences.o: Src/mysentences.cpp Inc/mysentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QRegularExpression \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qregularexpression.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QRegularExpressionMatch
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJ/mysentences.o Src/mysentences.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Out/mysentences.o Src/mysentences.cpp
 
-OBJ/viewmanager.o: Src/viewmanager.cpp Inc/viewmanager.h \
+Out/viewmanager.o: Src/viewmanager.cpp Inc/viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
 		Inc/search.h \
@@ -4965,18 +4982,20 @@ OBJ/viewmanager.o: Src/viewmanager.cpp Inc/viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
 		Inc/collectwords.h \
 		Inc/log.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QString \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qstring.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/QDesktopServices \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtGui.framework/Headers/qdesktopservices.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJ/viewmanager.o Src/viewmanager.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Out/viewmanager.o Src/viewmanager.cpp
 
-OBJ/collectsentences.o: Src/collectsentences.cpp Inc/collectsentences.h \
+Out/collectsentences.o: Src/collectsentences.cpp Inc/collectsentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QCheckBox \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
-		Res/ui_collectsentences.h \
+		Out/ui_collectsentences.h \
 		Inc/endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
@@ -5348,14 +5367,16 @@ OBJ/collectsentences.o: Src/collectsentences.cpp Inc/collectsentences.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		Inc/collectwords.h \
 		Inc/log.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QString \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qstring.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJ/collectsentences.o Src/collectsentences.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Out/collectsentences.o Src/collectsentences.cpp
 
-OBJ/collectwords.o: Src/collectwords.cpp Inc/collectwords.h \
+Out/collectwords.o: Src/collectwords.cpp Inc/collectwords.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
-		Res/ui_collectwords.h \
+		Out/ui_collectwords.h \
 		Inc/endata.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
@@ -5367,6 +5388,8 @@ OBJ/collectwords.o: Src/collectwords.cpp Inc/collectwords.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qdebug.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QDebugStateSaver \
 		Inc/log.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QString \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qstring.h \
 		Inc/controller.h \
 		Inc/viewmanager.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
@@ -5731,9 +5754,9 @@ OBJ/collectwords.o: Src/collectwords.cpp Inc/collectwords.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJ/collectwords.o Src/collectwords.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Out/collectwords.o Src/collectwords.cpp
 
-OBJ/qmlfunc.o: Src/qmlfunc.cpp Inc/qmlfunc.h \
+Out/qmlfunc.o: Src/qmlfunc.cpp Inc/qmlfunc.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QObject \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qobject.h \
 		Inc/httpmanager.h \
@@ -6108,35 +6131,37 @@ OBJ/qmlfunc.o: Src/qmlfunc.cpp Inc/qmlfunc.h \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QCheckBox \
 		../../Qt5.9.2/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
 		Inc/collectwords.h \
-		Inc/log.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJ/qmlfunc.o Src/qmlfunc.cpp
+		Inc/log.h \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/QString \
+		../../Qt5.9.2/5.9.2/clang_64/lib/QtCore.framework/Headers/qstring.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Out/qmlfunc.o Src/qmlfunc.cpp
 
-OBJ/qrc_image.o: qrc_image.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJ/qrc_image.o qrc_image.cpp
+Out/qrc_image.o: Out/qrc_image.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Out/qrc_image.o Out/qrc_image.cpp
 
-OBJ/moc_search.o: Moc/moc_search.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJ/moc_search.o Moc/moc_search.cpp
+Out/moc_search.o: Out/moc_search.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Out/moc_search.o Out/moc_search.cpp
 
-OBJ/moc_httpmanager.o: Moc/moc_httpmanager.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJ/moc_httpmanager.o Moc/moc_httpmanager.cpp
+Out/moc_httpmanager.o: Out/moc_httpmanager.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Out/moc_httpmanager.o Out/moc_httpmanager.cpp
 
-OBJ/moc_controller.o: Moc/moc_controller.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJ/moc_controller.o Moc/moc_controller.cpp
+Out/moc_controller.o: Out/moc_controller.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Out/moc_controller.o Out/moc_controller.cpp
 
-OBJ/moc_mysentences.o: Moc/moc_mysentences.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJ/moc_mysentences.o Moc/moc_mysentences.cpp
+Out/moc_mysentences.o: Out/moc_mysentences.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Out/moc_mysentences.o Out/moc_mysentences.cpp
 
-OBJ/moc_viewmanager.o: Moc/moc_viewmanager.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJ/moc_viewmanager.o Moc/moc_viewmanager.cpp
+Out/moc_viewmanager.o: Out/moc_viewmanager.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Out/moc_viewmanager.o Out/moc_viewmanager.cpp
 
-OBJ/moc_collectsentences.o: Moc/moc_collectsentences.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJ/moc_collectsentences.o Moc/moc_collectsentences.cpp
+Out/moc_collectsentences.o: Out/moc_collectsentences.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Out/moc_collectsentences.o Out/moc_collectsentences.cpp
 
-OBJ/moc_collectwords.o: Moc/moc_collectwords.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJ/moc_collectwords.o Moc/moc_collectwords.cpp
+Out/moc_collectwords.o: Out/moc_collectwords.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Out/moc_collectwords.o Out/moc_collectwords.cpp
 
-OBJ/moc_qmlfunc.o: Moc/moc_qmlfunc.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJ/moc_qmlfunc.o Moc/moc_qmlfunc.cpp
+Out/moc_qmlfunc.o: Out/moc_qmlfunc.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Out/moc_qmlfunc.o Out/moc_qmlfunc.cpp
 
 ####### Install
 

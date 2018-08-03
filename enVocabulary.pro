@@ -21,10 +21,11 @@ unix: LIBS += -L/usr/lib -lpthread
 unix: INCLUDEPATH += "/usr/local/include/"
 win32: INCLUDEPATH += "C:\Users\weiyang\Downloads\boost_1_66_0"
 
-MOC_DIR = "./Moc"
 INCLUDEPATH += "./Inc/"
-UI_DIR = "./Res/"
-OBJECTS_DIR = "./OBJ"
+MOC_DIR = "./Out"
+UI_DIR = "./Out"
+OBJECTS_DIR = "./Out"
+RCC_DIR = "./Out"
 
 macx{
     message("compile for mac os x")
