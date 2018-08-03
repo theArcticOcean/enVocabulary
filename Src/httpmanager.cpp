@@ -270,6 +270,7 @@ bool HttpManager::sendPicRequest(char *url)
             this, SLOT(slotSslErrors(QList<QSslError>)));
     connect(netPicReply, SIGNAL(finished()), this, SLOT(slotPicFinished()));
     delete request;
+    requestTimer.start(2000);
     return true;
 }
 
@@ -365,6 +366,7 @@ bool HttpManager::sendEnWordSentenceRequest()
     connect(netSentenceReply.get(), SIGNAL(sslErrors(QList<QSslError>)),
             this, SLOT(slotSslErrors(QList<QSslError>)));
     connect(netSentenceReply.get(), SIGNAL(finished()), this, SLOT(slotSentenceFinished()));
+    requestTimer.start(2000);
     LOGDBG("end!");
     return true;
 }
@@ -383,6 +385,9 @@ HttpManager *HttpManager::getInstance()
     return instance;
 }
 
+/*
+*   Get pointer for requestTimer.
+*/
 QTimer *HttpManager::getRequestTimerRef()
 {
     return &requestTimer;

@@ -141,10 +141,11 @@ void viewManager::slotAccessTokenInvalid()
 *   Slot function for dealing with the internet connection.
 */
 void viewManager::slotInternetConnectNotResponse()
-{
+{   
     int ret;
     QMessageBox msgBox;
 
+    HttpManager::getInstance()->getRequestTimerRef()->stop();
     msgBox.setText( "Please check your internet connection." );
     msgBox.setStandardButtons( QMessageBox::Ok );
     ret = msgBox.exec();
