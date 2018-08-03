@@ -80,6 +80,10 @@ void Controller::signalAndSlotsConenct()
 
     ret = connect(this,SIGNAL(wordNotFound()),UIMgr,SLOT(slotWordNotFound()));
     LOGDBG("connected: %d for wordNotFound, UIMgr is %p", ret, UIMgr);
+
+    ret = connect(UIMgr->searchUI->getHttpManager()->getRequestTimerRef(), &QTimer::timeout,
+                  UIMgr,&viewManager::slotInternetConnectNotResponse);
+    LOGDBG("connected: %d for timeout, UIMgr is %p", ret, UIMgr);
 }
 
 /*

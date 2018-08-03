@@ -35,6 +35,7 @@ HttpManager::HttpManager(QObject *parent) :
     memset(buffer, 0, buffer_len);
     buffer_pos = 0;
     model = enData::getInstance();
+    requestTimer.setSingleShot( true );
 }
 
 /*
@@ -134,6 +135,7 @@ void HttpManager::slotEnWordFinished()
     QJsonObject json;
     QJsonParseError error;
 
+    requestTimer.stop();
     if(strlen(buffer) <= 0) {
         LOGDBG("buffer has no data.");
         return ;
@@ -171,6 +173,7 @@ void HttpManager::slotSentenceFinished()
     QJsonObject json;
     QJsonParseError error;
 
+    requestTimer.stop();
     if(strlen(buffer) <= 0) {
         LOGDBG("buffer has no data.");
         return ;
@@ -309,6 +312,7 @@ bool HttpManager::sendEnWordSearchRequest(char *word)
     connect(netWordReply.get(), SIGNAL(sslErrors(QList<QSslError>)),
             this, SLOT(slotSslErrors(QList<QSslError>)));
     connect(netWordReply.get(), SIGNAL(finished()), this, SLOT(slotEnWordFinished()));
+    requestTimer.start(2000);
     delete request;
     LOGDBG("end!");
     return true;
@@ -377,6 +381,11 @@ HttpManager *HttpManager::getInstance()
         pthread_mutex_unlock(&mutex);
     }
     return instance;
+}
+
+QTimer *HttpManager::getRequestTimerRef()
+{
+    return &requestTimer;
 }
 
 /*

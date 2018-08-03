@@ -34,6 +34,7 @@ public:
     explicit Search(QWidget *parent = 0);
     ~Search();
     void setKeyOnMessageBox( const bool & _keyOnMessageBox );
+    HttpManager* getHttpManager();
 
 public slots:
     void slotGetWord();

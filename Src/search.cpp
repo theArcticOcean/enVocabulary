@@ -29,7 +29,6 @@ void Search::keyReleaseEvent(QKeyEvent *event)
         return ;
     }
     if(event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return){
-        http = HttpManager::getInstance();
         QString str = ui->lineEdit->text();
         bool ret = http->sendEnWordSearchRequest((char *)str.toStdString().c_str());
         if(false == ret){
@@ -73,9 +72,20 @@ void Search::closeEvent(QCloseEvent *event)
     }
 }
 
+/*
+*   Make bool tag for input when messageBox shows to avoid request words information again.
+*/
 void Search::setKeyOnMessageBox(const bool &_keyOnMessageBox)
 {
     keyOnMessageBox = _keyOnMessageBox;
+}
+
+/*
+*   Get HttpManager pointer for connect function.
+*/
+HttpManager *Search::getHttpManager()
+{
+    return http;
 }
 
 /*
@@ -96,7 +106,7 @@ Search::Search(QWidget *parent) :
     ui->quickWidget->setSource(QUrl("qrc:/Res/rect.qml"));
     this->setWindowIcon(QIcon(QString(":/image/dict.icns")));
 
-    http = NULL;
+    http = HttpManager::getInstance();
     model = enData::getInstance();
     keyOnMessageBox = false;
     player = new QMediaPlayer();

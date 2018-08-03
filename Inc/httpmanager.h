@@ -15,6 +15,7 @@
 #include <QSslSocket>
 #include <vector>
 #include <map>
+#include <QTimer>
 #include <boost/smart_ptr.hpp>
 #include "endata.h"
 using namespace std;
@@ -34,6 +35,7 @@ public:
     bool sendEnWordSearchRequest(char *word);
     bool sendEnWordSentenceRequest();
     static HttpManager* getInstance();
+    QTimer* getRequestTimerRef();
 
     QNetworkReply* netPicReply;
     boost::shared_ptr<QNetworkReply> netWordReply;
@@ -62,6 +64,7 @@ private:
     enData *model;
     static HttpManager* instance;
     static pthread_mutex_t mutex;
+    QTimer requestTimer;
 };
 
 #endif // HTTPMANAGER_H
