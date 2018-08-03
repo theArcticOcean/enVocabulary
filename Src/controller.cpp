@@ -75,6 +75,9 @@ void Controller::signalAndSlotsConenct()
     ret = connect(this,SIGNAL(accessTokenInvalid()),UIMgr,SLOT(slotAccessTokenInvalid()));
     LOGDBG("connected: %d for accessTokenInvalid, UIMgr is %p", ret, UIMgr);
 
+    ret = connect(this,SIGNAL(internetConnectNotResponse()),UIMgr,SLOT(slotInternetConnectNotResponse()));
+    LOGDBG("connected: %d for internetConnectNotResponse, UIMgr is %p", ret, UIMgr);
+
     ret = connect(this,SIGNAL(wordNotFound()),UIMgr,SLOT(slotWordNotFound()));
     LOGDBG("connected: %d for wordNotFound, UIMgr is %p", ret, UIMgr);
 }
@@ -113,6 +116,9 @@ void Controller::sendViewMsg(viewMsgEnum msg)
         break;
     case AccessTokenInvalid:
         emit accessTokenInvalid();
+        break;
+    case InternetConnectNotResponse:
+        emit internetConnectNotResponse();
         break;
     case WordNotFound:
         emit wordNotFound();

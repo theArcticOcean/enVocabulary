@@ -73,6 +73,9 @@ void mySentences::showEvent(QShowEvent *event)
 {
     updateSentences();
     builtHButtonSigAndSLot();
+    this->ui->backButton->setGeometry( this->width() - 41, 10, 81, 41 );
+    this->ui->backButton->setWindowIcon( QIcon(":/image/goBack.png") );
+    LOGDBG( "backButton x: %d, this width: %d", this->ui->backButton->x(), this->width() );
 }
 
 /*
@@ -123,6 +126,8 @@ void mySentences::updateSentences()
     const int size = model->getSentenceCount();
     for (int i=0; i<size; i++) {
         QLabel *sentenceLabel = new QLabel(this);
+        sentenceLabel->setWordWrap( true );
+        sentenceLabel->setFixedWidth( static_cast<int> ( this->width() * 20.0 / 21 ) );
         v_sentenceLabel.push_back(sentenceLabel);
         sentenceLabel->setParent(this);
         QString tmp = model->v_sentences[i].sentence;
@@ -132,18 +137,36 @@ void mySentences::updateSentences()
         QHBoxLayout *hLayout = new QHBoxLayout();
         hLayout->addWidget(sentenceLabel, 20);
         QPushButton *button = new QPushButton(this);
+        button->setFixedWidth( static_cast<int>( this->width() * 1.0 / 21 ) );
         button->setIcon(QIcon(":/image/whiteHeart.png"));
         heartButtons.push_back(button);
-        hLayout->addWidget(button, 1);//Qt::AlignAbsolute);
-        vLayout->addLayout(hLayout,1);
+        hLayout->addWidget(button, 1);
+        if( sentenceLabel->wordWrap() )
+        {
+            vLayout->addLayout(hLayout, 2);
+        }
+        else
+        {
+            vLayout->addLayout(hLayout, 1);
+        }
         sentenceHLays.push_back(hLayout);
 
         QLabel *translationLabel = new QLabel(this);
+        translationLabel->setWordWrap( true );
+        translationLabel->setFixedWidth( this->width() );
         v_sentenceLabel.push_back(translationLabel);
         translationLabel->setParent(this);
         //translationLabel->setLayoutDirection(Qt::LeftToRight);
         translationLabel->setText(model->v_sentences[i].translation);
-        vLayout->addWidget(translationLabel,1);
+
+        if( translationLabel->wordWrap() )
+        {
+            vLayout->addWidget(translationLabel, 2);
+        }
+        else
+        {
+            vLayout->addWidget(translationLabel, 1);
+        }
     }
 
     // set red heart.
@@ -177,10 +200,11 @@ void mySentences::on_collectClick()
         LOGDBG("dynamic_cast failed.");
         return ;
     }
-    int index;
     bool existed = false;
     enData *model = enData::getInstance();
-    for(index=0; index<heartButtons.size(); index++){
+    int index;
+    int size = static_cast<int>(heartButtons.size());
+    for( index=0; index < size ; ++index ){
         if(heartButtons[index] == button){
             LOGDBG("index is %d",index);
             if(model->checkSentenceInDB(index)) {

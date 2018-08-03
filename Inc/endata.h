@@ -15,7 +15,7 @@
 #define DOWNFILES_PATH          "./Down"
 #define DOWNFILES_PICS_PATH     "./Down/Pics"
 #define DOWNFILES_WORDS_PATH    "./Down/Words"
-#define TOKEN_STR               "access_token=qOFZLVNtOCYPqC6x1N9Zdq6H0XFktW"
+#define TOKEN_STR               "access_token=kS6Avpf9JFjghVJdhaJdCHQsFU6vkX"
 #define SENTENCE_TABLE          "Statement"
 
 #define MAX_PICS_NUMBER             200
@@ -133,7 +133,7 @@ typedef struct __wordUnit{
         out<<myWord.translation;
         return out;
     }
-    friend QDebug& operator <<(QDebug debug,const __wordUnit &myWord){
+    friend QDebug& operator <<(QDebug &debug,const __wordUnit &myWord){
         QDebugStateSaver saver(debug);
         debug.nospace() << myWord.word.c_str() << "\n" << myWord.translation.c_str();
         return debug;

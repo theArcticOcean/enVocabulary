@@ -22,6 +22,12 @@
 void Search::keyReleaseEvent(QKeyEvent *event)
 {
     LOGDBG("event->key() is 0x%x",event->key());
+    if( true == keyOnMessageBox )
+    {
+        keyOnMessageBox = false;
+        LOGDBG( "Input event happened on messageBox" );
+        return ;
+    }
     if(event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return){
         http = HttpManager::getInstance();
         QString str = ui->lineEdit->text();
@@ -67,6 +73,11 @@ void Search::closeEvent(QCloseEvent *event)
     }
 }
 
+void Search::setKeyOnMessageBox(const bool &_keyOnMessageBox)
+{
+    keyOnMessageBox = _keyOnMessageBox;
+}
+
 /*
 *   Constructor of class Search. Initinate HMI, signal-slot mechanism and media player.
 */
@@ -87,6 +98,7 @@ Search::Search(QWidget *parent) :
 
     http = NULL;
     model = enData::getInstance();
+    keyOnMessageBox = false;
     player = new QMediaPlayer();
     player->setVolume(100);
 

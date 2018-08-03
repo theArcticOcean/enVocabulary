@@ -184,7 +184,6 @@ bool enData::strIsNum(string str)
 void enData::jsonParseForWord(const QJsonObject &cjson)
 {
     QJsonValue value;
-    QJsonParseError error;
     QJsonObject json = cjson;
     int varInt;
 
@@ -247,7 +246,6 @@ void enData::jsonParseForWord(const QJsonObject &cjson)
 void enData::jsonParseForSentence(const QJsonObject &cjson)
 {
     QJsonValue value;
-    QJsonParseError error;
     QJsonObject json = cjson;
     int varInt;
 
@@ -536,6 +534,10 @@ void enData::deleteSentenceFromDB(const QString text)
             LOGDBG("db open failed: %s",db.lastError().text().toStdString().c_str());
         }
     }
+    else
+    {
+        LOGDBG( "strList.length is %d", strList.length() );
+    }
 }
 
 /*
@@ -821,6 +823,13 @@ QString enData::simpleSentence(const QString sentence)
     tmp.remove("</b>");
     tmp.remove("<vocab>");
     tmp.remove("</vocab>");
+
+    tmp.replace('.',".\n");
+    tmp.replace("。","。\n");
+    tmp.replace('?',"?\n");
+    tmp.replace("？","？\n");
+    tmp.replace('!',"!\n");
+    tmp.replace("！","！\n");
     return tmp;
 }
 

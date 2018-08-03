@@ -40,6 +40,7 @@ public slots:
     void slotCollectWordWndToHomeWnd();
     void slotMoveEventHappened(srcEnum e, QPoint newPoint);
     void slotAccessTokenInvalid();
+    void slotInternetConnectNotResponse();
     void slotWordNotFound();
 };
 

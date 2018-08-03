@@ -28,6 +28,7 @@ typedef enum _viewMsgEnum{
     CollectSenWndToHome,
     CollectWordWndToHome,
     AccessTokenInvalid,
+    InternetConnectNotResponse,
     WordNotFound,
     EnumMax
 }viewMsgEnum;
@@ -61,6 +62,7 @@ signals:
     void moveEventHappenedSig(srcEnum e, QPoint newPoint);
     void updateCollectSentencePage();
     void accessTokenInvalid();
+    void internetConnectNotResponse();
     void wordNotFound();
 };
 

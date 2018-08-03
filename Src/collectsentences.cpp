@@ -72,7 +72,7 @@ void collectSentences::fillSentenceInCheckBox(const int index,QString str)
         ui->checkBox_6->setText(str);
         ui->checkBox_6->show();
         break;
-    defalut:
+    default:
         break;
     }
 }
@@ -112,6 +112,7 @@ void collectSentences::showEvent(QShowEvent *event)
     ui->checkBox_5->setChecked(false);
     ui->checkBox_6->setChecked(false);
     ui->checkBox_7->setChecked(false);
+
 
     enData *model = enData::getInstance();
     model->getCollectSentencePage(pageIndex);

@@ -121,15 +121,36 @@ void viewManager::slotMoveEventHappened(srcEnum e, QPoint newPoint)
 void viewManager::slotAccessTokenInvalid()
 {
     int ret;
-    ret = QMessageBox::warning(searchUI.get(),
-                         "notice",
-                         "Your access_token is no longer valid for remote server.\n"
-                         "Please contact with software enginer to solve the problem.",
-                         QMessageBox::Ok,
-                         QMessageBox::Help);
-    if(QMessageBox::Help == ret)
+    QMessageBox msgBox;
+
+    msgBox.setText( "Your access_token is no longer valid for remote server.\n"
+                    "Please contact with software enginer to solve the problem." );
+    msgBox.setStandardButtons( QMessageBox::Ok | QMessageBox::Help );
+    msgBox.setDefaultButton( QMessageBox::Help );
+    ret = msgBox.exec();
+    if( QMessageBox::Help == ret )
     {
         QDesktopServices::openUrl(QUrl("http://weiy.org/2018/04/07/envocabulary/"));
+    }
+    else {
+        searchUI->setKeyOnMessageBox( true );
+    }
+}
+
+/*
+*   Slot function for dealing with the internet connection.
+*/
+void viewManager::slotInternetConnectNotResponse()
+{
+    int ret;
+    QMessageBox msgBox;
+
+    msgBox.setText( "Please check your internet connection." );
+    msgBox.setStandardButtons( QMessageBox::Ok );
+    ret = msgBox.exec();
+    if( QMessageBox::Ok == ret )
+    {
+        searchUI->setKeyOnMessageBox( true );
     }
 }
 
@@ -138,9 +159,20 @@ void viewManager::slotAccessTokenInvalid()
 */
 void viewManager::slotWordNotFound()
 {
-    QMessageBox::warning(searchUI.get(),
-                             "notice",
-                             "Your word is not found by Shanbay API.\n"
-                             "Please enter another valid English word to look up.",
-                             QMessageBox::Ok);
+    int ret;
+    QMessageBox msgBox;
+    msgBox.setText( "Your word is not found by Shanbay API.\n"
+                    "Please enter another valid English word to look up." );
+    msgBox.setStandardButtons( QMessageBox::Ok  );
+    msgBox.setDefaultButton( QMessageBox::Ok );
+    ret = msgBox.exec();
+    if( QMessageBox::Ok == ret )
+    {
+        searchUI->setKeyOnMessageBox( true );
+    }
+//    QMessageBox::warning(searchUI.get(),
+//                             "notice",
+//                             "Your word is not found by Shanbay API.\n"
+//                             "Please enter another valid English word to look up.",
+//                             QMessageBox::Ok);
 }

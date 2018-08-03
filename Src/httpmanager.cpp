@@ -388,6 +388,12 @@ void HttpManager::slotError(enum QNetworkReply::NetworkError val)
     {
         Controller::getInstance()->sendViewMsg(AccessTokenInvalid);
     }
+    if( QNetworkReply::HostNotFoundError == val
+            || QNetworkReply::TimeoutError == val
+            || QNetworkReply::UnknownNetworkError == val )
+    {
+        Controller::getInstance()->sendViewMsg(InternetConnectNotResponse);
+    }
     LOGDBG("error: %d",val);
 }
 
@@ -397,7 +403,6 @@ void HttpManager::slotError(enum QNetworkReply::NetworkError val)
 void HttpManager::slotSslErrors(QList<QSslError> list)
 {
     LOGDBG("%s","ssl errors: ");
-    QNetworkReply *reply = dynamic_cast<QNetworkReply*>(sender());
     foreach (QSslError error, list) {
         qDebug()<<error.errorString();
     }
