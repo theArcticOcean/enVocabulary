@@ -19,7 +19,8 @@
 */
 collectSentences::collectSentences(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::collectSentences)
+    ui(new Ui::collectSentences),
+    sentenceCountPerPage( 6 )
 {
     ui->setupUi(this);
     ui->backButton->setStyleSheet("QPushButton{ border-image: url(:image/goBack.png); } ");
@@ -45,8 +46,10 @@ collectSentences::~collectSentences()
 /*
 *   Interface for add sentence in checkBox on page in every line.
 */
-void collectSentences::fillSentenceInCheckBox(const int index,QString str)
+void collectSentences::fillSentenceInCheckBox(const int index, const QString &_str)
 {
+    QString str = enData::getInstance()->simpleSentence(_str);
+
     switch(index){
     case 0:
         ui->checkBox->setText(str);
@@ -115,13 +118,21 @@ void collectSentences::showEvent(QShowEvent *event)
 
 
     enData *model = enData::getInstance();
+    while( pageIndex > model->getColSentencePageCount() )
+    {
+        --pageIndex;
+    }
+    if( 0 == pageIndex )
+    {
+        pageIndex = 1;
+    }
     model->getCollectSentencePage(pageIndex);
     int size = model->v_collectSentences.size();
     int i;
     for(i=0; i<size; i++){
         sentenceUnit tmp = model->v_collectSentences[i];
         QString str = tmp.sentence+"\n\n"+tmp.translation;
-        fillSentenceInCheckBox(i,str);
+        fillSentenceInCheckBox(i, str);
     }
 
     QString page = QString::number(pageIndex);
@@ -195,40 +206,31 @@ void collectSentences::on_deleteButton_clicked()
     enData *model = enData::getInstance();
     if(ui->checkBox->isChecked()){
         text = ui->checkBox->text();
-        model->deleteSentenceFromDB(text);
-        ui->checkBox->setText("");
-        ui->checkBox->hide();
+        model->deleteSentenceFromDBOnCollectedSentencesWnd( 0 );
+//        ui->checkBox->setText("");
+//        ui->checkBox->hide();
     }
     if(ui->checkBox_2->isChecked()){
         text = ui->checkBox_2->text();
-        model->deleteSentenceFromDB(text);
-        ui->checkBox_2->setText("");
-        ui->checkBox_2->hide();
+        model->deleteSentenceFromDBOnCollectedSentencesWnd( 1 );
     }
     if(ui->checkBox_3->isChecked()){
         text = ui->checkBox_3->text();
-        model->deleteSentenceFromDB(text);
-        ui->checkBox_3->setText("");
-        ui->checkBox_3->hide();
+        model->deleteSentenceFromDBOnCollectedSentencesWnd( 2 );
     }
     if(ui->checkBox_4->isChecked()){
         text = ui->checkBox_4->text();
-        model->deleteSentenceFromDB(text);
-        ui->checkBox_4->setText("");
-        ui->checkBox_4->hide();
+        model->deleteSentenceFromDBOnCollectedSentencesWnd( 3 );
     }
     if(ui->checkBox_5->isChecked()){
         text = ui->checkBox_5->text();
-        model->deleteSentenceFromDB(text);
-        ui->checkBox_5->setText("");
-        ui->checkBox_5->hide();
+        model->deleteSentenceFromDBOnCollectedSentencesWnd( 4 );
     }
     if(ui->checkBox_6->isChecked()){
         text = ui->checkBox_6->text();
-        model->deleteSentenceFromDB(text);
-        ui->checkBox_6->setText("");
-        ui->checkBox_6->hide();
+        model->deleteSentenceFromDBOnCollectedSentencesWnd( 5 );
     }
+    showEvent(NULL);
     LOGDBG("end!");
 }
 

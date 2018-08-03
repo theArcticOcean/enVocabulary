@@ -217,7 +217,7 @@ void mySentences::on_collectClick()
     // check it in database.
     if(existed) {
         button->setIcon(QIcon(":/image/whiteHeart.png"));
-        model->deleteSentenceFromDB(index);
+        model->deleteSentenceFromDBOnMySentencesWnd(index);
     }
     else {
         button->setIcon(QIcon(":/image/redHeart.png"));

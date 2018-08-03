@@ -267,7 +267,7 @@ void enData::jsonParseForSentence(const QJsonObject &cjson)
             sentenceUnit senUnit;
             if(!jsonTmp.contains("translation")) continue;
             if(!jsonTmp.contains("annotation")) continue;
-            senUnit.translation = jsonTmp["translation"].toString();
+            senUnit.translation = jsonTmp["translation"].toString(); //simpleSentence
             senUnit.sentence = jsonTmp["annotation"].toString();
             v_sentences.push_back(senUnit);
             if(v_sentences.size() == SENTENCE_NUM) break;
@@ -409,8 +409,8 @@ void enData::addSentenceToDB(const int index)
     sentenceUnit tmp = v_sentences[index];
     if(db.open()){
         query->prepare("INSERT INTO Statement VALUES (:sentence, :translation)");
-        query->bindValue(":sentence", simpleSentence(tmp.sentence));
-        query->bindValue(":translation",simpleSentence(tmp.translation));
+        query->bindValue(":sentence",  tmp.sentence); //simpleSentence
+        query->bindValue(":translation", tmp.translation);
 
         if(!query->exec()){
             LOGDBG("query exec failed: %s", query->lastError().text().toStdString().c_str());
@@ -488,15 +488,15 @@ bool enData::addWordToDB(QString str)
 }
 
 /*
-*   Delete special recoid from database table by index.
+*   Delete special recoid from database table by index for mySentences window.
 */
-void enData::deleteSentenceFromDB(const int index)
+void enData::deleteSentenceFromDBOnMySentencesWnd(const int index)
 {
     LOGDBG("start");
     sentenceUnit tmp = v_sentences[index];
     if(db.open()){
         query->prepare("DELETE FROM Statement where sentences = :sentence ");
-        query->bindValue(":sentence", simpleSentence(tmp.sentence));
+        query->bindValue(":sentence", tmp.sentence);
         if(!query->exec()) {
             LOGDBG("query exec failed: %s", query->lastError().text().toStdString().c_str());
         }
@@ -512,32 +512,27 @@ void enData::deleteSentenceFromDB(const int index)
 }
 
 /*
-*   delete special record from database table by string content.
+*   Delete special recoid from database table by index for collectedSentences window.
 */
-void enData::deleteSentenceFromDB(const QString text)
+void enData::deleteSentenceFromDBOnCollectedSentencesWnd(const int index)
 {
-    QStringList strList = text.split("\n\n");
-    if(strList.length()){
-        if(db.open()){
-            query->prepare("DELETE FROM Statement where sentences = :sentence ");
-            query->bindValue(":sentence", strList[0]);
-            if(!query->exec()){
-                LOGDBG("delete failed: %s",query->lastError().text().toStdString().c_str());
-            }
-            else {
-                QString tmp = strList[0];
-                LOGDBG("delete sentence for %s",tmp.toStdString().c_str());
-            }
-            db.close();
+    LOGDBG("start");
+    sentenceUnit tmp = v_collectSentences[index];
+    if(db.open()){
+        query->prepare("DELETE FROM Statement where sentences = :sentence ");
+        query->bindValue(":sentence", tmp.sentence);
+        if(!query->exec()) {
+            LOGDBG("query exec failed: %s", query->lastError().text().toStdString().c_str());
         }
         else {
-            LOGDBG("db open failed: %s",db.lastError().text().toStdString().c_str());
+            LOGDBG("delete sentence %d from DB ok!", index);
         }
+        db.close();
     }
-    else
-    {
-        LOGDBG( "strList.length is %d", strList.length() );
+    else {
+        LOGDBG("open failed: %s",db.lastError().text().toStdString().c_str());
     }
+    LOGDBG("end!");
 }
 
 /*
@@ -615,7 +610,7 @@ bool enData::checkSentenceInDB(const int index)
     if(db.open()){
         sentenceUnit tmp = v_sentences[index];
         query->prepare("select count(*) from Statement where sentences = :sentence");
-        query->bindValue(":sentence", simpleSentence(tmp.sentence));
+        query->bindValue(":sentence", tmp.sentence);
         if(!query->exec()) {
             LOGDBG("query exec failed: %s", query->lastError().text().toStdString().c_str());
         }

@@ -11,11 +11,12 @@
 #include <QQmlEngine>
 #include <QQmlComponent>
 #include "qmlfunc.h"
+#include "log.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
+    LogInit();
     qmlRegisterType<QmlFunc>("weiy.QmlFunc", 1, 0, "QmlFunc");
 
     viewManager UIMgr;

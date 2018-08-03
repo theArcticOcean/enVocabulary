@@ -21,7 +21,7 @@ class collectSentences : public QWidget
 public:
     explicit collectSentences(QWidget *parent = 0);
     ~collectSentences();
-    void fillSentenceInCheckBox(const int index, QString str);
+    void fillSentenceInCheckBox(const int index, const QString &_str);
     void connectCheckBoxClickAndShowDelBtn();
 
     QPoint lastPos;
@@ -49,6 +49,7 @@ private slots:
 private:
     Ui::collectSentences *ui;
     int pageIndex;
+    int sentenceCountPerPage;
 };
 
 #endif // COLLECTSENTENCES_H

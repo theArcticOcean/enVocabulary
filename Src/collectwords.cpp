@@ -77,7 +77,7 @@ void collectWords::fillWordInLabels(const int index, QString str)
         ui->label6->setText(str);
         ui->label6->show();
         break;
-    defalut:
+    default:
         break;
     }
 }

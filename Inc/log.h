@@ -11,9 +11,15 @@
 
 #include <stdarg.h>
 #include <QDebug>
-#include <pthread.h>
+#include <QString>
+#include <unistd.h>
+#include <stdio.h>
 
 #define DEBUG 1
+
+static QString logFilePath;
+
+void LogInit();
 
 void LOGBASE(const char *file, const int line, const char *funcName, const char * fmt, ...);
 

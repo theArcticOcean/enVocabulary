@@ -167,8 +167,8 @@ public:
     void sentencesShow();
     void addSentenceToDB(const int index);
     bool addWordToDB(QString str);
-    void deleteSentenceFromDB(const int index);
-    void deleteSentenceFromDB(const QString text);
+    void deleteSentenceFromDBOnMySentencesWnd(const int index);
+    void deleteSentenceFromDBOnCollectedSentencesWnd(const int index);
     void clearSentenceFromDB();
     void clearSentenceInMem();
     void clearWordFromDisc();
@@ -197,7 +197,6 @@ public:
     vector<sentenceUnit> v_sentences;
     vector<sentenceUnit> v_collectSentences;
     map<ulong, wordUnit, more<ulong>> m_collectWords;  //we make sure map orders as desc
-
 private:
     static enData *instance;
     static pthread_mutex_t instanceMutex;
